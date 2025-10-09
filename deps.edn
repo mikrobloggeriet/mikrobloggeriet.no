@@ -30,7 +30,7 @@
   ;;
   ;; We want these accessible in prod REPLs too, so into main deps they go.
   com.nextjournal/beholder {:mvn/version "1.0.3"}
-  io.github.tonsky/clj-reload {:mvn/version "0.9.8"}
+  io.github.tonsky/clj-reload {:mvn/version "1.0.0"}
   lambdaisland/kaocha {:mvn/version "1.91.1392"}
   }
  :aliases
