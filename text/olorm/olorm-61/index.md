@@ -46,16 +46,17 @@ Som alltid, å trekke inn biblioteker øker "tyngden" på programmet ditt.
 Og én enklelt konvertering fra millisekunder til sekunder er kanskje greit?
 Jeg skrev forresten en bug i koden øverst i første versjon (jeg skrev `iterationTimeMs * iterations * 1000;`, som ga alt for stort svar!).
 
-Strukturert modellering av tall med enhet (SI eller andre ting, feks valuta) gir mer verdi jo vanskeligere enheter du forholder seg til.
+Strukturert modellering av tall med enhet (SI eller andre ting, feks valuta) gir mer verdi jo vanskeligere problemet ditt her.
 Prøv deg på kilonewton per meter, sammen med lengder i millimeter, og momenter i kilonewtonmeter!
+Først med mentalgymnastikk, vanlige javascript-tall og enhetskonvertering i hodet.
+Så strukturert, operasjoner som forstår tall med SI-enhet.
 
-Nåja.
-Det var smakebiten.
+Det var hele smakebiten.
 Kom på Macroexpand 2025 for å se resten!
 
 Meld deg på konferansen (penge-gratis, online) på https://scicloj.github.io/macroexpand-2025/
 
-Eller hjelp meg å nå ut i eteren ved å lage ståhei på Linkedin: https://www.linkedin.com/feed/update/urn:li:activity:7383440917338337280/
+Eventuelt hjelp meg å nå på verdensveven via ståhei på Linkedin: https://www.linkedin.com/feed/update/urn:li:activity:7383440917338337280/
 
 Fortsatt god mandag!
 Hilsen Teodor
