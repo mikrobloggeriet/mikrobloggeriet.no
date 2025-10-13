@@ -136,7 +136,6 @@
 (defn from-markdown [markdown-str] (read-str markdown-str "markdown+smart"))
 (defn from-org [org-str] (read-str org-str "org+smart"))
 (defn from-rst [rst-str] (read-str rst-str "rst+smart"))
-(defn from-typst [typst-str] (read-str typst-str "typst+smart"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FROM IR TO TEXT FORMAT
@@ -155,4 +154,3 @@
 (defn to-org-standalone [pandoc] (write-str pandoc "org" "--standalone"))
 (defn to-plain [pandoc] (write-str pandoc "plain"))
 (defn to-plain-standalone [pandoc] (write-str pandoc "plain" "--standalone"))
-(defn to-typst [pandoc] (write-str pandoc "typst"))
