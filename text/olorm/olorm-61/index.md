@@ -55,7 +55,7 @@ Så strukturert, operasjoner som forstår tall med SI-enhet.
 Det var hele smakebiten.
 Kom på Macroexpand 2025 for å se resten!
 
-Meld deg på konferansen (penge-gratis, online) på [scicloj.github.io/macroexpand-2025/](https://scicloj.github.io/macroexpand-2025/)
+Les mer eller meld deg på konferansen (penge-gratis, online) på [scicloj.github.io/macroexpand-2025/](https://scicloj.github.io/macroexpand-2025/)
 
 Eventuelt hjelp meg å nå på verdensveven ved å [lage ståhei på Linkedin](https://www.linkedin.com/feed/update/urn:li:activity:7383440917338337280/).
 
