@@ -50,7 +50,7 @@ Resultatet ble én million ganger for stort!
 Strukturert modellering av tall med enhet (SI eller andre ting, feks valuta) gir mer verdi jo vanskeligere problemet ditt her.
 Prøv deg på kilonewton per meter, sammen med lengder i millimeter, og momenter i kilonewtonmeter!
 Først med mentalgymnastikk, vanlige javascript-tall og enhetskonvertering i hodet.
-Så strukturert, operasjoner som forstår tall med SI-enhet.
+Så med operasjoner som forstår tall med SI-enhet.
 
 Det var hele smakebiten.
 Kom på Macroexpand 2025 for å se resten!
