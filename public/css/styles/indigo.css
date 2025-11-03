@@ -97,8 +97,9 @@ section {
     opacity: 1;
 }
 
+
 section:hover ~ section, section:has(~ section:hover) {
-    opacity: 0.4;
+    opacity: 0.3;
 
     && img {
         filter: grayscale(1);
@@ -107,13 +108,18 @@ section:hover ~ section, section:has(~ section:hover) {
 }
 
 
-.navigation {
-    border-right: 1px solid var(--first20);
-    width: 30%;
+.content {
+    width: 50%;
+    border-left: 1px solid var(--first20);
 }
 
-.content {
-    width: 70%;
+
+.navigation {
+    max-width: 50%;
+}
+
+.content:hover {
+    width: 80%;
 }
 
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
