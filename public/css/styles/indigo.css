@@ -106,10 +106,6 @@ section:hover ~ section, section:has(~ section:hover) {
     }
 }
 
-.filters {
-    width: 20%;
-    border-right: 1px solid var(--first20);
-}
 
 .navigation {
     border-right: 1px solid var(--first20);
@@ -117,7 +113,7 @@ section:hover ~ section, section:has(~ section:hover) {
 }
 
 .content {
-    width: 50%;
+    width: 70%;
 }
 
 h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
@@ -230,6 +226,11 @@ h1 {
 
 p {
     padding: 2px 12px 2px 12px;
+    max-width: 75ch;
+}
+
+ul, li {
+    max-width: 75ch;
 }
 
 a {
@@ -251,6 +252,7 @@ blockquote {
     padding-left: 1rem;
     margin-left: 0.5rem;
     padding: 0.5rem 0rem 0.5rem 1rem;
+    max-width: 75ch;
 
     > p {
     font-style: italic;
@@ -260,6 +262,7 @@ blockquote {
 figure {
     margin: 0;
     padding: 0 4px 0 4px;
+    max-width: 75ch;
 
 }
 
@@ -273,7 +276,7 @@ img {
 pre {
     color: var(--first80);
     background-color: var(--first10);
-    overflow: scroll;
+    overflow-x: scroll;
     width: 100%;
     height: auto;
     padding: 2rem;
@@ -286,6 +289,7 @@ pre {
     background-color: var(--first10);
     > ol {
     font-size: 9px !important;
+    max-width: 75ch;
 }
 }
 
@@ -310,7 +314,7 @@ footer {
 }
 
 
-@media screen and (max-width: 600px), (orientation: portrait) { /* Mobile */
+@media screen and (max-width: 500px), (orientation: portrait) { /* Mobile */
 
 
     container { 
