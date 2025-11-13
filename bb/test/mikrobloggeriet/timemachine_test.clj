@@ -11,7 +11,7 @@
   (testing "refs like HEAD and branch names are supported"
     (is (= (count (timemachine/rev-parse "." "5e7772e"))
            (count (timemachine/rev-parse "." "HEAD"))
-           (count (timemachine/rev-parse "." "master")))))
+           (count (timemachine/rev-parse "." "trunk")))))
   )
 
 (deftest worktree-add-remove
