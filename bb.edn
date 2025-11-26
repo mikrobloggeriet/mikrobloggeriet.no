@@ -2,7 +2,7 @@
 
  :tasks
  {deploy
-  (do (run 'test-latest-commit)
+  (do (run 'test)
       (run 'maybe-lint)
       (run 'deploy*) ; attempt deploy before push avoid startup errors in the git log
       (run 'push))
