@@ -194,10 +194,11 @@ nav {
     height: fit-content;
     cursor: cell;
     gap: 4px;
-    padding: 2px 12px 2px 0px;
+    padding: 4px 12px 4px 0px;
     text-decoration: none;
     transition: ease-out 0.3s;
     border-bottom: 0;
+    border-bottom: 1px solid var(--first10);
 }
 
 .navList:hover {
@@ -225,6 +226,7 @@ nav {
     padding-right: 0;
     margin: 0;
     text-decoration: none;
+    font-size: 20px;
 }
 
 .navMeta {
@@ -238,7 +240,7 @@ nav {
 h1 {
     background-color: var(--first100);
     color: var(--second100);
-    padding: 4px 12px 4px 12px;
+    padding: 6px 12px 6px 12px;
     margin: 0;
     font-weight: 400;
     font-size: 20px;
