@@ -92,7 +92,11 @@
      [:body
       [:header
        [:a {:href "/"}
-        "Mikrobloggeriet"]]
+        "Mikrobloggeriet"]
+       [:div.tags
+        [:div.tag "■ " (:bg-color samvirk)]
+        [:div.tag "□ " (:text-color samvirk)]
+        [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]]
       [:container 
        [:section.navigation
         [:nav
