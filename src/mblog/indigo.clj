@@ -105,8 +105,10 @@
                                     :style (doc-visibility doc)
                                     :data-cohort (-> doc :doc/cohort :cohort/slug)}
             [:p.navTitle (find-title-ish doc)]
-            [:p.navDate "/"] [:p.navDate (doc/created-date doc)]
-            [:p.navDate "/"] [:p.navDate (-> doc :doc/cohort :cohort/slug)]])]]
+            [:div.navListData
+             [:p.navMeta (doc/created-date doc)] 
+             "/"
+             [:p.navMeta (-> doc :doc/cohort :cohort/slug)]]])]]
        [:section.content
         [:div (for [doc docs]
                 [:div.docView {:style (doc-visibility doc)

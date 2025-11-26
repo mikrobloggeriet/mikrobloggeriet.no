@@ -191,6 +191,7 @@ nav {
 .navList {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     height: fit-content;
     cursor: cell;
     gap: 4px;
@@ -210,7 +211,11 @@ nav {
     background-color: var(--first80);
 }
 
-
+.navListData {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
 
 
 .navTitle{
@@ -223,7 +228,7 @@ nav {
     text-decoration: none;
 }
 
-.navDate {
+.navMeta {
     color: var(--first50);
     white-space: nowrap;
     padding: 0;
