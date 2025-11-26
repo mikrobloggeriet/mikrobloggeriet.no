@@ -114,11 +114,7 @@
                 [:div.docView {:style (doc-visibility doc)
                                :data-cohort (-> doc :doc/cohort :cohort/slug)}
                  (view-doc doc)])]]]
-      [:footer [:p
-                (str (:bg-color samvirk)
-                     " □" " + "
-                     (:text-color samvirk) " ■" " / "
-                     (samvirk/infer-main-font (samvirk/read-font samvirk)))]]]]))
+      ]]))
 
 (defonce !last-req (atom nil))
 (def last-req #(dissoc @!last-req :reitit.core/match :mikrobloggeriet.system/pageviews))
