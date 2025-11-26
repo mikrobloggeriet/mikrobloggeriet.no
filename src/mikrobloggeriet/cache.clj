@@ -3,11 +3,12 @@
 
   Bring your own atom, use duration if you want a durable cache."
   (:require
-   [duratom.core :refer [duratom]]
    [clojure.string :as str]
-   [mikrobloggeriet.pandoc :as pandoc]
+   [duratom.core :refer [duratom]]
    [hickory.core :as hickory]
-   [lookup.core :as lookup]))
+   [lookup.core :as lookup]
+   [mikrobloggeriet.pandoc :as pandoc]
+   [nextjournal.markdown :as md]))
 
 
 (defn cache-fn-by
@@ -62,7 +63,7 @@
   (fast+ 9 999)
   (fast+ 99 99))
 
-(def cache-atom
+(def pandoc-cache-atom
   ^{:doc "Disk-backed cache atom when disk (GARDEN_STORAGE) is available"}
   (when-let [storage-path (System/getenv "GARDEN_STORAGE")]
     (duratom :local-file
@@ -87,7 +88,7 @@
      :description (pandoc/infer-description pandoc)}))
 
 (def parse-markdown
-  (cache-fn-by (or cache-atom (atom {}))
+  (cache-fn-by (or pandoc-cache-atom (atom {}))
                #'parse-markdown*
                #(str "2025-03-19-journal"
                      "\n" %)
@@ -96,9 +97,87 @@
 (comment
   (parse-markdown "# Funksjonell programmering")
 
-  (->> @cache-atom
+  (->> @pandoc-cache-atom
        vals
        (map :description)
        (filter identity))
+
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; What if we use nextjournal/markdown?
+
+(require 'replicant.string)
+
+(defn find-title [ast]
+  (let [first-node (-> ast :content first)]
+    (when (= :heading (:type first-node))
+      (md/node->text first-node))))
+
+(defn find-description [ast]
+  (some->> ast
+           :content
+           (filter (comp #{:paragraph} :type))
+           md/node->text))
+
+(defn parse-markdown2* [markdown-str]
+  (let [ast (md/parse markdown-str)
+        hiccup (md/->hiccup (assoc md/default-hiccup-renderers
+                                   :html-block (fn [_ m]
+                                                 [:div "LOL ugyldig HTML!"]))
+                            ast)]
+    {:doc/html (replicant.string/render hiccup)
+     :doc/hiccup hiccup
+     :title (find-title ast)
+     :description (find-description ast)}))
+
+(def nextjournal-cache-atom
+  ^{:doc "Disk-backed cache for nextjournal markdown when disk (GARDEN_STORAGE) is available"}
+  (when-let [storage-path (System/getenv "GARDEN_STORAGE")]
+    (duratom :local-file
+             :file-path (str storage-path "/mikrobloggeriet.nextjournal-cache.edn")
+             :commit-mode :sync
+             :init {})))
+
+(def parse-markdown2
+  (cache-fn-by (or nextjournal-cache-atom (atom {}))
+               #'parse-markdown2*
+               #(str "2025-11-26 7"
+                     "\n" %)
+               identity))
+
+(comment
+
+  ;; Neste hinder for ny Markdown-parser er inline HTML.
+  ;; Vi har inline HTML i feks OLORM-5.
+  ;; Det gir en feilmelding i HTML-en i stedet for rendret HTML.
+
+  (def html-in-md
+    "
+<!-- 1. Hva gjør du akkurat nå? -->
+
+<!-- 2. Finner du kvalitet i det? -->
+
+<!-- 3. Hvorfor / hvorfor ikke? -->
+")
+
+  (-> html-in-md md/parse)
+
+
+  (-> html-in-md md/parse md/->hiccup)
+  ;; => [:div
+  ;;     [:span.message.red
+  ;;      [:strong "Unknown type: ':html-block'."]
+  ;;      [:code
+  ;;       "{:type :html-block, :content [{:type :text, :text \"<!-- 1. Hva gjør du akkurat nå? -->\"}]}"]]
+  ;;     [:span.message.red
+  ;;      [:strong "Unknown type: ':html-block'."]
+  ;;      [:code
+  ;;       "{:type :html-block, :content [{:type :text, :text \"<!-- 2. Finner du kvalitet i det? -->\"}]}"]]
+  ;;     [:span.message.red
+  ;;      [:strong "Unknown type: ':html-block'."]
+  ;;      [:code
+  ;;       "{:type :html-block, :content [{:type :text, :text \"<!-- 3. Hvorfor / hvorfor ikke? -->\"}]}"]]]
+
 
   )
