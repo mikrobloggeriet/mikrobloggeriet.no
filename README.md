@@ -99,5 +99,6 @@ Run the tests, then deploy if tests are green:
 - Rune (text)
 - Anders (text)
 - Neno (text, interface design, interaction design and code)
+- Line (interface design, interaction design)
 
 Please add your name to the list if your name should be on the list.
