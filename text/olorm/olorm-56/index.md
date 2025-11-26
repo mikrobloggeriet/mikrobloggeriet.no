@@ -17,7 +17,7 @@ Og hva kan du bruke nå?
 
 I dag får dere høre om min reise fra TDD til TCR og RDD, og tilbake igjen til TDD.
 
-![Dit og tilbake igjen](https://github.com/iterate/mikrobloggeriet/assets/5285452/147bb752-45d1-4d9a-93e7-d6268795f0b0)
+![Dit og tilbake igjen](/images/there-and-back-again.webp)
 
 ## TDD for dimensjonering av armering i betong
 
