@@ -2,10 +2,15 @@
 
  :tasks
  {deploy
-  (do (run 'test-latest-commit)
-      (run 'maybe-lint)
+  (do (prn 'test)
+      (run 'test)
+      ;; (prn 'maybe-lint)
+      ;; (run 'maybe-lint)
+      (prn 'deploy*)
       (run 'deploy*) ; attempt deploy before push avoid startup errors in the git log
-      (run 'push))
+      (prn 'push)
+      (run 'push)
+      )
 
   deploy*
   (shell "garden deploy")
@@ -23,7 +28,7 @@
   (shell "git push")
 
   test
-  (apply clojure "-M:kaocha" *command-line-args*)
+  (shell "bin/kaocha")
 
   timemachine
   {:requires ([mikrobloggeriet.timemachine :as timemachine])
