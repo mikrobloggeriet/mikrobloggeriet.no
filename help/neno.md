@@ -5,3 +5,9 @@
 3. Velg deps.edn
 4. Skriv kode
 5. option + enter for å evaluere kode
+
+# Dytte kode
+
+1. Gjør endringer
+2. Lag Git-commit
+3. I terminal, `bb deploy`
