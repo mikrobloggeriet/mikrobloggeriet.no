@@ -193,8 +193,7 @@
                               "doc")}]])
 
 (comment
-  (markdown-cohort-routes (:cohort/olorm db/cohorts))
-  )
+  (markdown-cohort-routes (:cohort/olorm db/cohorts)))
 
 (defn serve-page
   "Serves any page from the page registry"
@@ -212,6 +211,10 @@
      [["/" {:get #'serve-page
             :head #'health ;; HEAD / is Application.Garden's health check
             :name :page/indigo}]
+
+      ["/content-design" {:get #'serve-page
+                          :head #'health ;; HEAD / is Application.Garden's health check
+                          :name :page/content-design}]
 
       ["/doc/:slug" {:get #'serve-page
                      :name :page/doc}]
@@ -246,7 +249,7 @@
                              (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]
 
      ;; DIV
-     [ ;; Go to a random document
+     [;; Go to a random document
       ["/random-doc" {:get #'random-doc
                       :name :mikrobloggeriet/random-doc}]
 
@@ -274,9 +277,7 @@
      ;; Datastar-eksperiment
      [["/dsminimal" {:handler #'dsminimal/home}]
       ["/dsminimal-messsage" {:handler #'dsminimal/hello-world
-                              :middleware [reitit.ring.middleware.parameters/parameters-middleware]}]]
-
-     ))
+                              :middleware [reitit.ring.middleware.parameters/parameters-middleware]}]]))
    (reitit.ring/routes
     (reitit.ring/redirect-trailing-slash-handler)
     (reitit.ring/create-file-handler {:path "/" :root "public"}))))

@@ -2,7 +2,8 @@
   (:require
    [hiccup.page]
    [mblog.indigo :as indigo]
-   [mblog.ui.doc :as ui.doc]))
+   [mblog.ui.doc :as ui.doc]
+   [mblog.content-design :as content-design]))
 
 (defn define-page [page]
   (when (not (:pagemaker/render page))
@@ -18,4 +19,9 @@
    :page/doc
    (define-page
      {:pagemaker/prepare-data #'ui.doc/req->doc
-      :pagemaker/render #'ui.doc/doc->hiccup})})
+      :pagemaker/render #'ui.doc/doc->hiccup})
+
+   :page/content-design
+   (define-page
+     {:pagemaker/prepare-data #'content-design/req->innhold
+      :pagemaker/render #'content-design/innhold->hiccup})})
