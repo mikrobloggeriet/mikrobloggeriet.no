@@ -66,8 +66,6 @@
    :font "font16.css"
    :root ":root {\n   --first100: rgb(145,193,233);\n   --first80: rgba(145,193,233, 0.8);\n   --first50: rgba(145,193,233, 0.5);\n   --first20: rgba(145,193,233, 0.2);\n   --first10: rgba(145,193,233, 0.1);\n   --second100: rgb(26,44,91);\n   --second80: rgba(26,44,91, 0.8);\n   --second50: rgba(26,44,91, 0.5);\n   --second20: rgba(26,44,91, 0.2);\n   --second10: rgba(26,44,91, 0.1);\n}"})
 
-
-
 (defn innhold->hiccup [{:keys [docs cohorts current-cohort samvirk]}]
   ;; The fact that this function currently both converts data (with Pandoc) and
   ;; presents docs in HTML makes it hard to test.
@@ -130,9 +128,14 @@
              {:current-cohort (d/entity db [:cohort/slug cohort-slug])}))))
 
 (comment
-  (require 'mikrobloggeriet.state)
-  (def db mikrobloggeriet.state/datomic)
-  (def docs (doc/latest db))
+  (set! *print-namespace-maps* false)
+
+  (do (require 'mikrobloggeriet.state)
+      (def db mikrobloggeriet.state/datomic)
+      (def docs (doc/latest db)))
+
+  (doc/number (first docs))
+
   (into {} (first docs))
   (def cohort (:doc/cohort (first docs)))
   (:cohort/name cohort))
