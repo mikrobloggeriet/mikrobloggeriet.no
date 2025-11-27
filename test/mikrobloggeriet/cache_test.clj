@@ -96,28 +96,3 @@ en håndfull holmer som nå bader i karat.
            "height:1em")))
 
   )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; What if we use nextjournal/markdown?
-
-(comment
-  (set! *print-namespace-maps* false)
-  )
-
-(deftest parse-markdown2*
-  (is (= {:doc/html "<div><p>tekst</p></div>"
-          :doc/hiccup [:div [:p "tekst"]]
-          :title nil
-          :description "tekst"}
-         (cache/parse-markdown2* "tekst")))
-
-  (is (= {:title "Håvamål"
-          :description "Augo du bruke fyrr inn du gjeng,"}
-       (-> "
-# Håvamål
-
-Augo du bruke fyrr inn du gjeng,
-"
-           str/trim
-           cache/parse-markdown2*
-           (select-keys [:title :description])))))
