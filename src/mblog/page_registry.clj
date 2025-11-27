@@ -1,9 +1,8 @@
 (ns mblog.page-registry
   (:require
-   [hiccup.page]
+   [mblog.content-design :as content-design]
    [mblog.indigo :as indigo]
-   [mblog.ui.doc :as ui.doc]
-   [mblog.content-design :as content-design]))
+   [mblog.ui.doc :as ui.doc]))
 
 (defn define-page [page]
   (when (not (:pagemaker/render page))
