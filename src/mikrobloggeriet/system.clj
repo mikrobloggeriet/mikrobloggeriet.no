@@ -77,6 +77,7 @@
 ;; helt OK, men også kan gjøres med `garden restart`).
 
 (defn ^:export start! [{:keys [port]}]
+  (set! *print-namespace-maps* false)
   (time-literals.read-write/print-time-literals-clj!)
   (clj-reload.core/init {:dirs ["src" "dev" "test"]
                          :no-unload '#{mikrobloggeriet.state}})
