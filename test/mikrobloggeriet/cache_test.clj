@@ -49,26 +49,26 @@ så fins en kurs imot et land av sang og sten.
 "))
 
 (comment
-  (cache/parse-markdown* "tekst med _vekt_")
+  (cache/parse-markdown-pandoc* "tekst med _vekt_")
 
-  (cache/parse-markdown* hildringstimen-markdown)
+  (cache/parse-markdown-pandoc* hildringstimen-markdown)
   )
 
 (deftest parse-markdown
   (testing "parses doc as html"
     (is (= "<p>tekst med <em>vekt</em></p>"
-           (-> (cache/parse-markdown* "tekst med _vekt_")
+           (-> (cache/parse-markdown-pandoc* "tekst med _vekt_")
                :doc/html
                str/trim))))
 
   (testing "parses doc as hiccup"
   (is (= '([:p  "tekst med " [:em  "vekt"]])
-         (-> (cache/parse-markdown* "tekst med _vekt_")
+         (-> (cache/parse-markdown-pandoc* "tekst med _vekt_")
              :doc/hiccup))))
 
   (testing "extracts title"
     (is (= "Hildringstimen"
-           (-> hildringstimen-markdown cache/parse-markdown* :title))))
+           (-> hildringstimen-markdown cache/parse-markdown-pandoc* :title))))
 
   (testing "extracts first paragraph as description"
     (is (= (->>
@@ -85,11 +85,11 @@ en håndfull holmer som nå bader i karat.
             (str/trim)
             (str/split-lines)
             (str/join " "))
-           (-> hildringstimen-markdown cache/parse-markdown* :description))))
+           (-> hildringstimen-markdown cache/parse-markdown-pandoc* :description))))
 
   (testing "supports attributes on images"
     (is (= (->> "![fint bilde](bilde.bmp){height=1em}"
-                cache/parse-markdown*
+                cache/parse-markdown-pandoc*
                 (lookup/select-one "img[style]")
                 lookup/attrs
                 :style)

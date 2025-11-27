@@ -76,7 +76,7 @@
        first
        rest))
 
-(defn parse-markdown* [markdown-str]
+(defn parse-markdown-pandoc* [markdown-str]
   (let [pandoc (pandoc/from-markdown markdown-str)
         html-str (str/trim (pandoc/to-html pandoc))]
     {:doc/html html-str
@@ -84,9 +84,9 @@
      :title (pandoc/infer-title pandoc)
      :description (pandoc/infer-description pandoc)}))
 
-(def parse-markdown
+(def parse-markdown-pandoc
   (cache-fn-by (or pandoc-cache-atom (atom {}))
-               #'parse-markdown*
+               #'parse-markdown-pandoc*
                #(str "2025-03-19-journal"
                      "\n" %)
                identity))
@@ -115,9 +115,15 @@
              :commit-mode :sync
              :init {})))
 
-(def parse-markdown2
+(def parse-markdown-nextjournal
   (cache-fn-by (or nextjournal-cache-atom (atom {}))
                #'markdown/parse
                #(str "2025-11-26 7"
                      "\n" %)
                identity))
+
+(def parse-markdown parse-markdown-pandoc)
+
+(comment
+  (def parse-markdown parse-markdown-nextjournal)
+  )
