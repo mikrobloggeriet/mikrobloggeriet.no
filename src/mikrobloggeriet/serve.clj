@@ -25,6 +25,7 @@
    [reitit.ring.middleware.parameters]
    [reitit.ring]
    [ring.middleware.cookies :as cookies]
+   [ring.middleware.gzip]
    [ring.middleware.params]))
 
 (defn set-theme [req]
@@ -286,4 +287,5 @@
 
 (def ring-handler
   (-> router
-      ring.middleware.params/wrap-params))
+      ring.middleware.params/wrap-params
+      ring.middleware.gzip/wrap-gzip))
