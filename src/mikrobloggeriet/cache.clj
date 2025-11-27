@@ -5,7 +5,7 @@
    [duratom.core :refer [duratom]]
    [hickory.core :as hickory]
    [lookup.core :as lookup]
-   [mikrobloggeriet.markdown]
+   [mblog.markdown :as markdown]
    [mikrobloggeriet.pandoc :as pandoc]))
 
 (defn cache-fn-by
@@ -117,7 +117,7 @@
 
 (def parse-markdown2
   (cache-fn-by (or nextjournal-cache-atom (atom {}))
-               #'mikrobloggeriet.markdown/parse-markdown
+               #'markdown/parse
                #(str "2025-11-26 7"
                      "\n" %)
                identity))

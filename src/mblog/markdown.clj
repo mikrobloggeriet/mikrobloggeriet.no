@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.markdown
+(ns mblog.markdown
   (:require [nextjournal.markdown :as md]
             [replicant.string]))
 
@@ -13,8 +13,8 @@
            (filter (comp #{:paragraph} :type))
            md/node->text))
 
-(defn parse-markdown [markdown-str]
-  (let [ast (md/parse markdown-str)
+(defn parse [s]
+  (let [ast (md/parse s)
         hiccup (md/->hiccup (assoc md/default-hiccup-renderers
                                    :html-block (fn [_ m]
                                                  [:div "LOL ugyldig HTML!"]))
