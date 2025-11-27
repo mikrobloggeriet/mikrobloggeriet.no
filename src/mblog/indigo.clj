@@ -107,7 +107,7 @@
             [:div.navListData
              [:p.navMeta (doc/created-date doc)] 
              "/"
-             [:p.navMeta (-> doc :doc/cohort :cohort/slug)]]])]]
+             [:p.navMeta (:doc/slug doc)]]])]]
        [:section.content
         [:div (for [doc docs]
                 [:div.docView {:style (doc-visibility doc)
