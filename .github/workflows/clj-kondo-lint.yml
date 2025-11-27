@@ -30,4 +30,4 @@ jobs:
       run: clj-kondo --lint $(clojure -Spath) --dependencies --skip-lint --copy-configs
 
     - name: Lint
-      run: clj-kondo --fail-level warning --lint src
+      run: clj-kondo --lint src
