@@ -25,13 +25,14 @@
      :description (find-description ast)}))
 
 (comment
-
-  ;; Neste hinder for ny Markdown-parser er inline HTML.
-  ;; Vi har inline HTML i feks OLORM-5.
-  ;; Det gir en feilmelding i HTML-en i stedet for rendret HTML.
+  ;; We need allow inline HTML to pass through - several post rely on just that.
 
   (def html-in-md
     "
+# Morgenstund har gull i munn
+
+Heisann!
+
 <!-- 1. Hva gjør du akkurat nå? -->
 
 <!-- 2. Finner du kvalitet i det? -->
@@ -39,23 +40,8 @@
 <!-- 3. Hvorfor / hvorfor ikke? -->
 ")
 
-  (-> html-in-md md/parse)
+  (md/parse html-in-md)
 
-
-  (-> html-in-md md/parse md/->hiccup)
-  ;; => [:div
-  ;;     [:span.message.red
-  ;;      [:strong "Unknown type: ':html-block'."]
-  ;;      [:code
-  ;;       "{:type :html-block, :content [{:type :text, :text \"<!-- 1. Hva gjør du akkurat nå? -->\"}]}"]]
-  ;;     [:span.message.red
-  ;;      [:strong "Unknown type: ':html-block'."]
-  ;;      [:code
-  ;;       "{:type :html-block, :content [{:type :text, :text \"<!-- 2. Finner du kvalitet i det? -->\"}]}"]]
-  ;;     [:span.message.red
-  ;;      [:strong "Unknown type: ':html-block'."]
-  ;;      [:code
-  ;;       "{:type :html-block, :content [{:type :text, :text \"<!-- 3. Hvorfor / hvorfor ikke? -->\"}]}"]]]
-
+  (parse html-in-md)
 
   )
