@@ -7,13 +7,11 @@ const navigate = (element) => {
   history.pushState({}, "", element.href);
 
   for (const docSelector of document.querySelectorAll(".docSelector")) {
-    const style = docSelector.dataset.cohort !== element.dataset.cohort ? "display:none" : "";
-    docSelector.style = style;
+    docSelector.hidden = docSelector.dataset.cohort !== element.dataset.cohort
   }
 
   for (const docView of document.querySelectorAll(".docView")) {
-    const style = docView.dataset.cohort !== element.dataset.cohort ? "display:none" : "";
-    docView.style = style;
+    docView.hidden = docView.dataset.cohort !== element.dataset.cohort;
   }
 
 }
