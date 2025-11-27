@@ -16,8 +16,7 @@
 (defn parse [s]
   (let [ast (md/parse s)
         hiccup (md/->hiccup (assoc md/default-hiccup-renderers
-                                   :html-block (fn [_ m]
-                                                 [:div "LOL ugyldig HTML!"]))
+                                   :html-block (fn [_ m] [:div {:innerHTML (-> m :content first :text)}]))
                             ast)]
     {:doc/html (replicant.string/render hiccup)
      :doc/hiccup hiccup
@@ -29,15 +28,9 @@
 
   (def html-in-md
     "
-# Morgenstund har gull i munn
+Morgenstund har gull i munn.
 
-Heisann!
-
-<!-- 1. Hva gjør du akkurat nå? -->
-
-<!-- 2. Finner du kvalitet i det? -->
-
-<!-- 3. Hvorfor / hvorfor ikke? -->
+<div id>html inni!</div>
 ")
 
   (md/parse html-in-md)
