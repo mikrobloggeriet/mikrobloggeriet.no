@@ -5,6 +5,7 @@
 2025-05-05
 
 Opsjoner:
+
 - [ ] Revurdere bilder
 - [ ] flere inputformater - feks rst og typst
 - [ ] fikse fotnoter
