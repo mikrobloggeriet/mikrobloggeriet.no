@@ -1,4 +1,4 @@
-(ns mblog.datastar-minimal
+(ns mblog.dsminimal
   {:doc "Copied from the Datastar HTTP-kit example
 
 https://github.com/starfederation/datastar-clojure/blob/76041542602cd5f7838f39cf190782e1d2e53bb6/examples/hello-httpkit/src/hello_httpkit.clj"}

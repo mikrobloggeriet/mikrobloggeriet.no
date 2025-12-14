@@ -6,7 +6,7 @@
    [clojure.string :as str]
    [datomic.api :as d]
    [hiccup.page :as page]
-   [mblog.datastar-minimal :as dsminimal]
+   [mblog.dsminimal :as dsminimal]
    [mblog.indigo]
    [mblog.page-machinery :as page-machinery]
    [mblog.page-registry :as page-registry]
