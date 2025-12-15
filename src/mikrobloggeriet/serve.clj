@@ -1,6 +1,7 @@
 (ns mikrobloggeriet.serve
   (:require
    [babashka.fs :as fs]
+   [clj-simple-stats.core]
    [clojure.java.io :as io]
    [clojure.pprint]
    [clojure.string :as str]
@@ -287,5 +288,7 @@
 
 (def ring-handler
   (-> router
+      (clj-simple-stats.core/wrap-stats
+       {:db-path (str (System/getenv "GARDEN_STORAGE") "/clj_simple_stats.duckdb")})
       ring.middleware.params/wrap-params
       ring.middleware.gzip/wrap-gzip))
