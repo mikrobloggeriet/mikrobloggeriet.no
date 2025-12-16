@@ -2,7 +2,6 @@
   (:require
    [clj-reload.core]
    [datomic.api :as d]
-   [mikrobloggeriet.analytics :as analytics]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]
@@ -56,8 +55,6 @@
     (-> req
         (assoc ::now (Instant/now))
         (assoc ::datomic state/datomic)
-        (assoc ::pageviews @analytics/!pageviews)
-        analytics/consume!
         serve/ring-handler)))
 #_(alter-var-root #'state/injected-app create-injected-app)
 

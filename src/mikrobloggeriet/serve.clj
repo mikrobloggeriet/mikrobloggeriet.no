@@ -17,7 +17,6 @@
    [mikrobloggeriet.doc :as doc]
    [mikrobloggeriet.feed :as feed]
    [mikrobloggeriet.http :as http]
-   [mikrobloggeriet.ui.analytics :as ui.analytics]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.editor :as ui.editor]
@@ -258,10 +257,6 @@
       ;; Deploy
       ["/deploy-info" {:get #'deploy-info
                        :name :mikrobloggeriet/deploy-info}]
-
-      ;; Tell sidevisninger per side per dag
-      ["/analyse/" {:get #'ui.analytics/page
-                    :name :mikrobloggeriet/analytics}]
 
       ;; Et forsøk på å redigere tekst direkte fra nettleseren
       ["/editor/" {:get #'ui.editor/page
