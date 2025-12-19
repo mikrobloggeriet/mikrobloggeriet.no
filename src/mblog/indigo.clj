@@ -66,6 +66,11 @@
    :font "font16.css"
    :root ":root {\n   --first100: rgb(145,193,233);\n   --first80: rgba(145,193,233, 0.8);\n   --first50: rgba(145,193,233, 0.5);\n   --first20: rgba(145,193,233, 0.2);\n   --first10: rgba(145,193,233, 0.1);\n   --second100: rgb(26,44,91);\n   --second80: rgba(26,44,91, 0.8);\n   --second50: rgba(26,44,91, 0.5);\n   --second20: rgba(26,44,91, 0.2);\n   --second10: rgba(26,44,91, 0.1);\n}"})
 
+(def mottos
+  ["Skaperglede. Levert."
+   "Vi utforsker, vi opplever, vi forklarer."
+   "Exploramus, experimur, explicamus."])
+
 (defn innhold->hiccup [{:keys [docs cohorts current-cohort samvirk]}]
   ;; The fact that this function currently both converts data (with Pandoc) and
   ;; presents docs in HTML makes it hard to test.
@@ -90,10 +95,12 @@
       [:header
        [:a {:href "/"}
         "Mikrobloggeriet"]
-       [:div.tags
-        [:div.tag "■ " (:bg-color samvirk)]
-        [:div.tag "□ " (:text-color samvirk)]
-        [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]]
+       [:div
+        [:div.tags
+         [:div.tag "■ " (:bg-color samvirk)]
+         [:div.tag "□ " (:text-color samvirk)]
+         [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
+        [:p {:style {:text-align :right}} (rand-nth mottos)]]]
       [:container 
        [:section.navigation
         [:nav
