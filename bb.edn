@@ -1,4 +1,4 @@
-{:paths ["bb/src"]
+{:paths ["src"]
 
  :tasks
  {deploy
@@ -31,13 +31,11 @@
   (shell "bin/kaocha")
 
   timemachine
-  {:requires ([mikrobloggeriet.timemachine :as timemachine])
+  {:requires ([mblog.timemachine :as timemachine])
    :task
    (apply timemachine/main *command-line-args*)}
 
   test-latest-commit
-  {:requires ([mikrobloggeriet.timemachine :as timemachine])
-   :task
-   (timemachine/main "HEAD" "--" "bb test")}
+  (shell "bb timemachine HEAD -- bb test")
 
   }}

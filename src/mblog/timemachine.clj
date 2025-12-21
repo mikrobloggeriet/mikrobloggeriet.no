@@ -1,6 +1,7 @@
-(ns mikrobloggeriet.timemachine
-  "Kjør Clojure-funksjoner og shell-kommandoer slik et Git-repo var på et
-  tidspunkt (Git-revisjon)"
+(ns mblog.timemachine
+  "Tidsmaskin med Git
+
+  Kjør Clojure-funksjoner i fortiden ved å sjekke ut fortiden med Git. "
   (:require [babashka.fs :as fs]
             [babashka.process :as p]
             [clojure.string :as str]))
