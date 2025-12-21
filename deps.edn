@@ -1,5 +1,4 @@
-{:paths ["src" "dev" "test"
-         "bb/src" "bb/test"]
+{:paths ["src" "dev" "test" "bb/src"]
  :deps
  {
 

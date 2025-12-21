@@ -2,7 +2,4 @@
 {:tests
  [{:id :unit
    :source-paths ["src"]
-   :test-paths ["test"]}
-  {:id :bb
-   :source-paths  ["bb/src"]
-   :test-paths ["bb/test"]}]}
+   :test-paths ["test"]}]}
