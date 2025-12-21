@@ -2,6 +2,8 @@
          "bb/src" "bb/test"]
  :deps
  {
+
+  ;; Prod-avhengigheter
   amalloy/ring-gzip-middleware {:mvn/version "0.1.4"}
   babashka/fs {:mvn/version "0.5.30"}
   babashka/process {:mvn/version "0.6.23"}
@@ -22,16 +24,15 @@
   org.clj-commons/hickory {:mvn/version "0.7.7"}
   org.clojure/clojure {:mvn/version "1.12.0"}
 
-  ;; Datastar experiment
+  ;; Datastar
   dev.data-star.clojure/sdk {:mvn/version "1.0.0-RC1"}
   dev.data-star.clojure/http-kit {:mvn/version "1.0.0-RC1"}
 
-  ;; Supress Java logging warnings
+  ;; Få biblioteker som har særegne preferanser for logging til å holde kjeft
   org.slf4j/slf4j-nop {:mvn/version "2.0.17"}
 
-  ;; For development
-  ;;
-  ;; We want these accessible in prod REPLs too, so into main deps they go.
+  ;; For å lette utvikling
+  ;; ... og siden vi også utvikler i prod med prod-REPL, tar vi med oss bibliotekene dit også.
   com.nextjournal/beholder {:mvn/version "1.0.3"}
   io.github.tonsky/clj-reload {:mvn/version "1.0.0"}
   lambdaisland/kaocha {:mvn/version "1.91.1392"}
