@@ -31,9 +31,9 @@
   (shell "bin/kaocha")
 
   timemachine
-  {:requires ([mblog.timemachine :as timemachine])
+  {:requires ([mblog.git])
    :task
-   (apply timemachine/main *command-line-args*)}
+   (apply mblog.git/timemachine *command-line-args*)}
 
   test-latest-commit
   (shell "bb timemachine HEAD -- bb test")

@@ -1,7 +1,4 @@
-(ns mblog.timemachine
-  "Tidsmaskin med Git
-
-  Kjør Clojure-funksjoner i fortiden ved å sjekke ut fortiden med Git. "
+(ns mblog.git
   (:require [babashka.fs :as fs]
             [babashka.process :as p]
             [clojure.string :as str]))
@@ -42,7 +39,7 @@
 ;;
 ;;   bb timemachine HEAD -- ls
 ;;   bb timemachine HEAD -- pwd
-(defn ^{:indent 1} main
+(defn ^{:indent 1} timemachine
   [revision _ & shell-command-args]
   (do-at revision
     (fn [dir] (apply p/shell {:dir dir} shell-command-args))))
