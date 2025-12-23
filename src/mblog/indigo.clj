@@ -93,14 +93,14 @@
       [:style (:root samvirk)]]
      [:body
       [:header
-       [:a {:href "/"}
-        "Mikrobloggeriet"]
-       [:div
-        [:div.tags
-         [:div.tag "■ " (:bg-color samvirk)]
-         [:div.tag "□ " (:text-color samvirk)]
-         [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
-        [:p {:style {:text-align :right}} (rand-nth mottos)]]]
+       [:div.tags
+        [:div.tag "■ " (:bg-color samvirk)]
+        [:div.tag "□ " (:text-color samvirk)]
+        [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
+       [:div.name-mottos
+        [:a {:href "/"}
+         "Mikrobloggeriet"]
+        [:p (rand-nth mottos)]]]
       [:container 
        [:section.navigation
         [:nav
