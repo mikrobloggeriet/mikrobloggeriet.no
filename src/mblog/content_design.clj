@@ -1,8 +1,8 @@
 (ns mblog.content-design
   (:require
+   [clojure.string :as str]
    [mblog.indigo :as forside]
-   [mblog.samvirk :as farger]
-   [clojure.string :as str]))
+   [mblog.samvirk :as farger]))
 
 (def md
   (-> "
@@ -91,11 +91,6 @@ You may be using [Mikrobloggeriet](https://mikrobloggeriet.no/).
 let message = 'Hello world';
 alert(message);
 ```
-
-## Inline code
-
-This web site is using `markedjs/marked`.
-
        "
       (str/trim)))
 
