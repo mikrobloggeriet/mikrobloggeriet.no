@@ -70,6 +70,7 @@ header {
     justify-content: space-between;
     align-items: baseline;
     width: 100%;
+    text-align: right;
 }
 
 .tags {
@@ -180,7 +181,7 @@ section:hover ~ section, section:has(~ section:hover) {
     height: fit-content;
     cursor: cell;
     gap: 4px;
-    padding: 8px 12px 7px 0px;
+    padding: 8px 12px 8px 0px;
     text-decoration: none;
     transition: ease-out 0.3s;
     border-bottom: 0;
@@ -242,6 +243,7 @@ h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
 h1 {
     position: sticky;
     top: -1px;
+    height: fit-content;
 }
 
 h2, h3, h4, h5, h6 {
@@ -371,31 +373,33 @@ footer {
     }
 }
 
-
-@media screen and (max-width: 480px), (orientation: portrait) { /* Mobile */
-
+@media screen and (max-width: 800px) {
+    .navMeta {
+        display: none;
+    }
+    
     header {
         flex-direction: column;
         align-items: flex-start;
         padding-bottom: 12px;
-
+    
         > a { 
             font-size: clamp(4rem, 1.3rem + 4vw, 6rem);
             animation: header-a-load-small var(--load-animation);
         }
     }
-
+    
     @keyframes header-a-load {
         from {
             font-size: clamp(4rem, 1.3rem + 4vw, 6rem);
         }
     }
-
-
+    
+    
     .tags {
         align-self: flex-start;
     }
-
+    
     .name-mottos {
         align-items: flex-start;
         flex-direction: column;
@@ -404,6 +408,11 @@ footer {
             margin: 0;
         }
     }
+}
+
+
+@media screen and (max-width: 600px) { /* Mobile */
+
 
     container { 
         margin: 0;
@@ -426,7 +435,13 @@ footer {
     }
 
     h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
-        font-size: clamp(0.75rem, 0.4rem + 2vw, 1rem)
+        font-size: clamp(0.75rem, 0.4rem + 2vw, 1rem);
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    p {
+        padding: 0px 24px 0px 24px;
     }
 
 
