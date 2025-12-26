@@ -413,6 +413,9 @@ footer {
 
 @media screen and (max-width: 600px) { /* Mobile */
 
+    body {
+        overflow: hidden;
+    }
 
     container { 
         margin: 0;
