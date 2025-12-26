@@ -91,7 +91,7 @@ header {
     height: 20px;
     color: var(--first100);
     border-radius: 4px;
-    padding: 4px;
+    padding: 4px 6px 4px 6px;
     font-size: 14px;
     font-family: var(--main-font);
     text-decoration: none;
