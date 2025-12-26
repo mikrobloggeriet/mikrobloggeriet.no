@@ -155,7 +155,6 @@ section {
 
 
 section:hover ~ section, section:has(~ section:hover) {
-
     && img {
         filter: grayscale(1);
         mix-blend-mode: screen;
@@ -174,52 +173,6 @@ section:hover ~ section, section:has(~ section:hover) {
 }
 
 
-h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
-    color: var(--first100);
-    text-decoration: none;
-    font-weight: 400;
-    font-style: normal;
-    font-size: clamp(1rem, 1vw, 1.5rem);
-    line-height: 150%;
-}
-
-
-
-h1 {
-    position: sticky;
-    top: -1px;
-}
-
-h2, h3, h4, h5, h6 {
-    background-color: var(--first20);
-    padding: 4px 12px;
-    color: var(--first100);
-    font-weight: 600;
-}
-
-
-
-
-figcaption {
-    color: var(--first80);
-    font-size: 0.8rem;
-}
-
-aside {
-    background-color: var(--first10);
-    padding: 1rem;
-}
-
-
-
-nav {
-    padding: 0px;
-    margin: 0px;
-    display: flex;
-    flex-direction: column;
-}
-
-
 .navList {
     display: flex;
     flex-direction: row;
@@ -227,7 +180,7 @@ nav {
     height: fit-content;
     cursor: cell;
     gap: 4px;
-    padding: 8px 12px 8px 0px;
+    padding: 8px 12px 7px 0px;
     text-decoration: none;
     transition: ease-out 0.3s;
     border-bottom: 0;
@@ -235,10 +188,15 @@ nav {
 }
 
 .navList:hover {
-    background-color: var(--first50);
+    background-color: var(--first100);
     cursor: cell;
     transition: ease-out 0s;
+
+    p {
+        color: var(--second100);
+    }
 }
+
 
 .navList:active {
     background-color: var(--first80);
@@ -269,6 +227,49 @@ nav {
     margin: 0;
 }
 
+
+h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
+    color: var(--first100);
+    text-decoration: none;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1rem, 1vw, 1.5rem);
+    line-height: 150%;
+}
+
+
+
+h1 {
+    position: sticky;
+    top: -1px;
+}
+
+h2, h3, h4, h5, h6 {
+    background-color: var(--first20);
+    padding: 4px 12px;
+    color: var(--first100);
+    font-weight: 600;
+}
+
+
+figcaption {
+    color: var(--first80);
+    font-size: 0.8rem;
+}
+
+aside {
+    background-color: var(--first10);
+    padding: 1rem;
+}
+
+
+
+nav {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+}
 
 h1 {
     background-color: var(--first100);

@@ -111,7 +111,7 @@
             [:p.navTitle (find-title-ish doc)]
             [:div.navListData
              [:p.navMeta (doc/created-date doc)] 
-             "/"
+             [:p.navMeta "/"]
              [:p.navMeta (:doc/slug doc)]]])]]
        [:section.content
         [:div (for [doc docs]
