@@ -80,7 +80,7 @@ You may be using [Mikrobloggeriet](https://mikrobloggeriet.no/).
 ## Tables
 
 | Left columns  | Right columns |
-| ------------- |:-------------:|
+| ------------- |---------------|
 | left foo      | right foo     |
 | left bar      | right bar     |
 | left baz      | right baz     |
