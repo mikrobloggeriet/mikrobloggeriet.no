@@ -69,7 +69,8 @@
 (def mottos
   ["Skaperglede. Levert."
    "Vi utforsker, vi opplever, vi forklarer."
-   "Exploramus, experimur, explicamus."])
+   "Exploramus, experimur, explicamus."
+   "Skrible. Notere. Knutre. Formulere."])
 
 (defn innhold->hiccup [{:keys [docs cohorts current-cohort samvirk]}]
   ;; The fact that this function currently both converts data (with Pandoc) and
