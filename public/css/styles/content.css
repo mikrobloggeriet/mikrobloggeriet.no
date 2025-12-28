@@ -115,6 +115,7 @@ p > code {
     font-family: monospace;
 }
 
+
 table {
     margin: 0px 12px 0px 12px;
     border-spacing: 0px;
@@ -151,12 +152,12 @@ hr {
     display: none;
 }
 
-@media screen and (max-width: var(--small-screens)) {
+@media screen and (max-width: 800px) {
 
 }
 
 
-@media screen and (max-width: var(--smallest-screens)) { /* Mobile */
+@media screen and (max-width: 600px) { /* Mobile */
     h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
         font-size: clamp(0.75rem, 0.4rem + 2vw, 1rem);
         padding-left: 24px;
@@ -174,6 +175,4 @@ hr {
     figure {
         padding: 0;
     }
-
-
 }

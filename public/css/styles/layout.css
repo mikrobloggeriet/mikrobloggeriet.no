@@ -1,9 +1,6 @@
 
 :root {
---load-animation: 0.7s ease-in-out 0.4s backwards;
-
---small-screens: 800px;
---smallest-screens: 600px;
+    --load-animation: 0.7s ease-in-out 0.4s backwards;
 }
 
 ::selection {
@@ -176,10 +173,6 @@ section:hover ~ section, section:has(~ section:hover) {
     border-right: 1px solid var(--first20);
 }
 
-.content {
-    width: 50%;
-}
-
 nav {
     padding: 0px;
     margin: 0px;
@@ -247,8 +240,11 @@ nav {
 }
 
 
+.content {
+    width: 50%;
+}
 
-@media screen and (max-width: var(--small-screens)) {
+@media screen and (max-width: 800px) {
     .navList {
         flex-direction: column;
         gap: 0;
@@ -291,7 +287,7 @@ nav {
 }
 
 
-@media screen and (max-width: var(--smallest-screens)) { /* Mobile */
+@media screen and (max-width: 600px) { /* Mobile */
 
     container { 
         margin: 0;
