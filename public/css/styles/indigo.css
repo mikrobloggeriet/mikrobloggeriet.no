@@ -186,11 +186,15 @@ section:hover ~ section, section:has(~ section:hover) {
     height: fit-content;
     cursor: cell;
     gap: 4px;
-    padding: 8px 12px 8px 0px;
+    padding: 8px 12px 8px 12px;
     text-decoration: none;
     transition: ease-out 0.3s;
     border-bottom: 0;
     border-bottom: 1px solid var(--first10);
+
+    > p {
+        padding: 0;
+    }
 }
 
 .navList:hover {
@@ -413,8 +417,13 @@ footer {
 }
 
 @media screen and (max-width: 800px) {
-    .navMeta {
-        display: none;
+    .navList {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .navTitle {
+        max-width: 100%;
     }
     
     header {
@@ -460,6 +469,7 @@ footer {
     .navigation, .filters {
         display: none;
     }
+
 
     .content {
         width: 100%;
