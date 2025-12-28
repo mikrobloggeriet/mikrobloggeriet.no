@@ -3,8 +3,10 @@ h1, h2, h3, h4, h5, h6, p, li, figcaption, aside, table {
     text-decoration: none;
     font-weight: 400;
     font-style: normal;
-    font-size: clamp(1rem, 1vw, 1.5rem);
-    line-height: 180%;
+    font-size: clamp(1rem, 1vw, 1.3rem);
+    line-height: 200%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 
@@ -39,7 +41,7 @@ h1 {
     padding: 7px 12px 7px 12px;
     margin: 0;
     font-weight: 400;
-    font-size: 20px;
+    font-size: clamp(1.2rem, 1vw, 1.5rem);
     z-index: 99999;
 }
 
@@ -170,6 +172,7 @@ hr {
 
     p {
         padding: 0px 24px 0px 24px;
+        line-height: 200%;
     }
 
     figure {
