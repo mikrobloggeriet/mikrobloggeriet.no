@@ -1,0 +1,179 @@
+h1, h2, h3, h4, h5, h6, p, li, figcaption, aside, table {
+    color: var(--first100);
+    text-decoration: none;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(1rem, 1vw, 1.5rem);
+    line-height: 180%;
+}
+
+
+
+h1 {
+    position: sticky;
+    top: -1px;
+    height: fit-content;
+}
+
+h2, h3, h4, h5, h6 {
+    background-color: var(--first20);
+    padding: 4px 12px;
+    color: var(--first100);
+    font-weight: 600;
+}
+
+
+figcaption {
+    color: var(--first50);
+    font-size: 0.8rem;
+}
+
+aside {
+    background-color: var(--first10);
+    padding: 1rem;
+}
+
+h1 {
+    background-color: var(--first100);
+    color: var(--second100);
+    padding: 7px 12px 7px 12px;
+    margin: 0;
+    font-weight: 400;
+    font-size: 20px;
+    z-index: 99999;
+}
+
+p {
+    padding: 2px 12px 2px 12px;
+    max-width: 70ch;
+}
+
+ul, li {
+    max-width: 75ch;
+}
+
+ul {
+    padding: 0 24px 0 24px;
+}
+
+a {
+    color: var(--first100);
+    text-decoration: underline;
+}
+
+a:hover {
+    background-color: var(--first100);
+    color: var(--second100);
+    text-decoration: none;
+    cursor: ne-resize;
+}
+
+blockquote {
+    color: var(--first80);
+    border-left: 2px solid var(--first50);
+    padding-left: 1rem;
+    margin-left: 0.5rem;
+    padding: 0.2rem 0rem 0.2rem 0.5rem;
+    max-width: 75ch;
+
+    > p {
+    font-style: italic;
+}
+}
+
+figure {
+    margin: 0;
+    padding: 0 12px 0 12px;
+    max-width: 75ch;
+
+}
+
+img {
+    max-width: 100%;
+    filter: grayscale(0);
+    mix-blend-mode: normal;
+    transition: 2s ease-in;
+}
+
+
+pre {
+    color: var(--first80);
+    background-color: var(--first10);
+    overflow-x: scroll;
+    width: 100%;
+    height: auto;
+    padding: 2rem;
+    margin-left: -1px;
+    line-height: 180%;
+    font-family: monospace;
+}
+
+p > code {
+    background-color: var(--first20);
+    padding: 4px 8px 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+table {
+    margin: 0px 12px 0px 12px;
+    border-spacing: 0px;
+    width: 70ch;
+    border-collapse: collapse;
+}
+
+tbody > tr {
+    border-bottom: 1px dashed var(--first20);
+}
+
+
+th { 
+    background-color: var(--first10);
+    font-weight: 400;
+    text-align: left;
+}
+
+th, td {
+    padding: 8px 12px 8px 12px;
+}
+
+
+.footnotes {
+    width: 100%;
+    background-color: var(--first10);
+    > ol {
+    font-size: 9px !important;
+    max-width: 75ch;
+}
+}
+
+hr {
+    display: none;
+}
+
+@media screen and (max-width: var(--small-screens)) {
+
+}
+
+
+@media screen and (max-width: var(--smallest-screens)) { /* Mobile */
+    h1, h2, h3, h4, h5, h6, p, li, figcaption, aside {
+        font-size: clamp(0.75rem, 0.4rem + 2vw, 1rem);
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    li {
+        padding-left: 0px;
+    }
+
+    p {
+        padding: 0px 24px 0px 24px;
+    }
+
+    figure {
+        padding: 0;
+    }
+
+
+}

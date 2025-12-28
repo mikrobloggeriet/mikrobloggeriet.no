@@ -84,7 +84,8 @@
     [:html {:lang "en"}
      [:head
       [:meta {:charset "utf-8"}]
-      [:link {:rel "stylesheet" :href "css/styles/indigo.css"}]
+      [:link {:rel "stylesheet" :href "css/styles/layout.css"}]
+      [:link {:rel "stylesheet" :href "css/styles/content.css"}]
       [:link {:rel "stylesheet" :href (samvirk/font-path samvirk)}]
       ;; Google fonts
       [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
