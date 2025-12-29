@@ -73,11 +73,6 @@
    "Skrible. Notere. Knutre. Formulere."])
 
 (defn innhold->hiccup [{:keys [docs cohorts current-cohort samvirk]}]
-  ;; The fact that this function currently both converts data (with Pandoc) and
-  ;; presents docs in HTML makes it hard to test.
-  ;;
-  ;; If we can tease apart visuals from logic, we can view the visuals with
-  ;; Portfolio.
   (let [doc-visibility (fn [doc]
                          (when (and current-cohort
                                     (not= (:doc/cohort doc) current-cohort))
@@ -123,8 +118,8 @@
       ]]))
 
 (defonce !last-req (atom nil))
-(def last-req #(dissoc @!last-req :reitit.core/match :mikrobloggeriet.system/pageviews))
-
+(defn last-req []
+  (dissoc @!last-req :reitit.core/match :mikrobloggeriet.system/pageviews))
 #_(last-req)
 
 (defn req->innhold [req]
@@ -143,8 +138,4 @@
       (def db mikrobloggeriet.state/datomic)
       (def docs (doc/latest db)))
 
-  (doc/number (first docs))
-
-  (into {} (first docs))
-  (def cohort (:doc/cohort (first docs)))
-  (:cohort/name cohort))
+  :=)
