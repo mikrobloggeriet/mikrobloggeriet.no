@@ -72,7 +72,7 @@
    "Exploramus, experimur, explicamus."
    "Skrible. Notere. Knutre. Formulere."])
 
-(defn innhold->hiccup [{:keys [docs cohorts current-cohort samvirk]}]
+(defn innhold->hiccup [{:keys [docs current-cohort samvirk]}]
   (let [doc-visibility (fn [doc]
                          (when (and current-cohort
                                     (not= (:doc/cohort doc) current-cohort))
@@ -126,7 +126,6 @@
   (reset! !last-req req)
   (let [db (:mikrobloggeriet.system/datomic req)]
     (merge {:docs (doc/latest db)
-            :cohorts (cohort/all db)
             :samvirk (samvirk/load)}
            (when-let [cohort-slug (get-in req [:query-params "cohort"])]
              {:current-cohort (d/entity db [:cohort/slug cohort-slug])}))))
