@@ -107,11 +107,8 @@
 
 (defn req->innhold [req]
   (reset! !last-req req)
-  (let [db (:mikrobloggeriet.system/datomic req)]
-    (merge {:docs (doc/latest db)
-            :samvirk (samvirk/load)}
-           (when-let [cohort-slug (get-in req [:query-params "cohort"])]
-             {:current-cohort (d/entity db [:cohort/slug cohort-slug])}))))
+  {:docs (-> req :mikrobloggeriet.system/datomic doc/latest)
+   :samvirk (samvirk/load)})
 
 (comment
   (set! *print-namespace-maps* false)
