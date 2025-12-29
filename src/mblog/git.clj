@@ -1,6 +1,5 @@
 (ns mblog.git
   (:require
-   [babashka.fs :as fs]
    [babashka.process :as p]
    [clojure.string :as str]))
 
@@ -10,18 +9,10 @@
        :out str/trim))
 
 (comment
-  (def f "text/leik/1.md")
-
-  (str (fs/creation-time f))
-  ;; => "2025-11-26T18:49:07Z"
-
-  p/process
-
-  (-> (p/shell {:out :string}
-               "git log --diff-filter=A --follow --format=%aI -- text/leik/11.md")
-      :out str/trim)
+  (created "text/leik/11.md")
   ;; => "2025-09-22T09:03:05+02:00"
 
-  ;; => "2025-03-19T17:43:03+01:00"
+  (created "README.md")
+  ;; => "2023-03-28T20:57:54+02:00"
 
   )

@@ -224,7 +224,7 @@
 
 (comment
   (set! *print-namespace-maps* false)
-  (def db (loaddb {:cohorts cohorts :authors  authors}))
+  (def db (loaddb {:cohorts cohorts :authors authors}))
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
 
   (def olorm-7 (d/entity db [:doc/slug "olorm-7"]))
