@@ -103,7 +103,7 @@
 
 (defonce !last-req (atom nil))
 (defn last-req []
-  (dissoc @!last-req :reitit.core/match :mikrobloggeriet.system/pageviews))
+  (dissoc @!last-req :reitit.core/match))
 
 (defn req->innhold [req]
   (reset! !last-req req)
