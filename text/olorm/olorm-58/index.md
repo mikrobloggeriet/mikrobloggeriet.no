@@ -116,7 +116,7 @@ Hvis hovedmodulen faktisk leser bedre etter at du har splittet opp, og det ikke 
 
 ## God jul :)
 
-Håper julefreden senker seg hos deg også!
+Håper julefreden senker seg hos deg også!<br>
 Hilsen Teodor
 
 ☃❄🎄
