@@ -1,35 +1,24 @@
-{:deps
- {io.github.teodorlu/bb-timemachine {:git/tag "v1.0.1" :git/sha "e684c"}}
+{:deps {io.github.teodorlu/bb-timemachine {:git/tag "v1.0.1" :git/sha "e684c"}}
 
  :tasks
- {deploy
-  (doseq [task '(test deploy* push)]
-    (run task))
+ {
 
-  deploy*
-  (shell "garden deploy")
+  deploy (doseq [task '(test deploy* push)]
+           (run task))
 
-  dev
-  (shell "garden run")
+  deploy* (shell "garden deploy")
 
-  maybe-lint
-  {:requires ([babashka.fs :as fs])
-   :task
-   (when (fs/which "clj-kondo")         ; linting is optional
-     (shell "clj-kondo --fail-level warning --lint src"))}
+  dev (shell "garden run")
 
-  push
-  (shell "git push")
+  lint (shell "clj-kondo --fail-level warning --lint src")
 
-  test
-  (shell "bin/kaocha")
+  push (shell "git push")
 
-  timemachine
-  {:requires ([teodorlu.bb-timemachine :as timemachine])
-   :task
-   (apply timemachine/timemachine *command-line-args*)}
+  test (shell "bin/kaocha")
 
-  test-latest-commit
-  (shell "bb timemachine HEAD -- bb test")
+  timemachine {:requires ([teodorlu.bb-timemachine :as timemachine])
+               :task (apply timemachine/timemachine *command-line-args*)}
+
+  test-latest-commit (shell "bb timemachine HEAD -- bb test")
 
   }}
