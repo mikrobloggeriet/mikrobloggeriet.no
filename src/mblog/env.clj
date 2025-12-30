@@ -2,17 +2,26 @@
   (:require
    [clojure.string :as str]))
 
-(defn env []
-  (let [url (System/getenv "GARDEN_URL")]
-    (cond (str/starts-with? url "Http://localhost")
-          :env/dev
+(defn env* [url]
+  (cond (not url)
+        :env/unknown
 
-          (str/starts-with? url "https://mikrobloggeriet.no")
-          :env/prod
+        (str/starts-with? url "http://localhost")
+        :env/dev
 
-          :else
-          :env/unkonwn)))
+        (str/starts-with? url "https://mikrobloggeriet.no")
+        :env/prod
+
+        :else
+        :env/unknown))
+
+(defn env [] (env* (System/getenv "GARDEN_URL")))
 
 (def dev? #(= :env/dev (env)))
 (def prod? #(= :env/prod (env)))
 (def unknown? #(= :env/unknown (env)))
+
+(comment
+  (env)
+
+  :=)
