@@ -1,7 +1,6 @@
 (ns mblog.indigo
   (:require
    [clojure.walk :refer [postwalk]]
-   [datomic.api :as d]
    [hiccup.page]
    [mblog.samvirk :as samvirk]
    [mikrobloggeriet.doc :as doc]

@@ -86,7 +86,8 @@
 
 (defn probe
   "How much would we gain by compressing this file?"
-  [{:as conversion :keys [image referencing-files]}]
+  {:arglists '[[{:as conversion :keys [image referencing-files]}]]}
+  [{:as conversion :keys [image]}]
   (let [quality (compression-quality image)
         compressed (to-webp-file image)]
     (try

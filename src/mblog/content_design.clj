@@ -94,7 +94,7 @@ alert(message);
        "
       (str/trim)))
 
-(defn req->innhold [req]
+(defn req->innhold [_req]
   (-> {:docs [{:db/id 17592186045464, :doc/created "2025-11-20T18:51:46Z", :doc/slug "leik-13", :doc/markdown md}]
        :cohorts [#:db{:id 17592186045425}]}
       (assoc :samvirk (farger/load))))
