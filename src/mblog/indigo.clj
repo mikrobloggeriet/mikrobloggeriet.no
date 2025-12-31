@@ -17,41 +17,44 @@
           (hiccup/transform :img hiccup/lazyload)
           (hiccup/transform :iframe hiccup/lazyload)))]])
 
-(defn innhold->hiccup [{:keys [docs samvirk motto]}]
-  [:html {:lang "en"}
-   [:head
-    [:meta {:charset "utf-8"}]
-    [:link {:rel "stylesheet" :href "css/styles/layout.css"}]
-    [:link {:rel "stylesheet" :href "css/styles/content.css"}]
-    [:link {:rel "stylesheet" :href (samvirk/font-path samvirk)}]
-    ;; Google fonts
-    [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
-    [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
-    [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"}]
-    [:style (:root samvirk)]]
-   [:body
-    [:header
-     [:div.tags
-      [:div.tag "■ " (:bg-color samvirk)]
-      [:div.tag "□ " (:text-color samvirk)]
-      [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
-     [:div.name-mottos
-      [:a {:href "/"}
-       "Mikrobloggeriet"]
-      [:p motto]]]
-    [:container
-     [:section.navigation
-      [:nav
-       (for [doc docs]
-         [:a.navList.docSelector {:href (str "#" (:doc/slug doc))}
-          [:p.navTitle (doc/title-or-slug doc)]
-          [:div.navListData
-           [:p.navMeta (doc/created-date doc)]
-           [:p.navMeta "/"]
-           [:p.navMeta (:doc/slug doc)]]])]]
-     [:section.content
-      (for [doc docs]
-        [:div.docView (view-doc doc)])]]]])
+(defn render [{:keys [docs samvirk motto]}]
+  {:headers (list [:meta {:charset "utf-8"}]
+                  [:link {:rel "stylesheet" :href "css/styles/layout.css"}]
+                  [:link {:rel "stylesheet" :href "css/styles/content.css"}]
+                  [:link {:rel "stylesheet" :href (samvirk/font-path samvirk)}]
+                  ;; Google fonts
+                  [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
+                  [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
+                  [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"}]
+                  [:style (:root samvirk)])
+   :body (list [:header
+                [:div.tags
+                 [:div.tag "■ " (:bg-color samvirk)]
+                 [:div.tag "□ " (:text-color samvirk)]
+                 [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
+                [:div.name-mottos
+                 [:a {:href "/"}
+                  "Mikrobloggeriet"]
+                 [:p motto]]]
+               [:container
+                [:section.navigation
+                 [:nav
+                  (for [doc docs]
+                    [:a.navList.docSelector {:href (str "#" (:doc/slug doc))}
+                     [:p.navTitle (doc/title-or-slug doc)]
+                     [:div.navListData
+                      [:p.navMeta (doc/created-date doc)]
+                      [:p.navMeta "/"]
+                      [:p.navMeta (:doc/slug doc)]]])]]
+                [:section.content
+                 (for [doc docs]
+                   [:div.docView (view-doc doc)])]])})
+
+(defn innhold->hiccup [innhold]
+  (let [{:keys [headers body]} (render innhold)]
+    [:html {:lang "en"}
+     (into [:head] headers)
+     (into [:body] body)]))
 
 (def mottos
   ["Skaperglede. Levert."
@@ -71,13 +74,17 @@
    :samvirk (samvirk/load)
    :motto (rand-nth mottos)})
 
+(defn hent-innhold!
+  "Hent innhold uten å gå via noen request. Kun for lokal utvikling."
+  []
+  {:docs (-> (requiring-resolve 'mikrobloggeriet.state/datomic) deref doc/latest)
+   :samvirk (samvirk/load)
+   :motto (rand-nth mottos)})
+
 (comment
   (set! *print-namespace-maps* false)
 
-  (do (require 'mikrobloggeriet.state)
-      (def db mikrobloggeriet.state/datomic)
-      (def docs (doc/latest db)))
-
+  (hent-innhold!)
   (last-req)
 
   (require 'terra.instance)
