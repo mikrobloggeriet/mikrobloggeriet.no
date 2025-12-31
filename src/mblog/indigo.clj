@@ -61,8 +61,10 @@
 (def mottos
   ["Skaperglede. Levert."
    "Vi utforsker, vi opplever, vi forklarer."
-   "Exploramus, experimur, explicamus."
-   "Skrible. Notere. Knutre. Formulere."])
+   "Exploramus. Experimur. Explicamus."
+   "Skrible. Notere. Knutre. Formulere."
+   "Since 2023"
+   "Upolert nysgjerrighet"])
 
 (defn innhold->hiccup [{:keys [docs samvirk]}]
   [:html {:lang "en"}
