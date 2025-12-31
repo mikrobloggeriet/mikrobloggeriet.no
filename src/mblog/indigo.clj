@@ -1,10 +1,8 @@
 (ns mblog.indigo
   (:require
    [clojure.walk :refer [postwalk]]
-   [hiccup.page]
    [mblog.samvirk :as samvirk]
-   [mikrobloggeriet.doc :as doc]
-   [replicant.string]))
+   [mikrobloggeriet.doc :as doc]))
 
 (defn hiccup-optmap [form]
   (if (map? (second form))
