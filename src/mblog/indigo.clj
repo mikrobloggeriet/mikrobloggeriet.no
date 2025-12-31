@@ -17,15 +17,7 @@
           (hiccup/transform :img hiccup/lazyload)
           (hiccup/transform :iframe hiccup/lazyload)))]])
 
-(def mottos
-  ["Skaperglede. Levert."
-   "Vi utforsker, vi opplever, vi forklarer."
-   "Exploramus. Experimur. Explicamus."
-   "Skrible. Notere. Knutre. Formulere."
-   "Since 2023"
-   "Upolert nysgjerrighet"])
-
-(defn innhold->hiccup [{:keys [docs samvirk]}]
+(defn innhold->hiccup [{:keys [docs samvirk motto]}]
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]
@@ -46,7 +38,7 @@
      [:div.name-mottos
       [:a {:href "/"}
        "Mikrobloggeriet"]
-      [:p (rand-nth mottos)]]]
+      [:p motto]]]
     [:container
      [:section.navigation
       [:nav
@@ -61,6 +53,14 @@
       (for [doc docs]
         [:div.docView (view-doc doc)])]]]])
 
+(def mottos
+  ["Skaperglede. Levert."
+   "Vi utforsker, vi opplever, vi forklarer."
+   "Exploramus. Experimur. Explicamus."
+   "Skrible. Notere. Knutre. Formulere."
+   "Since 2023"
+   "Upolert nysgjerrighet"])
+
 (defonce !last-req (atom nil))
 (defn last-req []
   (dissoc @!last-req :reitit.core/match))
@@ -68,7 +68,8 @@
 (defn req->innhold [req]
   (reset! !last-req req)
   {:docs (-> req :mikrobloggeriet.system/datomic doc/latest)
-   :samvirk (samvirk/load)})
+   :samvirk (samvirk/load)
+   :motto (rand-nth mottos)})
 
 (comment
   (set! *print-namespace-maps* false)

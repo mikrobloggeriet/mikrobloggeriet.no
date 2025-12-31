@@ -10,7 +10,8 @@
    (contains?
     (->> {:docs [{:doc/title "Unminifying av kode med LLM"
                   :doc/markdown "lang tekst"}]
-          :samvirk (samvirk/load)}
+          :samvirk (samvirk/load)
+          :motto "Alt for Norge!"}
          (indigo/innhold->hiccup)
          (tree-seq seqable?
                    identity)
