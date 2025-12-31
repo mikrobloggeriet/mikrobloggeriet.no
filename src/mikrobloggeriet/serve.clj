@@ -214,7 +214,6 @@
             :name :page/indigo}]
 
       ["/content-design" {:get #'serve-page
-                          :head #'health ;; HEAD / is Application.Garden's health check
                           :name :page/content-design}]
 
       ["/doc/:slug" {:get #'serve-page
