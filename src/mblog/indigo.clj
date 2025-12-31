@@ -55,7 +55,7 @@
 
 (defn innhold->hiccup [innhold]
   (let [{:keys [headers body]} (render innhold)]
-    [:html {:lang "en"}
+    [:html {:lang "no"}
      [:head headers]
      [:body
       [:span {:data-init "@get('/sse')" :style {:display "none"}}]
