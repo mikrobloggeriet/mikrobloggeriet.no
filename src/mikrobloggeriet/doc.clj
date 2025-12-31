@@ -53,6 +53,9 @@
 (defn cleaned-title [doc]
   (some-> doc title remove-cohort-prefix))
 
+(defn title-or-slug [doc]
+  (or (cleaned-title doc) (:doc/slug doc)))
+
 (comment
   (cache/parse-markdown "# Funksjonell programmering")
   (title {:doc/markdown "# Funksjonell programmering"})
