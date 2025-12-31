@@ -99,7 +99,4 @@
   (hent-innhold!)
   (last-req)
 
-  (require 'terra.instance)
-  (terra.instance/render-all! "hello")
-
   :=)
