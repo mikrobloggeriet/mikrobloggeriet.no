@@ -5,16 +5,6 @@
    [mblog.samvirk :as samvirk]
    [mikrobloggeriet.db :as db]))
 
-(deftest lazyload-images
-  (is (= [:div [:img {:loading "lazy"}]]
-         (indigo/lazyload-images [:div [:img]])))
-
-  (is (= [:div [:img {:loading "lazy"} "body"]]
-         (indigo/lazyload-images [:div [:img "body"]])))
-
-  (is (= [:div [:img {:loading "lazy" :class "lol"} "body"]]
-         (indigo/lazyload-images [:div [:img {:class "lol"} "body"]]))))
-
 (deftest left-bar
   (is
    (contains?

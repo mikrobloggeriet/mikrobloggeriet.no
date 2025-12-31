@@ -1,44 +1,8 @@
 (ns mblog.indigo
   (:require
-   [clojure.walk :refer [postwalk]]
+   [mblog.hiccup :as hiccup]
    [mblog.samvirk :as samvirk]
    [mikrobloggeriet.doc :as doc]))
-
-(defn hiccup-optmap [form]
-  (if (map? (second form))
-    (second form)
-    {}))
-
-(defn hiccup-children [form]
-  (if (map? (second form))
-    (drop 2 form)
-    (drop 1 form)))
-
-(defn lazyload-images [hiccup]
-  (postwalk
-   (fn [form]
-     (cond
-       (and (vector? form)
-            (= (first form)
-               :img))
-       (into [:img (assoc (hiccup-optmap form)
-                          :loading "lazy")]
-             (hiccup-children form))
-       :else form))
-   hiccup))
-
-(defn lazyload-iframes [hiccup]
-  (postwalk
-   (fn [form]
-     (cond
-       (and (vector? form)
-            (= (first form)
-               :iframe))
-       (into [:iframe (assoc (hiccup-optmap form)
-                             :loading "lazy")]
-             (hiccup-children form))
-       :else form))
-   hiccup))
 
 (defn title-or-slug
   "Finds the title if present, otherwise falls back to slug"
@@ -54,7 +18,10 @@
      ;; Pretend the slug is the title when the doc doesn't have a "real" title.
      (when-not (doc/cleaned-title doc)
        [:h1 (:doc/slug doc)])
-     (-> doc doc/hiccup lazyload-images lazyload-iframes))]])
+     (->> doc
+          doc/hiccup
+          (hiccup/transform :img hiccup/lazyload)
+          (hiccup/transform :iframe hiccup/lazyload)))]])
 
 (def mottos
   ["Skaperglede. Levert."
@@ -115,5 +82,10 @@
   (do (require 'mikrobloggeriet.state)
       (def db mikrobloggeriet.state/datomic)
       (def docs (doc/latest db)))
+
+  (last-req)
+
+  (require 'terra.instance)
+  (terra.instance/render-all! "hello")
 
   :=)
