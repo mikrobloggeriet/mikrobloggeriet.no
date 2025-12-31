@@ -24,14 +24,13 @@
                     {on-open (fn [sse] (session-open id {:sse sse :req req}))
                      on-close (fn [_ _] (session-close id))})))
 
-(defn push! [pred hiccup]
+(defn push! [pred html-str]
   (doseq [{:as session :keys [sse]} (vals @!sessions)]
     (when (pred session)
-      (d*/patch-elements! sse (replicant.string/render hiccup)))))
+      (d*/patch-elements! sse html-str))))
 
-(defn render-all! [hiccup]
-  (push! (constantly true)
-         (replicant.string/render [:div {:id "morph"} hiccup])))
+(defn push-all! [html-str]
+  (push! (constantly true) html-str))
 
 (comment
   ;; Download/update Datastar

@@ -1,8 +1,11 @@
 (ns mblog.indigo
   (:require
+   [hiccup.core]
+   [mblog.env :as env]
    [mblog.hiccup :as hiccup]
    [mblog.samvirk :as samvirk]
-   [mikrobloggeriet.doc :as doc]))
+   [mikrobloggeriet.doc :as doc]
+   [terra.instance]))
 
 (defn view-doc [doc]
   [:div.doc
@@ -26,6 +29,7 @@
                   [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
                   [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
                   [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"}]
+                  [:script {:type "module" :src "/js/datastar.js" :async true}]
                   [:style (:root samvirk)])
    :body (list [:header
                 [:div.tags
@@ -33,8 +37,7 @@
                  [:div.tag "□ " (:text-color samvirk)]
                  [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
                 [:div.name-mottos
-                 [:a {:href "/"}
-                  "Mikrobloggeriet"]
+                 [:a {:href "/"} "Mikrobloggeriet"]
                  [:p motto]]]
                [:container
                 [:section.navigation
@@ -53,8 +56,10 @@
 (defn innhold->hiccup [innhold]
   (let [{:keys [headers body]} (render innhold)]
     [:html {:lang "en"}
-     (into [:head] headers)
-     (into [:body] body)]))
+     [:head headers]
+     [:body
+      [:span {:data-init "@get('/sse')" :style {:display "none"}}]
+      [:div {:id "morph"} body]]]))
 
 (def mottos
   ["Skaperglede. Levert."
@@ -80,6 +85,13 @@
   {:docs (-> (requiring-resolve 'mikrobloggeriet.state/datomic) deref doc/latest)
    :samvirk (samvirk/load)
    :motto (rand-nth mottos)})
+
+(when (env/dev?)
+  (let [{:keys [headers body]}
+        (render (hent-innhold!))]
+    (terra.instance/push-all! (hiccup.core/html [:div {:id "morph"} body]))
+    (terra.instance/push-all! (hiccup.core/html [:head headers]))
+    ))
 
 (comment
   (set! *print-namespace-maps* false)
