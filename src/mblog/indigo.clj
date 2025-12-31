@@ -4,12 +4,6 @@
    [mblog.samvirk :as samvirk]
    [mikrobloggeriet.doc :as doc]))
 
-(defn title-or-slug
-  "Finds the title if present, otherwise falls back to slug"
-  [doc]
-  (or (doc/cleaned-title doc)
-      (:doc/slug doc)))
-
 (defn view-doc [doc]
   [:div.doc
    [:a {:name (:doc/slug doc)}]
@@ -58,7 +52,7 @@
       [:nav
        (for [doc docs]
          [:a.navList.docSelector {:href (str "#" (:doc/slug doc))}
-          [:p.navTitle (title-or-slug doc)]
+          [:p.navTitle (doc/title-or-slug doc)]
           [:div.navListData
            [:p.navMeta (doc/created-date doc)]
            [:p.navMeta "/"]
