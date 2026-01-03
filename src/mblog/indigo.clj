@@ -82,9 +82,9 @@
 (defn hent-innhold!
   "Hent innhold uten å gå via noen request. Kun for lokal utvikling."
   []
-  (let [datomic-var (requiring-resolve 'mikrobloggeriet.state/datomic)]
-    (when (bound? datomic-var)
-      {:docs (-> datomic-var deref doc/latest)
+  (let [datomic (-> 'mikrobloggeriet.state/datomic requiring-resolve deref)]
+    (when datomic
+      {:docs (doc/latest datomic)
        :samvirk (samvirk/load)
        :motto (rand-nth mottos)})))
 
