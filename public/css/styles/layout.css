@@ -38,7 +38,7 @@ header {
     align-items: flex-start;
     animation: header-load var(--load-animation);
     
-    a{
+    a {
         font-size: clamp(2.5rem, 1.702rem + 2.553vw, 5rem);
         font-family: var(--main-font);
         text-decoration: none;
