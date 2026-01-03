@@ -1,6 +1,6 @@
 
 :root {
-    --load-animation: 0.7s ease-in-out 0.4s backwards;
+    --load-animation: 0.3s ease-in-out 0.15s backwards;
 }
 
 ::selection {
