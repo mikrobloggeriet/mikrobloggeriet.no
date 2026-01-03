@@ -2,6 +2,7 @@
   (:require
    [clj-reload.core]
    [datomic.api :as d]
+   [mblog.env :as env]
    [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]
@@ -73,7 +74,11 @@
 ;; HTTP-servern i prod, vil du krasje prod (som vil føre til en restart, som er
 ;; helt OK, men også kan gjøres med `garden restart`).
 
+(defn dev-start! []
+  (require 'dev))
+
 (defn ^:export start! [{:keys [port]}]
+  (when (env/dev?) (dev-start!))
   (set! *print-namespace-maps* false)
   (time-literals.read-write/print-time-literals-clj!)
   (clj-reload.core/init {:dirs ["src" "dev" "test"]
