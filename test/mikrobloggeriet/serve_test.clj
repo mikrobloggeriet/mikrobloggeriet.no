@@ -1,7 +1,7 @@
 (ns mikrobloggeriet.serve-test
   (:require
    [clojure.string :as str]
-   [clojure.test :refer [deftest is]]
+   [clojure.test :refer [deftest is testing]]
    [clojure.walk :refer [prewalk]]
    [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]
@@ -9,6 +9,19 @@
    [reitit.ring]))
 
 (def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
+
+(deftest index-test
+  (let [index-resp (serve/index {:mikrobloggeriet.system/datomic db})
+        index (:body index-resp)]
+    (testing "An index was returned"
+      (is (some? index)))
+
+    (testing "Index looks like html"
+      (is (and (string? index)
+               (str/starts-with? index "<!DOCTYPE"))))
+
+    (testing "Index refers to olorm-4"
+      (is (str/includes? index "/olorm/olorm-4")))))
 
 (deftest doc-test
   (let [ring-handler (serve/create-ring-handler)
