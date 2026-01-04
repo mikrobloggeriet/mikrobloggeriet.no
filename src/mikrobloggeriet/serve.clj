@@ -9,7 +9,6 @@
    [hiccup.page :as page]
    [mblog.dsminimal :as dsminimal]
    [mblog.indigo]
-   [mblog.mime :as mime]
    [mblog.page-machinery :as page-machinery]
    [mblog.page-registry :as page-registry]
    [mikrobloggeriet.cohort :as cohort]
@@ -28,6 +27,7 @@
    [ring.middleware.cookies :as cookies]
    [ring.middleware.gzip]
    [ring.middleware.params]
+   [terra.assetwatch]
    [terra.instance]))
 
 (defn set-theme [req]
@@ -281,9 +281,7 @@
                               :middleware [reitit.ring.middleware.parameters/parameters-middleware]}]]))
    (reitit.ring/routes
     (reitit.ring/redirect-trailing-slash-handler)
-    (reitit.ring/create-file-handler {:path "/"
-                                      :root "public"
-                                      :mime-types mime/mime-types}))))
+    #'terra.assetwatch/handler)))
 
 (def router (create-ring-handler))
 
