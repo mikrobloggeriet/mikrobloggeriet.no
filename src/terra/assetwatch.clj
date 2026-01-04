@@ -1,27 +1,8 @@
 (ns terra.assetwatch
-  "Watch ONE folder and serve assets from it"
-  ;; This namespace was almost named "eye" to be the "eye of the beholder".
+  "Watch one folder, serve assets, and notify on changes"
   (:require [babashka.fs :as fs]
             [mblog.mime]
             [nextjournal.beholder :as beholder]))
-
-;; Help Datastar Clojurians push changed assets to the browser
-
-;; = PRIMITIVES
-;; Watcher
-;; File path
-;; Cache key
-
-;; = DERIVED
-;; Web path
-
-;; = INTERFACE
-;; Asset-changed hook
-;; - File path
-;; - Cache key
-;; - Web path
-;;
-;; Ring handler
 
 (defonce !watcher (atom nil))
 (defonce !folder (atom nil))
@@ -69,3 +50,49 @@
           {:status 200
            :headers {"Content-Type" (mblog.mime/file->type file)}
            :body (fs/file file)})))))
+
+(comment
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; DESIGN NOTES
+
+  ;; Help Datastar Clojurians push changed assets to the browser
+
+  ;; = PRIMITIVES
+  ;; Watcher
+  ;; File path
+  ;; Cache key
+
+  ;; = DERIVED
+  ;; Web path
+
+  ;; = INTERFACE
+  ;; Asset-changed hook
+  ;; - File path
+  ;; - Cache key
+  ;; - Web path
+  ;;
+  ;; Ring handler
+  ;; - Serve files with correct cache key as 200
+  ;; - Redirect outdated assets with a redirect
+  ;;   (not sure if permanent or temporary? Or moved?)
+
+  ;; = DOM
+  ;; - Add data-asset-originator to served assets
+  ;; - Use data-asset-originator as morph target for changes
+
+  ;; = DELIVERY
+  ;; Step 1
+  ;; Ring handler + mapping from path to cache stamped path may be delivered without weird API changes.
+  ;; But we then have to stop direct-linking to non-cache-stamped paths.
+  ;;
+  ;; Step 2
+  ;; - Need Datastar script loaded in HTML
+  ;; - Need machinery for stitching together HTML / Hiccup
+
+  ;; = PLAYING AROUND
+  ;; Once we get this working, we have quite a nice JS playground!
+  ;; It'll reload *really really fast*, faster than any other mechanisms I've seen, mostly due to *narrow* reloading.
+  ;; Also, it keeps you keenly in control of your own HTML.
+  ;; Would be quite nice to use from Babashka, actually.
+
+  )
