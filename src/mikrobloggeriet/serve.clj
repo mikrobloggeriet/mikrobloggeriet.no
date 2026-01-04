@@ -27,7 +27,7 @@
    [ring.middleware.cookies :as cookies]
    [ring.middleware.gzip]
    [ring.middleware.params]
-   [terra.assetwatch]
+   [terra.assetwatch :as assetwatch]
    [terra.instance]))
 
 (defn set-theme [req]
@@ -281,7 +281,9 @@
                               :middleware [reitit.ring.middleware.parameters/parameters-middleware]}]]))
    (reitit.ring/routes
     (reitit.ring/redirect-trailing-slash-handler)
-    #'terra.assetwatch/handler)))
+    #'assetwatch/handler)))
+
+(assetwatch/watch! "public")
 
 (def router (create-ring-handler))
 

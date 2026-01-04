@@ -81,6 +81,7 @@
     (is (= 200
            (:status (serve/ring-handler
                     {:uri (str "/" css)
-                     :request-method :get}))))))
+                     :request-method :get})))
+        css)))
 
 #_(serve/ring-handler {:request-method :get :uri "/theme1.css"})
