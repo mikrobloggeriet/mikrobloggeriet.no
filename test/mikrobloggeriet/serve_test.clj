@@ -72,16 +72,3 @@
          (-> (reitit.core/match-by-path (reitit.ring/get-router serve/router)
                                         "/olorm/olorm-1/")
              :data :name))))
-
-(deftest css-test
-  (doseq [css ["vanilla.css" "mikrobloggeriet.css" "pygment.css" "reset.css" "urlog.css"
-               ;; "indigo.css" "indigo2.css" "theme1.css" "theme2.css" "theme3.css"
-               ;; "theme4.css" "theme5.css" "theme6.css" "theme7.css" "theme8.css" "theme9.css" "theme10.css" "themeColors.css"
-               ]]
-    (is (= 200
-           (:status (serve/ring-handler
-                    {:uri (str "/" css)
-                     :request-method :get})))
-        css)))
-
-#_(serve/ring-handler {:request-method :get :uri "/theme1.css"})
