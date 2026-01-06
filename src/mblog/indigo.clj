@@ -90,7 +90,7 @@
 
 (when (env/dev?)
   (when-let [innhold (hent-innhold!)]
-    (let [{:keys [headers body]} innhold]
+    (let [{:keys [headers body]} (render innhold)]
       (terra.instance/push-all! (hiccup.core/html [:div {:id "morph"} body]))
       (terra.instance/push-all! (hiccup.core/html [:head headers]))
       )))
