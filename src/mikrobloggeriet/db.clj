@@ -93,7 +93,7 @@
 
 ;; Cohorts and authors are added by hand!
 
-(def cohorts
+(def bundled-cohorts
   {:cohort/iterate
    {:cohort/root "text/iterate",
     :cohort/slug "iterate",
@@ -156,6 +156,21 @@
     :cohort/name "LEIK"
     :cohort/description "Maks minimalisme, maks lek."
     }})
+
+(defn load-remote-cohort [root]
+  (assoc (edn/read-string (slurp (fs/file root "cohort.edn")))
+         :cohort/root (str root)))
+
+(defn last-fjernkohort [slug]
+  (load-remote-cohort (fs/file (System/getenv "GARDEN_STORAGE") slug)))
+
+(def fjernkohortene
+  (when (fs/exists? (fs/file (System/getenv "GARDEN_STORAGE") "enklere"))
+    {:cohort/enklere (last-fjernkohort "enklere")}))
+
+(def cohorts
+  (merge bundled-cohorts
+         fjernkohortene))
 
 (def authors
   [{:author/email "42978548+olavm@users.noreply.github.com" :author/first-name "Olav"}
