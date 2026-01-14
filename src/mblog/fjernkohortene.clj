@@ -1,6 +1,5 @@
 (ns mblog.fjernkohortene
-  (:require [babashka.fs :as fs]
-            [babashka.http-client :as http-client]))
+  (:require [babashka.fs :as fs]))
 
 (defn cohort-file [cohort & fs]
   (apply fs/file
@@ -10,7 +9,7 @@
 
 (defn realize-cohort [cohort]
   (fs/create-dirs (cohort-file cohort))
-  (spit (cohort-file cohort "cohort.edn") (pr-str cohort)))
+  (spit (cohort-file cohort "cohort.edn") (pr-str (dissoc cohort :cohort/root))))
 
 (defn realize-doc [{:as doc :keys [slug md meta]} cohort]
   (fs/create-dirs (cohort-file cohort slug))
