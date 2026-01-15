@@ -1,5 +1,5 @@
 :root {
     --main-font: "Noto Serif", serif;
     --main-font-size: clamp(1.06rem, 1vw, 1.36rem);
-    --main-line-height: 190%;
+    --main-line-height: 160%;
 }
