@@ -2,8 +2,8 @@
   (:refer-clojure :exclude [next])
   (:require
    [hiccup.page]
+   [mblog.cohort :as cohort]
    [mblog.doc :as doc]
-   [mikrobloggeriet.cohort :as cohort]
    [mikrobloggeriet.ui.shared :as ui.shared]))
 
 (defn previous-next-navigator [previous doc next]

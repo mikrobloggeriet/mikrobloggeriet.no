@@ -4,8 +4,8 @@
    [babashka.fs :as fs]
    [clojure.edn :as edn]
    [datomic.api :as d]
-   [mblog.leik]
-   [mikrobloggeriet.cohort :as cohort]))
+   [mblog.cohort :as cohort]
+   [mblog.leik]))
 
 ;; Database schema
 (def schema

@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.cohort
+(ns mblog.cohort
   (:require
    [datomic.api :as d]))
 
