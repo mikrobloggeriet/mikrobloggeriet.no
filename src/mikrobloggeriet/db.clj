@@ -157,12 +157,10 @@
     :cohort/description "Maks minimalisme, maks lek."
     }})
 
-(defn load-remote-cohort [root]
-  (assoc (edn/read-string (slurp (fs/file root "cohort.edn")))
-         :cohort/root (str root)))
-
 (defn last-fjernkohort [slug]
-  (load-remote-cohort (fs/file (System/getenv "GARDEN_STORAGE") slug)))
+  (let [root (fs/file (System/getenv "GARDEN_STORAGE") slug)]
+    (assoc (edn/read-string (slurp (fs/file root "cohort.edn")))
+           :cohort/root (str root))))
 
 (def fjernkohortene
   (when (fs/exists? (fs/file (System/getenv "GARDEN_STORAGE") "enklere"))
