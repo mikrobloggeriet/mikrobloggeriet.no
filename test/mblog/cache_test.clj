@@ -1,8 +1,8 @@
-(ns mikrobloggeriet.cache-test
+(ns mblog.cache-test
   (:require [clojure.string :as str]
             [clojure.test :refer [deftest is testing]]
             [lookup.core :as lookup]
-            [mikrobloggeriet.cache :as cache]))
+            [mblog.cache :as cache]))
 
 (deftest cache-fn-by
   (is (= ((cache/cache-fn-by (atom {})

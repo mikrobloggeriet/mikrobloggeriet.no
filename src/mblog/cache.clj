@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.cache
+(ns mblog.cache
   "Atom-backed caching for Clojure functions and a prebaked cached markdown transofrmation"
   (:require
    [clojure.string :as str]

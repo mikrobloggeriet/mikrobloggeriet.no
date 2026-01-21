@@ -3,7 +3,7 @@
   (:require
    [clojure.string :as str]
    [datomic.api :as d]
-   [mikrobloggeriet.cache :as cache]))
+   [mblog.cache :as cache]))
 
 (defn created-date [doc]
   (some-> doc :doc/created
