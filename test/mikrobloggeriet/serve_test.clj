@@ -3,7 +3,7 @@
    [clojure.string :as str]
    [clojure.test :refer [deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   [mikrobloggeriet.db :as db]
+   [mblog.db :as db]
    [mikrobloggeriet.serve :as serve]
    [reitit.core]
    [reitit.ring]))

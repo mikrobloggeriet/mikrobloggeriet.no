@@ -1,7 +1,8 @@
-(ns mikrobloggeriet.db-test
-  (:require [clojure.test :refer [deftest is testing]]
-            [datomic.api :as d]
-            [mikrobloggeriet.db :as db]))
+(ns mblog.db-test
+  (:require
+   [clojure.test :refer [deftest is testing]]
+   [datomic.api :as d]
+   [mblog.db :as db]))
 
 (deftest valid-cohort-data
   (doseq [cohort (vals db/cohorts)]

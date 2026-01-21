@@ -1,8 +1,8 @@
 (ns mikrobloggeriet.cohort-test
   (:require
    [clojure.test :refer [deftest is testing]]
-   [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.db :as db]))
+   [mblog.db :as db]
+   [mikrobloggeriet.cohort :as cohort]))
 
 (deftest href-test
   (is (= "/urlog/"

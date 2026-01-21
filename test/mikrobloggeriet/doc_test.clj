@@ -3,7 +3,7 @@
    [clojure.string :as str]
    [clojure.test :refer [deftest is testing]]
    [datomic.api :as d]
-   [mikrobloggeriet.db :as db]
+   [mblog.db :as db]
    [mikrobloggeriet.doc :as doc]))
 
 (deftest created-date

@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.db
+(ns mblog.db
   "Load what we know about cohorts and docs."
   (:require
    [babashka.fs :as fs]

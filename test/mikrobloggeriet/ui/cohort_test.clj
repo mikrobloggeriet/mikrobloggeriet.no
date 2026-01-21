@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.test :refer [deftest is]]
             [datomic.api :as d]
-            [mikrobloggeriet.db :as db]
+            [mblog.db :as db]
             [mikrobloggeriet.ui.cohort :as ui.cohort]))
 
 (deftest doc-table-test

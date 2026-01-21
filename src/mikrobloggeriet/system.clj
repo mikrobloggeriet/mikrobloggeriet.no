@@ -2,9 +2,9 @@
   (:require
    [clj-reload.core]
    [datomic.api :as d]
+   [mblog.db :as db]
    [mblog.env :as env]
    [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.db :as db]
    [mikrobloggeriet.serve :as serve]
    [mikrobloggeriet.state :as state]
    [nextjournal.beholder :as beholder]

@@ -1,9 +1,9 @@
 (ns mblog.indigo-test
   (:require
    [clojure.test :refer [deftest is]]
+   [mblog.db :as db]
    [mblog.indigo :as indigo]
-   [mblog.samvirk :as samvirk]
-   [mikrobloggeriet.db :as db]))
+   [mblog.samvirk :as samvirk]))
 
 (deftest left-bar
   (is
