@@ -1,7 +1,7 @@
 (ns mikrobloggeriet.ui.index
   (:require
-   [mikrobloggeriet.cohort :as cohort]
-   [mikrobloggeriet.doc :as doc]))
+   [mblog.doc :as doc]
+   [mikrobloggeriet.cohort :as cohort]))
 
 (defn cohort-section [cohort]
   [:section

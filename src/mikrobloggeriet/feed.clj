@@ -1,7 +1,7 @@
 (ns mikrobloggeriet.feed
   (:require
    [hiccup2.core :as hiccup]
-   [mikrobloggeriet.doc :as doc]))
+   [mblog.doc :as doc]))
 
 (defn generate-feed [docs]
   [:feed

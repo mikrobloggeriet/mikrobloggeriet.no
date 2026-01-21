@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.doc-test
+(ns mblog.doc-test
   (:require
    [clojure.string :as str]
    [clojure.test :refer [deftest is testing]]

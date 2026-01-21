@@ -28,7 +28,7 @@ Jeg lover!!!"
 
 (comment
   (require '[datomic.api :as d]
-           '[mikrobloggeriet.doc :as doc]
+           '[mblog.doc :as doc]
            '[mikrobloggeriet.state])
   (def olorm-1 (d/entity mikrobloggeriet.state/datomic
                          [:doc/slug "olorm-1"]))

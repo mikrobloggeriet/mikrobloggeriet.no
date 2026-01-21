@@ -3,7 +3,7 @@
    [clojure.string :as str]
    [datomic.api :as d]
    [hiccup.page :as page]
-   [mikrobloggeriet.doc :as doc]
+   [mblog.doc :as doc]
    [mikrobloggeriet.ui.shared :as ui.shared]))
 
 (defn doc-table [db cohort req]

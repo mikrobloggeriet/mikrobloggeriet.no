@@ -1,10 +1,10 @@
 (ns mblog.indigo
   (:require
    [hiccup.core]
+   [mblog.doc :as doc]
    [mblog.env :as env]
    [mblog.hiccup :as hiccup]
    [mblog.samvirk :as samvirk]
-   [mikrobloggeriet.doc :as doc]
    [terra.instance]))
 
 (defn view-doc [doc]

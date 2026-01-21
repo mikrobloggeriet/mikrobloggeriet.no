@@ -12,7 +12,7 @@
 
 (deftest doc-test
   (testing "Docs have cohorts"
-    (let [db (db/loaddb {:cohorts db/cohorts :authors db/authors})]
+    (let [db (time (db/loaddb {:cohorts db/cohorts :authors db/authors}))]
       (testing "olorm funker fjell"
         (is (= (d/entity db [:cohort/id :cohort/olorm])
                (:doc/cohort (d/entity db [:doc/slug "olorm-12"])))))
