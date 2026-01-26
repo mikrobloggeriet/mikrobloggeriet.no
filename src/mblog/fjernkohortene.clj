@@ -25,13 +25,6 @@
         (realize-doc doc cohort)))))
 
 (comment
-  (mapv str (fs/glob (cohort-file enklere) "**/*"))
-  (fs/list-dir (cohort-file enklere))
-  (fs/delete-tree (cohort-file enklere))
-  (realize-manifest manifest)
-  )
-
-(comment
   ;; Filstruktur hos Mikrobloggeriet:
   ;;
   ;; enklere/
@@ -53,13 +46,31 @@
       :docs
       ({:doc/cohort [:cohort/id :cohort/enklere],
         :slug "enklere-1",
-        :md {:href "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/5d9c9172f29fa62f6d5c20177ee14203b80be9c2/enklere/enklere-1/index.md"},
-        :meta {:href "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/5d9c9172f29fa62f6d5c20177ee14203b80be9c2/enklere/enklere-1/meta.edn"}}
+        :md
+        {:href
+         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-1/index.md"},
+        :meta
+        {:href
+         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-1/meta.edn"}}
+       {:doc/cohort [:cohort/id :cohort/enklere],
+        :slug "enklere-3",
+        :md
+        {:href
+         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-3/index.md"},
+        :meta
+        {:href
+         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-3/meta.edn"}}
        {:doc/cohort [:cohort/id :cohort/enklere],
         :slug "enklere-2",
-        :md {:href "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/5d9c9172f29fa62f6d5c20177ee14203b80be9c2/enklere/enklere-2/index.md"},
-        :meta {:href "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/5d9c9172f29fa62f6d5c20177ee14203b80be9c2/enklere/enklere-2/meta.edn"}}),
-      :rev "5d9c9172f29fa62f6d5c20177ee14203b80be9c2"})
+        :md
+        {:href
+         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-2/index.md"},
+        :meta
+        {:href
+         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-2/meta.edn"}}),
+      :rev "8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7"})
+
+  (realize-manifest manifest)
 
   (def enklere (-> manifest :cohorts first))
   (def id->cohort (into {} (map (juxt :cohort/id identity)) (:cohorts manifest)))
