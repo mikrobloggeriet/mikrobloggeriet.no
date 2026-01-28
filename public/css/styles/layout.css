@@ -76,6 +76,7 @@ header {
       align-self: flex-end;
       justify-content: flex-start;
       gap: 8px;
+      flex-wrap: wrap;
     }
     
     .tag {
