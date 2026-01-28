@@ -32,13 +32,15 @@
     [:container
      [:section.navigation
       [:nav
-       (for [doc docs]
-         [:a.navList.docSelector {:href (doc->href doc)}
-          [:p.navTitle (doc/title-or-slug doc)]
+       (for [linked-doc docs]
+         [:a.navList.docSelector {:href (doc->href linked-doc)
+                                  :class (when (= doc linked-doc)
+                                           "selected")}
+          [:p.navTitle (doc/title-or-slug linked-doc)]
           [:div.navListData
-           [:p.navMeta (doc/created-date doc)]
+           [:p.navMeta (doc/created-date linked-doc)]
            [:p.navMeta "/"]
-           [:p.navMeta (:doc/slug doc)]]])]]
+           [:p.navMeta (:doc/slug linked-doc)]]])]]
      [:section.content
       [:div.docView (indigo/view-doc doc)]]]
     [:footer

@@ -171,7 +171,7 @@ nav {
     }
 }
 
-.navList:hover {
+.navList:hover, .navList.selected {
     background-color: var(--first100);
     cursor: cell;
     transition: ease-out 0s;
