@@ -21,7 +21,7 @@ body {
 }
 
 header {
-    height: 15vh;
+    height: fit-content;
     background-color: var(--second100);
     color: var(--first100);
     border-bottom: 1px solid var(--first20);
