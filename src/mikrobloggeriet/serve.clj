@@ -14,6 +14,7 @@
    [mblog.indigo]
    [mblog.page-machinery :as page-machinery]
    [mblog.page-registry :as page-registry]
+   [mblog.ui.doc]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.feed :as feed]
    [mikrobloggeriet.http :as http]
@@ -205,13 +206,20 @@
     (when-let [page (get page-registry/registry page-id)]
       (page-machinery/respond request page))))
 
+(defn redirect-to-latest [req]
+  (let [db (:mikrobloggeriet.system/datomic req)
+        target-doc (first (doc/latest db))]
+    {:status 307
+     :headers {"Location" (mblog.ui.doc/doc->href target-doc)}
+     :body ""}))
+
 (defn create-ring-handler
   []
   (reitit.ring/ring-handler
    (reitit.ring/router
     (concat
 
-     [["/" {:get #'serve-page
+     [["/" {:get #'redirect-to-latest
             :head #'health ;; HEAD / is Application.Garden's health check
             :name :page/indigo}]
 

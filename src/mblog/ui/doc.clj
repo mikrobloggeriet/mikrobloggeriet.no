@@ -8,6 +8,25 @@
 (defn doc->href [doc]
   (str "/doc/" (:doc/slug doc)))
 
+(defn doc->href-FUTURE-AWESOME
+  ;; Neno og Teodor har future-proofet litt.
+  ;; Vi ønsker å ha *en* URL per dokument.
+  ;; I dag har vi to.
+  ;; Feks:
+  ;;  /doc/enklere-1
+  ;;  /enklere/enklere-1
+  ;;
+  ;; Det kan vi løse ved å kun bruke /enklere/enklere-1 - fordi det er den gamle URL-en.
+  ;;
+  ;; MEN den endringen klarer vi ikke gjøre nå, fordi det ikke er *en* route som
+  ;; lager /enklere/enklere-1, men mange. /*/*/ er en for bred match!
+  ;;
+  ;; Så det blir et problem for framtidens Neno og framtidens Teodor.
+  [doc]
+  (str "/" (-> doc :doc/cohort :cohort/slug)
+       "/" (:doc/slug doc)
+       "/"))
+
 (defn doc->hiccup [{:keys [doc docs samvirk]}]
   [:html {:lang "en"}
    [:head
@@ -56,9 +75,13 @@
 
 (comment
   (require 'mikrobloggeriet.state)
-  (def olorm-1 (d/entity mikrobloggeriet.state/datomic
-                         [:doc/slug "olorm-1"]))
+  (def doc (d/entity mikrobloggeriet.state/datomic
+                     [:doc/slug "olorm-1"]))
 
-  (doc->href olorm-1)
+  (:doc/slug doc)
+  ;; => "olorm-1"
+
+  (:cohort/slug (:doc/cohort doc))
+  ;; => "olorm"
 
   )
