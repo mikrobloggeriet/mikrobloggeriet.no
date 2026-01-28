@@ -1,56 +1,62 @@
 (ns mblog.ui.doc
   (:require
    [datomic.api :as d]
-   [mblog.doc :as doc]))
+   [mblog.doc :as doc]
+   [mblog.indigo :as indigo]
+   [mblog.samvirk :as samvirk]))
 
-;; (def css-vars ":root {\n   --first100: rgb(145,193,233);\n   --first80: rgba(145,193,233, 0.8);\n   --first50: rgba(145,193,233, 0.5);\n   --first20: rgba(145,193,233, 0.2);\n   --first10: rgba(145,193,233, 0.1);\n   --second100: rgb(26,44,91);\n   --second80: rgba(26,44,91, 0.8);\n   --second50: rgba(26,44,91, 0.5);\n   --second20: rgba(26,44,91, 0.2);\n   --second10: rgba(26,44,91, 0.1);\n}")
+(defn doc->href [doc]
+  (str "/doc/" (:doc/slug doc)))
 
-
-(def css-vars ":root {
-
-   --first80: rgba(145,193,233, 0.8);
-   --first50: rgba(145,193,233, 0.5);
-   --first20: rgba(145,193,233, 0.2);
-   --first10: rgba(145,193,233, 0.1);
-   --second100: rgb(26,44,91);
-   --second80: rgba(26,44,91, 0.8);
-   --second50: rgba(26,44,91, 0.5);
-   --second20: rgba(26,44,91, 0.2);
-   --second10: rgba(26,44,91, 0.1);
-}")
-
-
-(def bringebær "rgb(198, 12, 90)")
-
-(def grønn "#a0fb6c")
-
-(def more-css-vars
-  (str ":root {"
-       "--first100: " bringebær ";"
-       "--second100: " grønn ";"
-       "}"))
-
-
-(defn doc->hiccup [doc]
+(defn doc->hiccup [{:keys [doc docs samvirk]}]
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]
-    [:link {:rel "stylesheet" :href "/css/styles/doc.css"}]
-    [:style css-vars]
-    [:style more-css-vars]
-    [:style "p {max-width: 60rem};"]]
+    [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
+    [:link {:rel "stylesheet" :href "/css/styles/layout.css"}]
+    [:link {:rel "stylesheet" :href "/css/styles/content.css"}]
+    [:link {:rel "stylesheet" :href (samvirk/font-path samvirk)}]
+    [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
+    [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
+    [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"}]
+    [:style (:root samvirk)]]
    [:body
-    [:div
-     (-> doc doc/hiccup)]
+    [:header
+     [:div.tags
+      [:div.tag "■ " (:bg-color samvirk)]
+      [:div.tag "□ " (:text-color samvirk)]
+      [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
+     [:div.name-mottos
+      [:a {:href "/"} "Mikrobloggeriet"]
+      [:p (rand-nth indigo/mottos)]]]
+    [:container
+     [:section.navigation
+      [:nav
+       (for [doc docs]
+         [:a.navList.docSelector {:href (doc->href doc)}
+          [:p.navTitle (doc/title-or-slug doc)]
+          [:div.navListData
+           [:p.navMeta (doc/created-date doc)]
+           [:p.navMeta "/"]
+           [:p.navMeta (:doc/slug doc)]]])]]
+     [:section.content
+      [:div.docView (indigo/view-doc doc)]]]
     [:footer
      [:a {:href "/"}
       [:p "Mikrobloggeriet"]]]]])
 
-(defn req->doc [req]
-  (d/entity (:mikrobloggeriet.system/datomic req)
-            [:doc/slug (-> req :reitit.core/match :path-params :slug)]))
+(defn req->innhold [req]
+  (let [datomic (:mikrobloggeriet.system/datomic req)
+        slug (-> req :reitit.core/match :path-params :slug)]
+    {:docs (doc/latest datomic)
+     :doc (d/entity datomic [:doc/slug slug])
+     :samvirk (samvirk/load)}))
 
 (comment
   (require 'mikrobloggeriet.state)
   (def olorm-1 (d/entity mikrobloggeriet.state/datomic
-                         [:doc/slug "olorm-1"])))
+                         [:doc/slug "olorm-1"]))
+
+  (doc->href olorm-1)
+
+  )

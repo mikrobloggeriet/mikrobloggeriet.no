@@ -17,7 +17,7 @@
 
    :page/doc
    (define-page
-     {:pagemaker/prepare-data #'ui.doc/req->doc
+     {:pagemaker/prepare-data #'ui.doc/req->innhold
       :pagemaker/render #'ui.doc/doc->hiccup})
 
    :page/content-design
