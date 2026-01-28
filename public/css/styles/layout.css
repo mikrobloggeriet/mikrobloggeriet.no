@@ -1,8 +1,3 @@
-
-:root {
-    --load-animation: 0.3s ease-in-out 0.15s backwards;
-}
-
 ::selection {
     color: var(--second100);
     background-color: var(--first100);
@@ -36,7 +31,6 @@ header {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    animation: header-load var(--load-animation);
     
     a {
         font-size: clamp(2.5rem, 1.702rem + 2.553vw, 5rem);
@@ -46,7 +40,6 @@ header {
         font-weight: 400;
         line-height: 150%;
         letter-spacing: -2px;
-        animation: header-a-load var(--load-animation);
     }
 
     a:hover {
@@ -54,22 +47,8 @@ header {
         color: inherit;
     }
 }
-
-@keyframes header-load {
-    from {
-      height: 98vh;
-      padding: 12px 12px 2vh 12px;
-    }
-  }
-
-  @keyframes header-a-load {
-    from {
-        font-size: clamp(7rem, 1.702rem + 2.553vw, 12rem);
-    }
-  }
-
   
-  .tags {
+.tags {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
@@ -111,15 +90,7 @@ container {
     height: 85vh;
     display: flex;
     flex-direction: row;
-
-    animation: container-load var(--load-animation);
 }
-
-@keyframes container-load {
-    from {
-      height: 0vh;
-    }
-  }
 
 section {
     display: flex;
@@ -262,16 +233,8 @@ nav {
     
         > a { 
             font-size: clamp(4rem, 1.3rem + 4vw, 6rem);
-            animation: header-a-load-small var(--load-animation);
         }
     }
-    
-    @keyframes header-a-load {
-        from {
-            font-size: clamp(4rem, 1.3rem + 4vw, 6rem);
-        }
-    }
-    
     
     .tags {
         align-self: flex-start;
