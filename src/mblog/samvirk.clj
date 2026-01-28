@@ -20,7 +20,7 @@
 (def fonts (filenames "public/css/fonts"))
 
 (defn font-path [{:keys [font]}]
-  (str "css/fonts/" font))
+  (str "/css/fonts/" font))
 
 (defn read-font [{:keys [font]}]
   (slurp (str "public/css/fonts/" font)))

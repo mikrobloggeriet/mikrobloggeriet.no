@@ -23,8 +23,8 @@
 (defn render [{:keys [docs samvirk motto]}]
   {:headers (list [:meta {:charset "utf-8"}]
                   [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
-                  [:link {:rel "stylesheet" :href "css/styles/layout.css"}]
-                  [:link {:rel "stylesheet" :href "css/styles/content.css"}]
+                  [:link {:rel "stylesheet" :href "/css/styles/layout.css"}]
+                  [:link {:rel "stylesheet" :href "/css/styles/content.css"}]
                   [:link {:rel "stylesheet" :href (samvirk/font-path samvirk)}]
                   ;; Google fonts
                   [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
