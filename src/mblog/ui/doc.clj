@@ -5,6 +5,8 @@
    [mblog.indigo :as indigo]
    [mblog.samvirk :as samvirk]))
 
+(def mobile-menu? false)
+
 (defn doc->href [doc]
   (str "/doc/" (:doc/slug doc)))
 
@@ -47,7 +49,17 @@
       [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
      [:div.name-mottos
       [:a {:href "/"} "Mikrobloggeriet"]
-      [:p (rand-nth indigo/mottos)]]]
+      [:p (rand-nth indigo/mottos)]]
+     (when mobile-menu?
+       (list
+        [:input#mobile-menu-toggle.mobile-menu-toggle {:type "checkbox"}]
+        [:label.mobile-menu-button {:for "mobile-menu-toggle"} "Meny"]
+        [:nav.mobile-nav
+         [:ul
+          [:li [:a {:href "#"} "Item 1"]]
+          [:li [:a {:href "#"} "Item 2"]]
+          [:li [:a {:href "#"} "Item 3"]]
+          [:li [:a {:href "#"} "Item 4"]]]]))]
     [:container
      [:section.navigation
       [:nav

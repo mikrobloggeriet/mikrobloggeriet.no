@@ -216,6 +216,19 @@ nav {
     width: 50%;
 }
 
+/* Mobile menu - CSS only */
+.mobile-menu-toggle {
+    display: none;
+}
+
+.mobile-menu-button {
+    display: none;
+}
+
+.mobile-nav {
+    display: none;
+}
+
 @media screen and (max-width: 800px) {
     .navList {
         flex-direction: column;
@@ -225,26 +238,26 @@ nav {
     .navTitle {
         max-width: 100%;
     }
-    
+
     header {
         flex-direction: column;
         align-items: flex-start;
         padding-bottom: 12px;
-    
-        > a { 
+
+        > a {
             font-size: clamp(4rem, 1.3rem + 4vw, 6rem);
         }
     }
-    
+
     .tags {
         align-self: flex-start;
     }
-    
+
     .name-mottos {
         align-items: flex-start;
         flex-direction: column;
-        > p { 
-            padding: 0; 
+        > p {
+            padding: 0;
             margin: 0;
         }
     }
@@ -253,7 +266,37 @@ nav {
 
 @media screen and (max-width: 600px) { /* Mobile */
 
-    container { 
+    .mobile-menu-button {
+        display: inline-block;
+        cursor: pointer;
+        padding: 8px 12px;
+        border: 1px solid var(--first20);
+        border-radius: 4px;
+        margin-top: 12px;
+    }
+
+    .mobile-nav {
+        display: none;
+        margin-top: 12px;
+        border-top: 1px solid var(--first20);
+        padding-top: 12px;
+    }
+
+    .mobile-menu-toggle:checked ~ .mobile-nav {
+        display: block;
+    }
+
+    .mobile-nav nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Hide content when mobile menu is open */
+    body:has(.mobile-menu-toggle:checked) container {
+        display: none;
+    }
+
+    container {
         margin: 0;
         padding: 0;
     }
