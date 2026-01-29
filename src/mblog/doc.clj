@@ -73,3 +73,18 @@
   (rand-nth (->> (all db)
                  (remove :doc/draft?))))
 
+(defn find+nav
+  "Finn dokument per slug, returner også før- og etter"
+  [db slug]
+  (let [chronologically (into [] (latest db))
+        [idx doc] (some->> chronologically
+                           (map-indexed vector)
+                           (filter (fn [[_ doc]]
+                                     (= slug (:doc/slug doc))))
+                           first)]
+    (when doc
+      (let [next (get chronologically (inc idx))
+            prev (get chronologically (dec idx))]
+        (cond-> {:doc doc}
+          next (assoc :next next)
+          prev (assoc :prev prev))))))
