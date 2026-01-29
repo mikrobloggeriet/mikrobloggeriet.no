@@ -29,7 +29,10 @@
        "/" (:doc/slug doc)
        "/"))
 
-(defn doc->hiccup [{:keys [doc docs samvirk]}]
+(defn navigator [label doc icon]
+  [:div label ": " [:a {:href (doc->href doc)} (doc/title-or-slug doc)] " " icon])
+
+(defn doc->hiccup [{:keys [doc docs samvirk next prev]}]
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]
@@ -72,8 +75,12 @@
            [:p.navMeta (doc/created-date linked-doc)]
            [:p.navMeta "/"]
            [:p.navMeta (:doc/slug linked-doc)]]])]]
-     [:section.content
-      [:div.docView (indigo/view-doc doc)]]]
+     (when doc
+       [:section.content
+        [:div.docView (indigo/view-doc doc)]
+        [:div
+         (when prev (navigator "Forrige" prev "↑"))
+         (when next (navigator "Neste" next "↓"))]])]
     [:footer
      [:a {:href "/"}
       [:p "Mikrobloggeriet"]]]]])
@@ -81,9 +88,9 @@
 (defn req->innhold [req]
   (let [datomic (:mikrobloggeriet.system/datomic req)
         slug (-> req :reitit.core/match :path-params :slug)]
-    {:docs (doc/latest datomic)
-     :doc (d/entity datomic [:doc/slug slug])
-     :samvirk (samvirk/load)}))
+    (-> (doc/find+nav datomic slug)
+        (assoc :docs (doc/latest datomic))
+        (assoc :samvirk (samvirk/load)))))
 
 (comment
   (require 'mikrobloggeriet.state)
