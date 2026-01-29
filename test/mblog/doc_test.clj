@@ -35,11 +35,6 @@
     (is (= "Oddmund"
            (doc/author-first-name db olorm-2)))))
 
-(comment
-  (into {} (d/entity db [:author/email "git@teod.eu"]))
-  (:git.user/email (d/entity db [:doc/slug "olorm-2"]))
-  (into {} (d/entity db [:author/email "oddmunds@iterate.no"])))
-
 (deftest title-test
   (is (= "Funksjonell programmering"
          (doc/title {:doc/markdown "# Funksjonell programmering"})))

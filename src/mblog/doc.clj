@@ -56,12 +56,6 @@
 (defn title-or-slug [doc]
   (or (cleaned-title doc) (:doc/slug doc)))
 
-(comment
-  (cache/parse-markdown "# Funksjonell programmering")
-  (title {:doc/markdown "# Funksjonell programmering"})
-  (html {:doc/markdown "# Funksjonell programmering"})
-  )
-
 (defn all [db]
   (->> (d/q '[:find [?eid ...]
               :where [?eid :doc/slug]]
@@ -79,9 +73,3 @@
   (rand-nth (->> (all db)
                  (remove :doc/draft?))))
 
-(comment
-  (require '[mikrobloggeriet.state :as state])
-  (def db state/datomic)
-  (random-published db)
-
-  )
