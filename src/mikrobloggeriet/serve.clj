@@ -254,7 +254,7 @@
                              (http/permanent-redirect {:target (str "/jals/" slug "/")})))}]]
 
      ;; DIV
-     [ ;; Go to a random document
+     [;; Go to a random document
       ["/random-doc" {:get #'random-doc
                       :name :mikrobloggeriet/random-doc}]
 
