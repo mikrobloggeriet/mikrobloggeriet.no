@@ -2,11 +2,11 @@
   (:require [clojure.string :as str]
             [clojure.test :refer [deftest is]]
             [datomic.api :as d]
-            [mblog.db :as db]
+            [mblog.testdb :as testdb]
             [mikrobloggeriet.ui.cohort :as ui.cohort]))
 
 (deftest doc-table-test
-  (let [db (db/loaddb {:cohorts db/cohorts :authors db/authors})
+  (let [db (testdb/get-instance)
         olorm (d/entity db [:cohort/id :cohort/olorm])
         response (ui.cohort/doc-table db olorm {})]
     (is (map? response))

@@ -1,9 +1,9 @@
 (ns mblog.indigo-test
   (:require
    [clojure.test :refer [deftest is]]
-   [mblog.db :as db]
    [mblog.indigo :as indigo]
-   [mblog.samvirk :as samvirk]))
+   [mblog.samvirk :as samvirk]
+   [mblog.testdb :as testdb]))
 
 (deftest left-bar
   (is
@@ -18,10 +18,8 @@
          set)
     "Unminifying av kode med LLM")))
 
-(def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
-
 (deftest req->innhold
-  (let [innhold (indigo/req->innhold {:mikrobloggeriet.system/datomic db})
+  (let [innhold (indigo/req->innhold {:mikrobloggeriet.system/datomic (testdb/get-instance)})
         docs (:docs innhold)
         slugs (->> docs
                    (map :doc/slug)

@@ -4,14 +4,14 @@
    [clojure.test :refer [deftest is testing]]
    [clojure.walk :refer [prewalk]]
    [mblog.db :as db]
+   [mblog.testdb :as testdb]
    [mikrobloggeriet.serve :as serve]
    [reitit.core]
    [reitit.ring]))
 
-(def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
-
 (deftest index-test
-  (let [index-resp (serve/index {:mikrobloggeriet.system/datomic db})
+  (let [db (testdb/get-instance)
+        index-resp (serve/index {:mikrobloggeriet.system/datomic db})
         index (:body index-resp)]
     (testing "An index was returned"
       (is (some? index)))
@@ -24,7 +24,8 @@
       (is (str/includes? index "/doc/olorm-4")))))
 
 (deftest doc-test
-  (let [ring-handler (serve/create-ring-handler)
+  (let [db (testdb/get-instance)
+        ring-handler (serve/create-ring-handler)
         injected-app (fn [req]
                        (ring-handler (assoc req :mikrobloggeriet.system/datomic db)))]
     ;; Sanity test that one document for each cohort renders successfully. Makes

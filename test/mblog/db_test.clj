@@ -2,7 +2,8 @@
   (:require
    [clojure.test :refer [deftest is testing]]
    [datomic.api :as d]
-   [mblog.db :as db]))
+   [mblog.db :as db]
+   [mblog.testdb :as testdb]))
 
 (deftest valid-cohort-data
   (doseq [cohort (vals db/cohorts)]
@@ -12,7 +13,7 @@
 
 (deftest doc-test
   (testing "Docs have cohorts"
-    (let [db (time (db/loaddb {:cohorts db/cohorts :authors db/authors}))]
+    (let [db (testdb/get-instance)]
       (testing "olorm funker fjell"
         (is (= (d/entity db [:cohort/id :cohort/olorm])
                (:doc/cohort (d/entity db [:doc/slug "olorm-12"])))))

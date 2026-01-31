@@ -3,8 +3,8 @@
    [clojure.string :as str]
    [clojure.test :refer [deftest is testing]]
    [datomic.api :as d]
-   [mblog.db :as db]
-   [mblog.doc :as doc]))
+   [mblog.doc :as doc]
+   [mblog.testdb :as testdb]))
 
 (deftest created-date
   (is (= "2025-03-19"
@@ -20,18 +20,19 @@
          (doc/href {:doc/slug "olorm-13"
                     :doc/cohort {:cohort/slug "olorm"}}))))
 
-(def db (db/loaddb {:cohorts db/cohorts :authors db/authors}))
-
 (deftest previous-test
-  (is (= "olorm-1"
-         (:doc/slug (doc/previous db (d/entity db [:doc/slug "olorm-2"]))))))
+  (let [db (testdb/get-instance)]
+    (is (= "olorm-1"
+           (:doc/slug (doc/previous db (d/entity db [:doc/slug "olorm-2"])))))))
 
 (deftest next-test
-  (is (= "olorm-3"
-         (:doc/slug (doc/next db (d/entity db [:doc/slug "olorm-2"]))))))
+  (let [db (testdb/get-instance)]
+    (is (= "olorm-3"
+           (:doc/slug (doc/next db (d/entity db [:doc/slug "olorm-2"])))))))
 
 (deftest author-first-name-test
-  (let [olorm-2 (d/entity db [:doc/slug "olorm-2"])]
+  (let [db (testdb/get-instance)
+        olorm-2 (d/entity db [:doc/slug "olorm-2"])]
     (is (= "Oddmund"
            (doc/author-first-name db olorm-2)))))
 
@@ -75,17 +76,17 @@ Mindre er ofte bedre."}))))
                      "<h1")))
 
 (deftest all-test
-  (is (contains? (->> (doc/all db)
+  (is (contains? (->> (doc/all (testdb/get-instance))
                       (map :doc/slug)
                       (into #{}))
                  "olorm-1")))
 
 (deftest latest-test
-  (is (= (->> (doc/latest db)
+  (is (= (->> (doc/latest (testdb/get-instance))
               (take-last 3)
               (map :doc/slug))
          '("olorm-3" "olorm-2" "olorm-1"))))
 
 (deftest random-doc-test
-  (is (contains? (doc/random-published db)
+  (is (contains? (doc/random-published (testdb/get-instance))
                  :doc/slug)))
