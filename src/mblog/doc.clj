@@ -15,9 +15,8 @@
 
 (defn href
   [doc]
-  (when-let [cohort-slug (-> doc :doc/cohort :cohort/slug)]
-    (when-let [doc-slug (:doc/slug doc)]
-      (str "/" cohort-slug "/" doc-slug "/"))))
+  (when-let [doc-slug (:doc/slug doc)]
+    (str "/doc/" doc-slug)))
 
 (defn previous [db doc]
   (let [previous-number (dec (number doc))
