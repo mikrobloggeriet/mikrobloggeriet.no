@@ -3,7 +3,7 @@
   (:require
    [babashka.fs :as fs]
    [clojure.string :as str]
-   [mikrobloggeriet.contrast :as contrast]))
+   [mblog.contrast :as contrast]))
 
 (defn infer-main-font [css-str]
   (some-> (re-find #"--main-font:\s*(.*?);" css-str)
@@ -59,7 +59,6 @@
 (comment
   (def selection (randomize))
   (hydrate selection)
-  (= (hydrate selection) (hydrate selection))
-  )
+  (= (hydrate selection) (hydrate selection)))
 
 #_(load)

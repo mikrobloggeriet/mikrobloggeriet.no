@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.contrast
+(ns mblog.contrast
   (:require
    [clojure.math :as math]
    [clojure.string :as str]))

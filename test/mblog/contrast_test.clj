@@ -1,6 +1,6 @@
-(ns mikrobloggeriet.contrast-test
+(ns mblog.contrast-test
   (:require [clojure.test :refer [deftest is]]
-            [mikrobloggeriet.contrast :as contrast]
+            [mblog.contrast :as contrast]
             [clojure.string :as str]))
 
 (deftest relative-luminance
@@ -10,7 +10,7 @@
 (deftest luminance
   (is (= 21.0
          (contrast/contrast-ratio (contrast/relative-luminance [0 0 0])
-                             (contrast/relative-luminance [255 255 255]))))
+                                  (contrast/relative-luminance [255 255 255]))))
 
   (is (= 21.0 (contrast/rgb->score [0 0 0] [255 255 255])))
   (is (= 1.0 (contrast/contrast-ratio 1 1))))
