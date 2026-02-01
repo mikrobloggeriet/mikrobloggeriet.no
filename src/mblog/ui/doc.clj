@@ -93,8 +93,8 @@
         (assoc :samvirk (samvirk/load)))))
 
 (comment
-  (require 'mikrobloggeriet.state)
-  (def doc (d/entity mikrobloggeriet.state/datomic
+  (require 'mblog.state)
+  (def doc (d/entity mblog.state/datomic
                      [:doc/slug "olorm-1"]))
 
   (:doc/slug doc)
@@ -102,5 +102,4 @@
 
   (:cohort/slug (:doc/cohort doc))
   ;; => "olorm"
-
   )

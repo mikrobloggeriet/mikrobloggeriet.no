@@ -18,8 +18,8 @@
 
 (defn serialize [feed]
   (str (hiccup/html {:mode :xml}
-         (list (hiccup/raw "<?xml version=\"1.0\" encoding=\"utf-8\"?>")
-               feed))))
+                    (list (hiccup/raw "<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+                          feed))))
 
 (defn handler [req]
   {:status 200
@@ -28,6 +28,5 @@
                                         (remove :doc/draft?))))})
 
 (comment
-  (require '[mikrobloggeriet.state])
-  (handler {:mikrobloggeriet.system/datomic mikrobloggeriet.state/datomic})
-  )
+  (require '[mblog.state])
+  (handler {:mikrobloggeriet.system/datomic mblog.state/datomic}))

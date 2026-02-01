@@ -6,7 +6,7 @@
    [mblog.db :as db]
    [mblog.env :as env]
    [mikrobloggeriet.serve :as serve]
-   [mikrobloggeriet.state :as state]
+   [mblog.state :as state]
    [nextjournal.beholder :as beholder]
    [org.httpkit.server :as httpkit]
    [time-literals.read-write])
@@ -47,9 +47,7 @@
   (def roots (apply beholder/watch tap> roots))
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
   (def the-docs (db/find-cohort-docs olorm))
-  (-> db (d/with the-docs) :db-after)
-
-  )
+  (-> db (d/with the-docs) :db-after))
 
 (defn create-injected-app [_previous]
   (fn [req]
@@ -82,7 +80,7 @@
   (set! *print-namespace-maps* false)
   (time-literals.read-write/print-time-literals-clj!)
   (clj-reload.core/init {:dirs ["src" "dev" "test"]
-                         :no-unload '#{mikrobloggeriet.state}})
+                         :no-unload '#{mblog.state}})
   (alter-var-root #'state/datomic create-datomic)
   (alter-var-root #'state/file-watcher (create-file-watcher state/datomic))
   (alter-var-root #'state/injected-app create-injected-app)

@@ -144,8 +144,8 @@ The rest of the document.")]
            (pandoc/infer-description doc)))))
 
 (comment
-  (require '[mikrobloggeriet.state]
+  (require '[mblog.state]
            '[datomic.api :as d])
-  (def olorm-58 (d/entity mikrobloggeriet.state/datomic [:doc/slug "olorm-58"]))
+  (def olorm-58 (d/entity mblog.state/datomic [:doc/slug "olorm-58"]))
   (-> (:doc/markdown olorm-58)
       pandoc/from-markdown))

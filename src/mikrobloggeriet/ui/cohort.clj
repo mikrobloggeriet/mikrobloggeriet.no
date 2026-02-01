@@ -11,29 +11,29 @@
    :headers {"Content-Type" "text/html; charset=utf-8"}
    :body
    (page/html5 {}
-     [:head (ui.shared/html-header req)]
-     [:body
-      (ui.shared/navbar)
-      [:h1 (str "Alle " (str/upper-case (:cohort/slug cohort)) "-er")]
-      [:table
-       [:thead
-        [:td (:cohort/slug cohort)]
-        [:td "tittel"]
-        [:td "forfatter"]
-        [:td "publisert"]]
-       [:tbody
-        (for [doc (->> (:doc/_cohort cohort)
-                       (sort-by doc/number)
-                       (remove :doc/draft?))]
-          [:tr
-           [:td [:a {:href (doc/href doc)} (:doc/slug doc)]]
-           [:td (doc/title doc)]
-           [:td (doc/author-first-name db doc)]
-           [:td (:doc/created doc)]])]]])})
+               [:head (ui.shared/html-header req)]
+               [:body
+                (ui.shared/navbar)
+                [:h1 (str "Alle " (str/upper-case (:cohort/slug cohort)) "-er")]
+                [:table
+                 [:thead
+                  [:td (:cohort/slug cohort)]
+                  [:td "tittel"]
+                  [:td "forfatter"]
+                  [:td "publisert"]]
+                 [:tbody
+                  (for [doc (->> (:doc/_cohort cohort)
+                                 (sort-by doc/number)
+                                 (remove :doc/draft?))]
+                    [:tr
+                     [:td [:a {:href (doc/href doc)} (:doc/slug doc)]]
+                     [:td (doc/title doc)]
+                     [:td (doc/author-first-name db doc)]
+                     [:td (:doc/created doc)]])]]])})
 
 (comment
-  (require '[mikrobloggeriet.state])
-  (def db mikrobloggeriet.state/datomic)
+  (require '[mblog.state])
+  (def db mblog.state/datomic)
   (def olorm (d/entity db [:cohort/id :cohort/olorm]))
   (keys olorm)
   ;; => (:cohort/id
@@ -46,8 +46,6 @@
 
   (->> (:doc/_cohort olorm)
        first
-       keys
-       )
+       keys)
   ;; => (:doc/slug :doc/created :doc/uuid :git.user/email :doc/markdown :doc/cohort)
-
   )

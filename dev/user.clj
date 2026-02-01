@@ -2,7 +2,7 @@
   (:require
    [clj-reload.core :refer [reload]]
    [clojure.repl.deps :refer [sync-deps]]
-   [mikrobloggeriet.state]))
+   [mblog.state]))
 
 ;; Anbefalt måte å starte opp Mikrobloggeriet er:
 ;;
@@ -18,6 +18,5 @@
 
 (comment
   (reload)
-  mikrobloggeriet.state/datomic
-  (sync-deps)
-  )
+  mblog.state/datomic
+  (sync-deps))

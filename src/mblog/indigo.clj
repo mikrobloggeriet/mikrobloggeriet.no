@@ -83,7 +83,7 @@
 (defn hent-innhold!
   "Hent innhold uten å gå via noen request. Kun for lokal utvikling."
   []
-  (let [datomic (-> 'mikrobloggeriet.state/datomic requiring-resolve deref)]
+  (let [datomic (-> 'mblog.state/datomic requiring-resolve deref)]
     (when datomic
       {:docs (doc/latest datomic)
        :samvirk (samvirk/load)
@@ -93,8 +93,7 @@
   (when-let [innhold (hent-innhold!)]
     (let [{:keys [headers body]} (render innhold)]
       (terra.instance/push-all! (hiccup.core/html [:div {:id "morph"} body]))
-      (terra.instance/push-all! (hiccup.core/html [:head headers]))
-      )))
+      (terra.instance/push-all! (hiccup.core/html [:head headers])))))
 
 (comment
   (set! *print-namespace-maps* false)

@@ -1,7 +1,7 @@
-(ns mikrobloggeriet.state
+(ns mblog.state
   "Alt Mikrobloggeriet har av tilstand mens vi kjører
 
-  Disse var-ene ligger her så kan få tak i dem. `mikrobloggeriet.state` skal
+  Disse var-ene ligger her så kan få tak i dem. `mblog.state` skal
   IKKE brukes direkte fra andre moduler, unntatt når du sitter i REPL. Kode som
   trenger database eller en referanse til appen, får typisk disse satt sammen
   med http-requesten.")
