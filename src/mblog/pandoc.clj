@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.pandoc
+(ns mblog.pandoc
   (:require
    [babashka.fs :as fs]
    [babashka.process]

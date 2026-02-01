@@ -1,8 +1,8 @@
-(ns mikrobloggeriet.pandoc-test
+(ns mblog.pandoc-test
   (:require
    [clojure.string :as str]
    [clojure.test :refer [deftest is testing]]
-   [mikrobloggeriet.pandoc :as pandoc]))
+   [mblog.pandoc :as pandoc]))
 
 (deftest markdown
   (testing "markdown-> output looks like sane pandoc json"

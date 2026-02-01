@@ -6,7 +6,7 @@
    [hickory.core :as hickory]
    [lookup.core :as lookup]
    [mblog.markdown :as markdown]
-   [mikrobloggeriet.pandoc :as pandoc]))
+   [mblog.pandoc :as pandoc]))
 
 (defn cache-fn-by
   "A simple in-memory caching mechanism
@@ -97,9 +97,7 @@
   (->> @pandoc-cache-atom
        vals
        (map :description)
-       (filter identity))
-
-  )
+       (filter identity)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Alternative markdown rendering with nextjournal/markdown
@@ -125,5 +123,4 @@
 (def parse-markdown parse-markdown-pandoc)
 
 (comment
-  (def parse-markdown parse-markdown-nextjournal)
-  )
+  (def parse-markdown parse-markdown-nextjournal))
