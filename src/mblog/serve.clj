@@ -19,7 +19,6 @@
    [mblog.page-registry :as page-registry]
    [mblog.ui.doc]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
-   [mikrobloggeriet.ui.editor :as ui.editor]
    [mikrobloggeriet.ui.index :as ui.index]
    [mikrobloggeriet.ui.shared :as ui.shared]
    [reitit.ring.middleware.parameters]
@@ -260,10 +259,6 @@
       ;; Deploy
       ["/deploy-info" {:get #'deploy-info
                        :name :mikrobloggeriet/deploy-info}]
-
-      ;; Et forsøk på å redigere tekst direkte fra nettleseren
-      ["/editor/" {:get #'ui.editor/page
-                   :name :mikrobloggeriet/edit}]
 
       ;; Helsesjekk
       ["/health" {:get health
