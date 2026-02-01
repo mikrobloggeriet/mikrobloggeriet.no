@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.serve
+(ns mblog.serve
   (:require
    [babashka.fs :as fs]
    [clj-simple-stats.core]

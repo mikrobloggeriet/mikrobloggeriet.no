@@ -1,11 +1,11 @@
-(ns mikrobloggeriet.serve-test
+(ns mblog.serve-test
   (:require
    [clojure.string :as str]
    [clojure.test :refer [deftest is testing]]
    [clojure.walk :refer [prewalk]]
    [mblog.db :as db]
    [mblog.testdb :as testdb]
-   [mikrobloggeriet.serve :as serve]
+   [mblog.serve :as serve]
    [reitit.core]
    [reitit.ring]))
 

@@ -6,7 +6,7 @@
    [mblog.db :as db]
    [mblog.env :as env]
    [mblog.state :as state]
-   [mikrobloggeriet.serve :as serve]
+   [mblog.serve :as serve]
    [nextjournal.beholder :as beholder]
    [org.httpkit.server :as httpkit]
    [time-literals.read-write])

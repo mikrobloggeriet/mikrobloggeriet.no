@@ -2,7 +2,7 @@
   (:require
    [clojure.test :refer [deftest is]]
    [mblog.testdb :as testdb]
-   [mikrobloggeriet.serve :as serve]))
+   [mblog.serve :as serve]))
 
 (deftest ring-handler-returns-olorm-1
   (let [response ((serve/create-ring-handler)
