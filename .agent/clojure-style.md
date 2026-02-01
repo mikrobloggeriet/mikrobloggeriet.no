@@ -41,3 +41,7 @@ Write narrow code. Solve the problem at hand, don't include code that isn't need
 - If a test assertion is clear, don't add a message to the `is` form
 - Don't add tests that duplicate coverage from elsewhere
 - Don't add "defensive" or "just in case" code
+
+## Sorted Requires
+
+Keep `:require` forms sorted alphabetically.
