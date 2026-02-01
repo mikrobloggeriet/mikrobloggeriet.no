@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.cohort.urlog
+(ns mblog.cohort.urlog
   (:require
    [babashka.fs :as fs]
    [clojure.edn :as edn]
@@ -18,11 +18,10 @@
  [{:doc/slug "urlog-1",
    :urlog/url "https://www.my90stv.com/"}
   {:doc/slug "urlog-2",
-   :urlog/url "https://bezier.method.ac/",}
+   :urlog/url "https://bezier.method.ac/"}
   {:doc/slug "urlog-3",
-   :urlog/url "https://grids.obys.agency/",}
-  ,,, #_ "... og så mange flere URL-er ..."
-  ]}
+   :urlog/url "https://grids.obys.agency/"}
+  ,,, #_"... og så mange flere URL-er ..."]}
 
 ;; TAGS
 ;;
@@ -107,8 +106,7 @@
                     u
                     (dissoc u :urlog/tags))))
 
-  :rcf
-  )
+  :rcf)
 
 (defn page [_req]
   (let [urlog-data (edn/read-string (slurp urlogfile-path))
@@ -117,23 +115,23 @@
      :headers {"Content-Type" "text/html; charset=utf-8"}
      :body
      (page/html5
-         [:head
-          (page/include-css "/mikrobloggeriet.css")
-          (page/include-css "/urlog.css")]
-       [:body
-        [:p
-         (feeling-lucky "🎲")
-         " — "
-         [:a {:href "/"} "mikrobloggeriet"]]
-        [:header
-         (logo->html (:logo assets))
-         [:p {:class :intro}
-          "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
-        [:div {:class :all-doors}
-         (for [doc (reverse (:urlog/docs urlog-data))]
-           (let [url (:urlog/url doc)
-                 door (select-door url (:doors assets))]
-             [:div {:class :wall :role :none}
-              (wall->html (:wall assets))
-              (door+url->html door url)
-              (wall->html (:wall assets))]))]])}))
+      [:head
+       (page/include-css "/mikrobloggeriet.css")
+       (page/include-css "/urlog.css")]
+      [:body
+       [:p
+        (feeling-lucky "🎲")
+        " — "
+        [:a {:href "/"} "mikrobloggeriet"]]
+       [:header
+        (logo->html (:logo assets))
+        [:p {:class :intro}
+         "Tilfeldige dører til internettsteder som kan være morsomme og/eller interessante å besøke en eller annen gang."]]
+       [:div {:class :all-doors}
+        (for [doc (reverse (:urlog/docs urlog-data))]
+          (let [url (:urlog/url doc)
+                door (select-door url (:doors assets))]
+            [:div {:class :wall :role :none}
+             (wall->html (:wall assets))
+             (door+url->html door url)
+             (wall->html (:wall assets))]))]])}))
