@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.style
+(ns mblog.style
   (:require
    [clojure.string :as str]))
 
