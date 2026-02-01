@@ -1,8 +1,8 @@
 (ns mblog.smoke-test
   (:require
    [clojure.test :refer [deftest is]]
-   [mblog.testdb :as testdb]
-   [mblog.serve :as serve]))
+   [mblog.serve :as serve]
+   [mblog.testdb :as testdb]))
 
 (deftest ring-handler-returns-olorm-1
   (let [response ((serve/create-ring-handler)
