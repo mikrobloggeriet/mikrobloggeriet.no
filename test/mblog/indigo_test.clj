@@ -19,7 +19,7 @@
     "Unminifying av kode med LLM")))
 
 (deftest req->innhold
-  (let [innhold (indigo/req->innhold {:mikrobloggeriet.system/datomic (testdb/get-instance)})
+  (let [innhold (indigo/req->innhold {:system/datomic (testdb/get-instance)})
         docs (:docs innhold)
         slugs (->> docs
                    (map :doc/slug)

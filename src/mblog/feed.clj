@@ -24,9 +24,9 @@
 (defn handler [req]
   {:status 200
    :headers {"Content-Type" "application/xml"}
-   :body (serialize (generate-feed (->> (doc/all (:mikrobloggeriet.system/datomic req))
+   :body (serialize (generate-feed (->> (doc/all (:system/datomic req))
                                         (remove :doc/draft?))))})
 
 (comment
   (require '[mblog.state])
-  (handler {:mikrobloggeriet.system/datomic mblog.state/datomic}))
+  (handler {:system/datomic mblog.state/datomic}))

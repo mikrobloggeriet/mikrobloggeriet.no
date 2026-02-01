@@ -11,13 +11,13 @@
    [mblog.db :as db]
    [mblog.doc :as doc]
    [mblog.dsminimal :as dsminimal]
+   [mblog.feed :as feed]
    [mblog.http :as http]
    [mblog.indigo]
    [mblog.page-machinery :as page-machinery]
    [mblog.page-registry :as page-registry]
    [mblog.ui.doc]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
-   [mblog.feed :as feed]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.editor :as ui.editor]
    [mikrobloggeriet.ui.index :as ui.index]
@@ -56,7 +56,7 @@
   (let [mikrobloggeriet-announce-url "https://garasjen.slack.com/archives/C05355N5TCL"
         github-mikrobloggeriet-url "https://github.com/iterate/mikrobloggeriet/"
         iterate-url "https://www.iterate.no/"
-        datomic (:mikrobloggeriet.system/datomic req)]
+        datomic (:system/datomic req)]
     {:status 200
      :headers {"Content-type" "text/html"}
      :body
@@ -128,7 +128,7 @@
                         (flag-element "god-jul")])])])}))
 
 (defn random-doc [req]
-  (let [db (:mikrobloggeriet.system/datomic req)
+  (let [db (:system/datomic req)
         target (or
                 (when-let [doc (doc/random-published db)]
                   (doc/href doc))
@@ -176,7 +176,7 @@
 (defn markdown-cohort-routes [cohort-data]
   [(str "/" (:cohort/slug cohort-data))
    ["/" {:get (fn [req]
-                (let [db (:mikrobloggeriet.system/datomic req)
+                (let [db (:system/datomic req)
                       cohort (d/entity db [:cohort/slug (:cohort/slug cohort-data)])]
                   (ui.cohort/doc-table db cohort req)))
          :name (keyword (str "mikrobloggeriet." (:cohort/slug cohort-data))
@@ -198,7 +198,7 @@
       (page-machinery/respond request page))))
 
 (defn redirect-to-latest [req]
-  (let [db (:mikrobloggeriet.system/datomic req)
+  (let [db (:system/datomic req)
         target-doc (first (doc/latest db))]
     {:status 307
      :headers {"Location" (mblog.ui.doc/doc->href target-doc)}

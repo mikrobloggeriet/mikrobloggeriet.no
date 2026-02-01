@@ -86,7 +86,7 @@
       [:p "Mikrobloggeriet"]]]]])
 
 (defn req->innhold [req]
-  (let [datomic (:mikrobloggeriet.system/datomic req)
+  (let [datomic (:system/datomic req)
         slug (-> req :reitit.core/match :path-params :slug)]
     (-> (doc/find+nav datomic slug)
         (assoc :docs (doc/latest datomic))

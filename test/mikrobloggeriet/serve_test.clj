@@ -11,7 +11,7 @@
 
 (deftest index-test
   (let [db (testdb/get-instance)
-        index-resp (serve/index {:mikrobloggeriet.system/datomic db})
+        index-resp (serve/index {:system/datomic db})
         index (:body index-resp)]
     (testing "An index was returned"
       (is (some? index)))
@@ -27,7 +27,7 @@
   (let [db (testdb/get-instance)
         ring-handler (serve/create-ring-handler)
         injected-app (fn [req]
-                       (ring-handler (assoc req :mikrobloggeriet.system/datomic db)))]
+                       (ring-handler (assoc req :system/datomic db)))]
     ;; Sanity test that one document for each cohort renders successfully. Makes
     ;; it more comfortable to work with doc logic!
     (let [olorm-1 (injected-app {:uri "/doc/olorm-1" :request-method :get})]

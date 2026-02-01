@@ -76,7 +76,7 @@
 
 (defn req->innhold [req]
   (reset! !last-req req)
-  {:docs (-> req :mikrobloggeriet.system/datomic doc/latest)
+  {:docs (-> req :system/datomic doc/latest)
    :samvirk (samvirk/load)
    :motto (rand-nth mottos)})
 

@@ -5,8 +5,8 @@
    [mblog.cohort :as cohort]
    [mblog.db :as db]
    [mblog.env :as env]
-   [mikrobloggeriet.serve :as serve]
    [mblog.state :as state]
+   [mikrobloggeriet.serve :as serve]
    [nextjournal.beholder :as beholder]
    [org.httpkit.server :as httpkit]
    [time-literals.read-write])
@@ -52,8 +52,8 @@
 (defn create-injected-app [_previous]
   (fn [req]
     (-> req
-        (assoc :mikrobloggeriet.system/now (Instant/now))
-        (assoc :mikrobloggeriet.system/datomic state/datomic)
+        (assoc :system/now (Instant/now))
+        (assoc :system/datomic state/datomic)
         serve/ring-handler)))
 #_(alter-var-root #'state/injected-app create-injected-app)
 
