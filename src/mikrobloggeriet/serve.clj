@@ -17,7 +17,7 @@
    [mblog.ui.doc]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
    [mikrobloggeriet.feed :as feed]
-   [mikrobloggeriet.http :as http]
+   [mblog.http :as http]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.doc :as ui.doc]
    [mikrobloggeriet.ui.editor :as ui.editor]

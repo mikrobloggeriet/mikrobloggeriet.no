@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.http)
+(ns mblog.http)
 
 (defn permanent-redirect
   "Permanent redirect to target"
