@@ -14,7 +14,7 @@
 
 (defn ^:export start!
   []
-  ((requiring-resolve 'mikrobloggeriet.system/start!) {}))
+  ((requiring-resolve 'mblog.system/start!) {}))
 
 (comment
   (reload)

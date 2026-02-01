@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.system
+(ns mblog.system
   (:require
    [clj-reload.core]
    [datomic.api :as d]
@@ -52,8 +52,8 @@
 (defn create-injected-app [_previous]
   (fn [req]
     (-> req
-        (assoc ::now (Instant/now))
-        (assoc ::datomic state/datomic)
+        (assoc :mikrobloggeriet.system/now (Instant/now))
+        (assoc :mikrobloggeriet.system/datomic state/datomic)
         serve/ring-handler)))
 #_(alter-var-root #'state/injected-app create-injected-app)
 
