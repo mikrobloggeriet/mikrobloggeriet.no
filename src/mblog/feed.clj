@@ -1,4 +1,4 @@
-(ns mikrobloggeriet.feed
+(ns mblog.feed
   (:require
    [hiccup2.core :as hiccup]
    [mblog.doc :as doc]))

@@ -1,7 +1,7 @@
-(ns mikrobloggeriet.feed-test
+(ns mblog.feed-test
   (:require
    [clojure.test :refer [deftest is]]
-   [mikrobloggeriet.feed :as feed]))
+   [mblog.feed :as feed]))
 
 (def en-god-latter-forlenger-livet
   {:doc/slug "aforisme-3",

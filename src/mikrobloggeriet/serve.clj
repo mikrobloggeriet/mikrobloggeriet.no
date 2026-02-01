@@ -17,7 +17,7 @@
    [mblog.page-registry :as page-registry]
    [mblog.ui.doc]
    [mikrobloggeriet.cohort.urlog :as cohort.urlog]
-   [mikrobloggeriet.feed :as feed]
+   [mblog.feed :as feed]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.editor :as ui.editor]
    [mikrobloggeriet.ui.index :as ui.index]
