@@ -1,4 +1,4 @@
-(ns mblog.state
+(ns ^:clj-reload/no-reload mblog.state
   "Alt Mikrobloggeriet har av tilstand mens vi kjører
 
   Disse var-ene ligger her så kan få tak i dem. `mblog.state` skal

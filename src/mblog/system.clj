@@ -5,8 +5,8 @@
    [mblog.cohort :as cohort]
    [mblog.db :as db]
    [mblog.env :as env]
-   [mblog.state :as state]
    [mblog.serve :as serve]
+   [mblog.state :as state]
    [nextjournal.beholder :as beholder]
    [org.httpkit.server :as httpkit]
    [time-literals.read-write])
@@ -50,11 +50,12 @@
   (-> db (d/with the-docs) :db-after))
 
 (defn create-injected-app [_previous]
-  (fn [req]
-    (-> req
-        (assoc :system/now (Instant/now))
-        (assoc :system/datomic state/datomic)
-        serve/ring-handler)))
+  (let [ring-handler-var (resolve `serve/ring-handler)]
+    (fn [req]
+      (-> req
+          (assoc :system/now (Instant/now))
+          (assoc :system/datomic state/datomic)
+          ring-handler-var))))
 #_(alter-var-root #'state/injected-app create-injected-app)
 
 (defn create-http-server [port]
@@ -75,14 +76,24 @@
 (defn dev-start! []
   (require 'dev))
 
+(defonce !port (atom nil))
+
 (defn ^:export start! [{:keys [port]}]
+  (reset! !port port)
   (when (env/dev?) (dev-start!))
   (set! *print-namespace-maps* false)
   (time-literals.read-write/print-time-literals-clj!)
-  (clj-reload.core/init {:dirs ["src" "dev" "test"]
-                         :no-unload '#{mblog.state}})
   (alter-var-root #'state/datomic create-datomic)
   (alter-var-root #'state/file-watcher (create-file-watcher state/datomic))
   (alter-var-root #'state/injected-app create-injected-app)
-  (alter-var-root #'state/http-server (create-http-server (or port 7223))))
+  (alter-var-root #'state/http-server
+                  ;; (create-http-server (or port 7223))
+                  (fn [old]
+                    (cond
+                      old old
+                      :else ((create-http-server (or port 7223))
+                             nil)))))
 #_(start! {})
+
+(defn after-ns-reload []
+  (start! {:port @!port}))

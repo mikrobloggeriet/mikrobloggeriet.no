@@ -1,8 +1,7 @@
-(ns user
+(ns ^:clj-reload/no-reload user
   (:require
    [clj-reload.core :refer [reload]]
-   [clojure.repl.deps :refer [sync-deps]]
-   [mblog.state]))
+   [clojure.repl.deps :refer [sync-deps]]))
 
 ;; Anbefalt måte å starte opp Mikrobloggeriet er:
 ;;
