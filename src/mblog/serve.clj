@@ -13,6 +13,7 @@
    [mblog.doc :as doc]
    [mblog.dsminimal :as dsminimal]
    [mblog.feed :as feed]
+   [mblog.fjernkohortene :as fjernkohortene]
    [mblog.http :as http]
    [mblog.indigo]
    [mblog.page-machinery :as page-machinery]
@@ -267,7 +268,10 @@
       ["/last-modified-file-time" {:name :mikrobloggeriet/last-modified-file-time
                                    :get #'last-modified-file-handler}]
 
-      ["/feed.xml" {:get #'feed/handler}]]
+      ["/feed.xml" {:get #'feed/handler}]
+
+      ["/fjernkohortene/docs" {:post #'fjernkohortene/reload-hook}]
+      ]
 
      ;; Datastar-eksperiment
      [["/dsminimal" {:handler #'dsminimal/home}]
