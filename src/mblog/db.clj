@@ -235,6 +235,15 @@
       @(d/transact conn (find-cohort-docs cohort)))
     (d/db conn)))
 
+(defn load-docs "Given a database, load all docs from disk"
+  [db]
+  (->> (cohort/all db)
+       (mapcat find-cohort-docs)))
+
+(defn add-docs "Add docs to database"
+  [db docs]
+  (-> db (d/with docs) :db-after))
+
 (comment
   (set! *print-namespace-maps* false)
   (def db (loaddb {:cohorts cohorts :authors authors}))

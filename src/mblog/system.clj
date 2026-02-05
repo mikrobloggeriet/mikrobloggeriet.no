@@ -1,7 +1,6 @@
 (ns mblog.system
   (:require
    [clj-reload.core]
-   [datomic.api :as d]
    [mblog.cohort :as cohort]
    [mblog.db :as db]
    [mblog.env :as env]
@@ -17,26 +16,24 @@
   (db/loaddb {:cohorts db/cohorts :authors db/authors}))
 #_(alter-var-root #'state/datomic create-datomic)
 
+(defn watch-for-new-documents? []
+  (not (System/getenv "GARDEN_GIT_REVISION")))
+
 (defn create-file-watcher [previous db]
   (when previous
     (beholder/stop previous))
-  (when-not (System/getenv "GARDEN_GIT_REVISION")
+  (when (watch-for-new-documents?)
     ;; Watch for changes in local development only.
     (let [roots (map :cohort/root (cohort/all db))]
       (apply beholder/watch
              (fn [_event]
-               ;; NOTE: Current reloading behavior is "when ANY doc is changed,
-               ;; reload EVERY doc". So there's possible performance to be
-               ;; gained here.
-               (let [the-docs (->> (cohort/all db)
-                                   (mapcat db/find-cohort-docs))]
-                 (alter-var-root #'state/datomic
-                                 (fn [olddb]
-                                   (-> olddb
-                                       (d/with the-docs)
-                                       :db-after)))))
+               ;; Current reloading behavior:
+               ;; When any doc is changed, reload every doc.
+               ;; There's more performance to be had if desired.
+               (alter-var-root #'state/datomic
+                               (fn [_olddb] (db/add-docs db (db/load-docs db)))))
              roots))))
-#_(alter-var-root #'state/file-watcher (create-file-watcher state/datomic))
+#_(alter-var-root #'state/file-watcher create-file-watcher state/datomic)
 
 (defn create-injected-app [_previous]
   (fn [req]

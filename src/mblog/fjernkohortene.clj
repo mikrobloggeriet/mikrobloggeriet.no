@@ -3,10 +3,12 @@
   (:require [babashka.fs :as fs]
             [babashka.http-client :as http-client]
             [clojure.edn :as edn]
-            [clojure.pprint]))
+            [clojure.pprint]
+            [mblog.db :as db]
+            [mblog.state :as state]))
 
 (comment
-  ;; Remote data structure, from fjernkohortene:
+  ;; Doc list, as communicated over HTTP endpoint:
   {:docs [{:doc/slug "enklere-1"}
           {:doc/slug "enklere-2"}
           {:doc/slug "enklere-3"}
@@ -15,9 +17,13 @@
           {:doc/slug "enklere-6"}
           {:doc/slug "enklere-7"}]}
 
-  :-)
+  ;; In-memory, after docs have been read from Github:
+  [{:slug "enklere-1"
+    :markdown-str "# Mer kreativ med mer fokus?\n\n ..."
+    :meta {:doc/created "2026-01-11", :doc/uuid "3e862723-f9f9-4cdf-be29-7913621d2b3a", :git.user/email "git@teod.eu"}}
+   ,,,]
 
-(defonce !last-req (atom nil))
+  :-)
 
 (defn latest-sha [org repo branch]
   (-> (str "https://api.github.com/repos/" org "/" repo "/commits/" branch)
@@ -31,15 +37,6 @@
   (when-not (string? maybe-str)
     (throw (ex-info msg ex-data)))
   maybe-str)
-
-(comment
-  ;; In-memory, loaded
-  [{:slug "enklere-1"
-    :markdown-str "# Mer kreativ med mer fokus?\n\n ..."
-    :meta {:doc/created "2026-01-11", :doc/uuid "3e862723-f9f9-4cdf-be29-7913621d2b3a", :git.user/email "git@teod.eu"}}
-   ,,,]
-
-  :-)
 
 (defn load-markdown-str [sha doc]
   (let [uri (github-raw-href sha (str "enklere/" (:doc/slug doc) "/index.md"))
@@ -65,7 +62,6 @@
     (expect-meta meta)))
 
 (defn load-all [{:keys [sha docs]}]
-  (prn :load-all)
   (->> docs
        (pmap (fn [doc]
                {:slug (:doc/slug doc)
@@ -74,10 +70,7 @@
        (filter identity)))
 
 (defn cohort-file [cohort & fs]
-  (apply fs/file
-         (System/getenv "GARDEN_STORAGE")
-         (:cohort/root cohort)
-         fs))
+  (apply fs/file (System/getenv "GARDEN_STORAGE") (:cohort/root cohort) fs))
 
 (defn pprint-str [x]
   (with-out-str (clojure.pprint/pprint x)))
@@ -96,64 +89,17 @@
     (realize-doc cohort-enklere slug markdown-str meta))
   :done)
 
+(defonce !last-req (atom nil))
+
 (defn reload-hook [req]
-  (prn :request)
   (reset! !last-req req)
-  (future (-> req :body slurp edn/read-string
-              (select-keys [:docs])
-              (assoc :sha (latest-sha "mikrobloggeriet" "fjernkohortene" "master"))
-              load-all persist!))
+  (future
+    (println "Persisting new docs to disk ...")
+    (-> req :body slurp edn/read-string
+        (select-keys [:docs])
+        (assoc :sha (latest-sha "mikrobloggeriet" "fjernkohortene" "master"))
+        load-all persist!)
+    (println "Loading new docs to database ...")
+    (alter-var-root #'mblog.state/datomic (fn [db] (db/add-docs db (db/load-docs db))))
+    (println "New docs loaded."))
   {:status 202})
-
-(comment
-  ;; Filstruktur hos Mikrobloggeriet:
-  ;;
-  ;; enklere/
-  ;;   cohort.edn
-  ;;   enklere-1/index.md
-  ;;   enklere-1/meta.edn
-  ;;   enklere-2/index.md
-  ;;   enklere-2/meta.edn
-
-  ;; Kopiert
-  (def manifest
-    '{:cohorts
-      [{:cohort/id :cohort/enklere,
-        :cohort/root "enklere",
-        :cohort/slug "enklere",
-        :cohort/type :cohort.type/markdown,
-        :cohort/name "ENKLERE",
-        :cohort/description "Kan enklere være bedre?"}],
-      :docs
-      ({:doc/cohort [:cohort/id :cohort/enklere],
-        :slug "enklere-1",
-        :md
-        {:href
-         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-1/index.md"},
-        :meta
-        {:href
-         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-1/meta.edn"}}
-       {:doc/cohort [:cohort/id :cohort/enklere],
-        :slug "enklere-3",
-        :md
-        {:href
-         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-3/index.md"},
-        :meta
-        {:href
-         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-3/meta.edn"}}
-       {:doc/cohort [:cohort/id :cohort/enklere],
-        :slug "enklere-2",
-        :md
-        {:href
-         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-2/index.md"},
-        :meta
-        {:href
-         "https://raw.githubusercontent.com/mikrobloggeriet/fjernkohortene/8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7/enklere/enklere-2/meta.edn"}}),
-      :rev "8fc2de2c6e85a3bc57570f0d7df0720ca2039bd7"})
-
-  (realize-manifest manifest)
-
-  (def enklere (-> manifest :cohorts first))
-  (def id->cohort (into {} (map (juxt :cohort/id identity)) (:cohorts manifest)))
-
-  )
