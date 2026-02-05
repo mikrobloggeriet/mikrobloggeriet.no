@@ -59,9 +59,6 @@
 (defn dev-start! []
   (require 'dev))
 
-(defn restart [previous start-fn & args]
-  (apply start-fn previous args))
-
 (defn ensure-started [previous start-fn & args]
   (if previous previous (apply start-fn nil args)))
 
@@ -72,11 +69,14 @@
   (when (env/dev?) (dev-start!))
   (set! *print-namespace-maps* false)
   (time-literals.read-write/print-time-literals-clj!)
-  (alter-var-root #'state/datomic ensure-started create-datomic)
-  (alter-var-root #'state/file-watcher ensure-started create-file-watcher state/datomic)
-  (alter-var-root #'state/injected-app ensure-started create-injected-app)
+  (alter-var-root #'state/datomic create-datomic)
+  (alter-var-root #'state/file-watcher create-file-watcher state/datomic)
+  (alter-var-root #'state/injected-app create-injected-app)
+  ;; HTTP server cannot be restarted in process, because Application.Garden
+  ;; requires a running HTTP server.
   (alter-var-root #'state/http-server ensure-started create-http-server (or port 7223)))
 #_(start! {})
 
-;; (defn after-ns-reload []
-;;   (start! {:port @!port}))
+(defn after-ns-reload []
+  (when (System/getenv "MBLOG_RESTART_ON_RELOAD")
+    (start! {:port @!port})))
