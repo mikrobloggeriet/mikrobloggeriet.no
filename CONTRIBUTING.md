@@ -67,11 +67,6 @@ user> (start!)
 To stop the HTTP server from within your REPL, run `(stop!)`.
 To restart the HTTP server, run `(start!)` again.
 
-### Deployment to HOPS
-
-HOPS deployment happens automatically.
-See `iterapp.toml` for configuration.
-
 ### Deployment to Application.garden
 
 To deploy, run:
@@ -103,10 +98,3 @@ The tests can also be run from a REPL.
 In Calva, see the docs for the [Calva Test Runner].
 
 [Calva Test Runner]: https://calva.io/test-runner/
-
-## Development FAQ
-
-**Q: Where do `start!`, `stop!` and `run-all-tests` come from?**
-
-They are defined in `src/user.clj`.
-Have a look!
