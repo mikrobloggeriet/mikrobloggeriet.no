@@ -1,0 +1,2 @@
+* dobbel-redirects for =/o/.../= og =/j/.../=
+De går først til =/olorm/:slug/=, og deretter videre til =/doc/:slug=.
