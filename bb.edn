@@ -1,19 +1,17 @@
 {:deps {io.github.teodorlu/bb-timemachine {:git/tag "v1.0.1" :git/sha "e684c"}
         io.github.filipesilva/invoker {:git/tag "v0.4.7" :git/sha "2d77d"}}
  :tasks
- {
-  deploy (doseq [task '(test deploy* push)]
-           (run task))
+ {:init (defn runmain [qsym]
+          (apply (requiring-resolve qsym) *command-line-args*))
+  deploy (run! run '(test deploy* push))
   deploy* (shell "garden deploy")
   dev (shell "garden run")
   lint (shell "clj-kondo --fail-level warning --lint src")
-  nvk {:requires ([invoker.nvk :as nvk])
-       :task (apply nvk/-main *command-line-args*)}
+  nvk (runmain 'invoker.nvk/-main)
   nvk-reload (shell "bb nvk reload")
   nvk-test (shell "bb nvk test")
   push (shell "git push")
   test (shell "bin/kaocha")
   test-latest-commit (shell "bb timemachine HEAD -- bb test")
-  timemachine {:requires ([teodorlu.bb-timemachine :as timemachine])
-               :task (apply timemachine/timemachine *command-line-args*)}
+  timemachine (runmain 'teodorlu.bb-timemachine/timemachine)
   }}
