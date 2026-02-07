@@ -1,5 +1,4 @@
 (ns mblog.fjernkohortene
-  (:refer-clojure :exclude [load])
   (:require [babashka.fs :as fs]
             [babashka.http-client :as http-client]
             [clojure.edn :as edn]
