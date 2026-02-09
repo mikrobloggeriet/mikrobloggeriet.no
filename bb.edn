@@ -1,5 +1,5 @@
-{:deps {io.github.teodorlu/bb-timemachine {:git/tag "v1.0.1" :git/sha "e684c"}
-        io.github.filipesilva/invoker {:git/sha "bde24ba50e42a6cff78f38020b38bcb0d2980c9f"}}
+{:deps {io.github.teodorlu/bb-timemachine {:git/tag "v1.0.1" :git/sha "e684cc8"}
+        io.github.filipesilva/invoker {:git/tag "v0.4.9" :git/sha "da35a7a"}}
  :tasks
  {:init (defn runmain [qsym]
           (apply (requiring-resolve qsym) *command-line-args*))
