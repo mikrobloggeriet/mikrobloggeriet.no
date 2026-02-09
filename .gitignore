@@ -11,6 +11,7 @@
 /.nrepl-port
 /.shadow-cljs
 /public/portfolio-js
+/.rebel_readline_history
 
 # Editorer
 /.obsidian
