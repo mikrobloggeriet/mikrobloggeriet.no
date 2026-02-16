@@ -270,8 +270,7 @@
 
       ["/feed.xml" {:get #'feed/handler}]
 
-      ["/fjernkohortene/docs" {:post #'fjernkohortene/reload-hook}]
-      ]
+      ["/fjernkohortene/docs" {:post #'fjernkohortene/reload-hook}]]
 
      ;; Datastar-eksperiment
      [["/dsminimal" {:handler #'dsminimal/home}]
@@ -287,6 +286,7 @@
 
 (def ring-handler
   (-> router
+      http/wrap-ensure-session
       (clj-simple-stats.core/wrap-stats
        {:db-path (str (System/getenv "GARDEN_STORAGE") "/clj_simple_stats.duckdb")})
       ring.middleware.params/wrap-params
