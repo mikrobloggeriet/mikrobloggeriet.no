@@ -3,24 +3,23 @@
    [mblog.theme :as theme]
    [clojure.test :refer [deftest testing is]]))
 
-(def red [255 0 0])
-
-(def blue [0 0 255])
-
 (def white [255 255 255])
+(def black [0 0 0])
 
 (deftest generate-colors
-  (is (= (theme/generate-colors {:bg-color red :text-color white})
-         {:bg-color red :text-color white}))
+  (is (= (theme/generate-colors {:bg-color black :text-color white})
+         {:bg-color black :text-color white}))
 
-  (is (contains? (theme/generate-colors {:bg-color red})
-                 :text-color)))
+  (is (contains? (theme/generate-colors {:bg-color white})
+                 :text-color))
+  (is (contains? (theme/generate-colors {:text-color black})
+                 :bg-color)))
 
 (deftest create-overrides
-  (is (= (theme/create-overrides {:bg-color {:value red
+  (is (= (theme/create-overrides {:bg-color {:value black
                                              :locked? true}})
          {}))
-  (is (= (keys (theme/create-overrides {:bg-color {:value red
+  (is (= (keys (theme/create-overrides {:bg-color {:value white
                                                    :locked? false}}))
          [:bg-color])))
 
@@ -30,9 +29,9 @@
                    :bg-color)))
 
   (testing "Locked themes persist"
-    (is (= (theme/update-and-get* (atom {"OLAV" {:bg-color {:value blue :locked? true}}})
+    (is (= (theme/update-and-get* (atom {"OLAV" {:bg-color {:value black :locked? true}}})
                                   "OLAV")
-           {:bg-color {:value blue :locked? true}})))
+           {:bg-color {:value black :locked? true}})))
 
   (testing "Bullshit, non-locked values change"
     (is (not= (get-in (theme/update-and-get* (atom {"OLAV" {:bg-color {:value "BULLSHIT" :locked? false}}})

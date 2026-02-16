@@ -3,9 +3,8 @@
    [mblog.contrast :as contrast]))
 
 (defn generate-colors [theme]
-  (let [{:keys [c1 c2]} (contrast/gen-colors 5)]
-    (merge {:bg-color c1 :text-color c2}
-           theme)))
+  (-> (contrast/gen-colors-2 5 theme)
+      (select-keys [:bg-color :text-color])))
 
 (comment
   ;; COLOR GENERATION
@@ -16,9 +15,9 @@
   ;; fyll inn alle
   (generate {})
   ;; fyll inn én farge
-  (generate {:bg-color "crimson" :font "Min font"})
+  (generate {:bg-color [255 55 0] :font "Min font"})
   ;; fyll inn font
-  (generate {:bg-color "crimson" :text-color "grey"})
+  (generate {:bg-color [12 88 188] :text-color [128 128 128]})
 
   ;; THEME
   {:bg-color "#fbe2f2"
@@ -27,9 +26,9 @@
 
   ;; THEME STORAGE
   {"cca64a58-9feb-449c-a09a-681cd32a5b57"
-   {:bg-color {:value "#fbe2f2"
+   {:bg-color {:value [12 88 188]
                :locked? false}
-    :text-color {:value "#2406df"
+    :text-color {:value [128 128 128]
                  :locked? false}
     :font {:value "\"Noto Serif\", serif"
            :locked? false}}}
@@ -42,6 +41,7 @@
              (filter (fn [[_ {:keys [locked?]}]]
                        (= false locked?)))
              (map (fn [[k _]]
+                    ;; FIXME
                     [k {:value "crimson"
                         :locked? false}])))))
 

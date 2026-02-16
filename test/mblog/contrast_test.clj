@@ -40,3 +40,8 @@
     (is (< threshold
            (contrast/rgb->score (:c1 colors)
                                 (:c2 colors))))))
+
+(deftest gen-colors-2
+  (is (< 5 (:score (contrast/gen-colors-2 6 {}))))
+  (is (contains? (contrast/gen-colors-2 5 {:bg-color [0 0 0]})
+                 :text-color)))

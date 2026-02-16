@@ -54,17 +54,41 @@
    Contrast ratios can range from 1 to 21.
    To ensure performance, the the threshold is capped at 18."
   [threshold]
-  (if (> threshold 18) nil
-      (loop [c1 (rand-rgb)
-             c2 (rand-rgb)
-             iter 0]
-        (let [score (rgb->score c1 c2)]
-          (if (> score threshold)
-            {:c1 c1
-             :c2 c2
-             :score score
-             :iter iter}
-            (recur c2 (rand-rgb) (inc iter)))))))
+  (when (< 18 threshold)
+    (throw (ex-info "Threshold must be smaller than 18"
+                    {:threshold threshold})))
+  (loop [c1 (rand-rgb)
+         c2 (rand-rgb)
+         iter 0]
+    (let [score (rgb->score c1 c2)]
+      (if (> score threshold)
+        {:c1 c1
+         :c2 c2
+         :score score
+         :iter iter}
+        (recur c2 (rand-rgb) (inc iter))))))
+
+(defn gen-colors-2 [threshold {:as theme :keys [bg-color text-color]}]
+  (when (< 18 threshold)
+    (throw (ex-info "Threshold must be smaller than 18"
+                    {:threshold threshold :theme theme})))
+  (if (and bg-color text-color)
+    theme
+    (loop [bg-color (or bg-color (rand-rgb))
+           text-color (or text-color (rand-rgb))
+           iter 0]
+      (when (< 10000 iter)
+        (throw (ex-info "Recurtion depth level on color generation exceeded!"
+                        {:theme theme :bg-color bg-color :text-color text-color :iteration iter})))
+      (let [score (rgb->score bg-color text-color)]
+        (if (> score threshold)
+          {:bg-color bg-color
+           :text-color text-color
+           :score score
+           :iter iter}
+          (recur (or (:text-color theme) (rand-rgb))
+                 (or (:bg-color theme) (rand-rgb))
+                 (inc iter)))))))
 
 (defn rand-hex-color []
   (str "#" (format "%06x" (rand-int 16777215))))
