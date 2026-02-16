@@ -7,6 +7,15 @@
 
 (def blue [0 0 255])
 
+(def white [255 255 255])
+
+(deftest generate-colors
+  (is (= (theme/generate-colors {:bg-color red :text-color white})
+         {:bg-color red :text-color white}))
+
+  (is (contains? (theme/generate-colors {:bg-color red})
+                 :text-color)))
+
 (deftest create-overrides
   (is (= (theme/create-overrides {:bg-color {:value red
                                              :locked? true}})

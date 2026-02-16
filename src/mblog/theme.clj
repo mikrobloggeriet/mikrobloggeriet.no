@@ -1,8 +1,17 @@
-(ns mblog.theme)
+(ns mblog.theme
+  (:require
+   [mblog.contrast :as contrast]))
+
+(defn generate-colors [theme]
+  (let [{:keys [c1 c2]} (contrast/gen-colors 5)]
+    (merge {:bg-color c1 :text-color c2}
+           theme)))
 
 (comment
   ;; COLOR GENERATION
-  (defn generate [theme])
+
+  (defn generate [theme]
+    (merge (generate-colors theme) (:fonts theme)))
 
   ;; fyll inn alle
   (generate {})
