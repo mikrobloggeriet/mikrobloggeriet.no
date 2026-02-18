@@ -81,9 +81,7 @@
         [:div
          (when prev (navigator "Forrige" prev "↑"))
          (when next (navigator "Neste" next "↓"))]])]
-    [:footer
-     [:a {:href "/"}
-      [:p "Mikrobloggeriet"]]]]])
+    ]])
 
 (defn req->innhold [req]
   (let [datomic (:system/datomic req)
