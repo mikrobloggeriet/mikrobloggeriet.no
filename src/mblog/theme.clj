@@ -48,6 +48,9 @@
   (set-locks! teodor lock-all) ; lock
   (set-locks! teodor #{}) ; unlock
 
+  (def neno "915aa655-ba17-4694-9791-8c5fdc4142da")
+  (set-locks! neno lock-all)
+
   @store
   (def session "fcd826c2-8b1b-4b81-951f-9af735a02a37")
   (reset! store {})
