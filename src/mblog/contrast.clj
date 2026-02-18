@@ -86,8 +86,8 @@
            :text-color text-color
            :score score
            :iter iter}
-          (recur (or (:text-color theme) (rand-rgb))
-                 (or (:bg-color theme) (rand-rgb))
+          (recur (or (:bg-color theme) (rand-rgb))
+                 (or (:text-color theme) (rand-rgb))
                  (inc iter)))))))
 
 (defn rand-hex-color []
