@@ -38,7 +38,17 @@
 (defn update-and-get [session-id]
   (update-and-get* store session-id))
 
+(def lock-all #{:text-color :font :bg-color})
+
+(defn set-locks! [session locks]
+  (swap! store #(assoc-in % [session :locked] locks)))
+
 (comment
+  (def teodor "6d1df619-5348-4735-a7d5-36d939ccf965")
+  (set-locks! teodor lock-all) ; lock
+  (set-locks! teodor #{}) ; unlock
+
+  @store
   (def session "fcd826c2-8b1b-4b81-951f-9af735a02a37")
   (reset! store {})
   (swap! store
