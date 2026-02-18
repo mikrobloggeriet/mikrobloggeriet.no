@@ -1,59 +1,39 @@
 (ns mblog.theme
   (:require
+   [duratom.core :refer [duratom]]
    [mblog.contrast :as contrast]))
 
 (defn generate-colors [theme]
   (-> (contrast/gen-colors-2 5 theme)
       (select-keys [:bg-color :text-color])))
 
-(comment
-  ;; COLOR GENERATION
+(defn generate-font [theme]
+  {:font "\"Noto Serif\", serif"})
 
-  (defn generate [theme]
-    (merge (generate-colors theme) (:fonts theme)))
+(defn generate [theme]
+  (merge (generate-colors theme)
+         (generate-font theme)))
 
-  ;; fyll inn alle
-  (generate {})
-  ;; fyll inn én farge
-  (generate {:bg-color [255 55 0] :font "Min font"})
-  ;; fyll inn font
-  (generate {:bg-color [12 88 188] :text-color [128 128 128]})
-
-  ;; THEME
-  {:bg-color "#fbe2f2"
-   :text-color "#2406df"
-   :font "\"Noto Serif\", serif"}
-
-  ;; THEME STORAGE
-  {"cca64a58-9feb-449c-a09a-681cd32a5b57"
-   {:bg-color {:value [12 88 188]
-               :locked? false}
-    :text-color {:value [128 128 128]
-                 :locked? false}
-    :font {:value "\"Noto Serif\", serif"
-           :locked? false}}}
-
-  :=)
-
-(defn create-overrides [theme-state]
-  (into {}
-        (->> theme-state
-             (filter (fn [[_ {:keys [locked?]}]]
-                       (= false locked?)))
-             (map (fn [[k _]]
-                    ;; FIXME
-                    [k {:value "crimson"
-                        :locked? false}])))))
+(defn get-locked [theme-state]
+  (select-keys (:theme theme-state) (:locked theme-state)))
 
 (defn update-and-get* [store session-id]
   (-> (swap! store update session-id
              (fn [theme-state]
-               (merge {:bg-color "a"}
-                      theme-state
-                      (create-overrides theme-state))))
+               (assoc theme-state :theme
+                      (generate (get-locked theme-state)))))
       (get session-id)))
 
-(defonce store (atom {}))
+(defonce store
+  (if-let [storage-path (System/getenv "GARDEN_STORAGE")]
+    (duratom :local-file
+             :file-path (str storage-path "/mikrobloggeriet.themes.edn")
+             :commit-mode :sync
+             :init {})
+    (atom {})))
 
 (defn update-and-get [session-id]
   (update-and-get* store session-id))
+
+(comment
+  (reset! store {}))

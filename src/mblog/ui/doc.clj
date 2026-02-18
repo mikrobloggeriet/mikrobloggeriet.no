@@ -3,7 +3,9 @@
    [datomic.api :as d]
    [mblog.doc :as doc]
    [mblog.indigo :as indigo]
-   [mblog.samvirk :as samvirk]))
+   [mblog.samvirk :as samvirk]
+   [mblog.theme :as theme]
+   [mblog.http :as http]))
 
 (def mobile-menu? false)
 
@@ -32,7 +34,7 @@
 (defn navigator [label doc icon]
   [:div label ": " [:a {:href (doc->href doc)} (doc/title-or-slug doc)] " " icon])
 
-(defn doc->hiccup [{:keys [doc docs samvirk next prev]}]
+(defn doc->hiccup [{:keys [doc docs samvirk next prev theme]}]
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]
@@ -88,7 +90,8 @@
         slug (-> req :reitit.core/match :path-params :slug)]
     (-> (doc/find+nav datomic slug)
         (assoc :docs (doc/latest datomic))
-        (assoc :samvirk (samvirk/load)))))
+        (assoc :samvirk (samvirk/load))
+        (assoc :theme-state (theme/update-and-get (http/find-session req))))))
 
 (comment
   (require 'mblog.state)
