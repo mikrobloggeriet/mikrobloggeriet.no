@@ -49,10 +49,12 @@ p {
 
 ul, li {
     max-width: 75ch;
+    
 }
 
 ul {
     padding: 0 24px 0 24px;
+    list-style-type: square;
 }
 
 a {

@@ -29,8 +29,10 @@
        "/" (:doc/slug doc)
        "/"))
 
-(defn navigator [label doc icon]
-  [:div label ": " [:a {:href (doc->href doc)} (doc/title-or-slug doc)] " " icon])
+(defn navigator [text doc class] 
+  [:a {:href (doc->href doc)
+       :class class} 
+   text " " (doc/title-or-slug doc)])
 
 (defn doc->hiccup [{:keys [doc docs samvirk next prev]}]
   [:html {:lang "en"}
@@ -76,11 +78,10 @@
            [:p.navMeta "/"]
            [:p.navMeta (:doc/slug linked-doc)]]])]]
      (when doc
-       [:section.content
-        [:div.docView (indigo/view-doc doc)]
-        [:div
-         (when prev (navigator "Forrige" prev "↑"))
-         (when next (navigator "Neste" next "↓"))]])]
+       [:section.content (indigo/view-doc doc) 
+        [:div.doc-navigation
+         (when prev (navigator "<" prev "before"))
+         (when next (navigator ">" next "after"))]])]
     ]])
 
 (defn req->innhold [req]
