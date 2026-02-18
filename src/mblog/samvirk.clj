@@ -54,7 +54,12 @@
      :root (apply format css-template
                   (concat (repeat 5 text-str) (repeat 5 bg-str)))}))
 
-(def load #(hydrate (randomize)))
+(defn load
+  ([] (hydrate (randomize)))
+  ([theme]
+   (hydrate {:font (:font theme)
+             :colors {:c1 (:text-color theme)
+                      :c2 (:bg-color theme)}})))
 
 (comment
   (def selection (randomize))

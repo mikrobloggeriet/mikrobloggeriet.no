@@ -3,7 +3,9 @@
    [datomic.api :as d]
    [mblog.doc :as doc]
    [mblog.indigo :as indigo]
-   [mblog.samvirk :as samvirk]))
+   [mblog.samvirk :as samvirk]
+   [mblog.theme :as theme]
+   [mblog.http :as http]))
 
 (def mobile-menu? false)
 
@@ -89,7 +91,7 @@
         slug (-> req :reitit.core/match :path-params :slug)]
     (-> (doc/find+nav datomic slug)
         (assoc :docs (doc/latest datomic))
-        (assoc :samvirk (samvirk/load)))))
+        (assoc :samvirk (samvirk/load (:theme (theme/update-and-get (http/find-session req))))))))
 
 (comment
   (require 'mblog.state)
