@@ -34,7 +34,7 @@
 (defn navigator [label doc icon]
   [:div label ": " [:a {:href (doc->href doc)} (doc/title-or-slug doc)] " " icon])
 
-(defn doc->hiccup [{:keys [doc docs samvirk next prev theme]}]
+(defn doc->hiccup [{:keys [doc docs samvirk next prev]}]
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]
@@ -82,16 +82,14 @@
         [:div.docView (indigo/view-doc doc)]
         [:div
          (when prev (navigator "Forrige" prev "↑"))
-         (when next (navigator "Neste" next "↓"))]])]
-    ]])
+         (when next (navigator "Neste" next "↓"))]])]]])
 
 (defn req->innhold [req]
   (let [datomic (:system/datomic req)
         slug (-> req :reitit.core/match :path-params :slug)]
     (-> (doc/find+nav datomic slug)
         (assoc :docs (doc/latest datomic))
-        (assoc :samvirk (samvirk/load))
-        (assoc :theme-state (theme/update-and-get (http/find-session req))))))
+        (assoc :samvirk (samvirk/load (:theme (theme/update-and-get (http/find-session req))))))))
 
 (comment
   (require 'mblog.state)

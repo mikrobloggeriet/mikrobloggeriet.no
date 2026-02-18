@@ -1,14 +1,17 @@
 (ns mblog.theme
   (:require
    [duratom.core :refer [duratom]]
-   [mblog.contrast :as contrast]))
+   [mblog.contrast :as contrast]
+   [mblog.fonts :as fonts]))
 
 (defn generate-colors [theme]
   (-> (contrast/gen-colors-2 5 theme)
       (select-keys [:bg-color :text-color])))
 
 (defn generate-font [theme]
-  {:font "\"Noto Serif\", serif"})
+  (cond-> theme
+    (not (:font theme))
+    (assoc :font (fonts/random))))
 
 (defn generate [theme]
   (merge (generate-colors theme)
@@ -36,4 +39,9 @@
   (update-and-get* store session-id))
 
 (comment
-  (reset! store {}))
+  (def session "fcd826c2-8b1b-4b81-951f-9af735a02a37")
+  (reset! store {})
+  (swap! store
+         (fn [old]
+           (assoc-in old [session :locked] #{:text-color :font})))
+  (get @store session))

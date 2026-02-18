@@ -15,6 +15,9 @@
   (is (contains? (theme/generate-colors {:text-color black})
                  :bg-color)))
 
+(deftest generate
+  (is (theme/generate {:font "font1.css", :bg-color [104 101 32]})))
+
 (deftest get-locked
   (testing "Get the locked values from a theme-state"
     (is (= (theme/get-locked {:theme {:bg-color [255 255 255]
