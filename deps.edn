@@ -32,7 +32,8 @@
   ;; ... og siden vi også utvikler i prod med prod-REPL, tar vi med oss bibliotekene dit også.
   com.nextjournal/beholder {:mvn/version "1.0.3"}
   io.github.tonsky/clj-reload {:mvn/version "1.0.0"}
-  lambdaisland/kaocha {:mvn/version "1.91.1392"}}
+  lambdaisland/kaocha {:mvn/version "1.91.1392"}
+  }
  :aliases
  {:kaocha {:main-opts ["-m" "kaocha.runner"]}
   :nextjournal/garden {:exec-fn mblog.system/start!}}}

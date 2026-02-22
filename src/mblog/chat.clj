@@ -1,10 +1,43 @@
 (ns mblog.chat
-  (:require [hiccup.page :as page]))
+  (:require
+   [duratom.core :refer [duratom]]
+   [hiccup.page :as page]))
+
+(defonce store
+  (if-let [storage-path (System/getenv "GARDEN_STORAGE")]
+    (duratom :local-file
+             :file-path (str storage-path "/mblog.chat.edn")
+             :commit-mode :sync
+             :init {})
+    (atom {})))
+
+(comment
+
+  (swap! store empty)
+
+  (swap! store update :messages append
+         {:message/author "Alice"
+          :message/timestamp "09:41"
+          :message/content "Hey, is anyone here?"}
+         {:message/author "Bob"
+          :message/timestamp "09:42"
+          :message/content "Yeah, just got online. What's up?"}
+         {:message/author "Alice"
+          :message/timestamp "09:43"
+          :message/content "Not much, just testing this chat thing out."}
+         {:message/author "Charlie"
+          :message/timestamp "09:45"
+          :message/content "Looks like it works!"})
+
+  )
+
+(defn append [xs msg & more]
+  (apply (fnil conj []) xs msg more))
 
 (defn req->innhold [_req]
-  {})
+  (:messages @store))
 
-(defn innhold->hiccup [_innhold]
+(defn innhold->hiccup [messages]
   (page/html5
    [:head
     [:meta {:charset "UTF-8"}]
@@ -13,18 +46,12 @@
     [:link {:rel "stylesheet" :href "/css/chat.css"}]]
    [:body
     [:main
-     [:chat-message
-      [:header [:strong "Alice"] [:time "09:41"]]
-      [:p "Hey, is anyone here?"]]
-     [:chat-message
-      [:header [:strong "Bob"] [:time "09:42"]]
-      [:p "Yeah, just got online. What's up?"]]
-     [:chat-message
-      [:header [:strong "Alice"] [:time "09:43"]]
-      [:p "Not much, just testing this chat thing out."]]
-     [:chat-message
-      [:header [:strong "Charlie"] [:time "09:45"]]
-      [:p "Looks like it works!"]]]
+     (for [msg messages]
+       [:chat-message
+        [:header
+         [:strong (:message/author msg)]
+         [:time (:message/timestamp msg)]]
+        [:p (:message/content msg)]])]
     [:form
      [:input {:type "text" :placeholder "Type a message…" :required true}]
      [:button {:type "submit"} "Send"]]]))
