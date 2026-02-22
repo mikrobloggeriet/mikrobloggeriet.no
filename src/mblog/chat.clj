@@ -1,7 +1,6 @@
 (ns mblog.chat
   (:require
-   [duratom.core :refer [duratom]]
-   [hiccup.page :as page]))
+   [duratom.core :refer [duratom]]))
 
 (defonce store
   (if-let [storage-path (System/getenv "GARDEN_STORAGE")]
@@ -11,10 +10,36 @@
              :init {})
     (atom {})))
 
-(comment
+(defn append [xs msg & more]
+  (apply (fnil conj []) xs msg more))
 
+(defn req->innhold [_req]
+  (:messages @store))
+
+(defn innhold->hiccup [messages]
+  (list
+   [:head
+    [:meta {:charset "UTF-8"}]
+    [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
+    [:title "Chat"]
+    [:link {:rel "stylesheet" :href "/css/chat.css"}]]
+   [:body
+    [:main
+     (for [msg messages]
+       [:chat-message
+        [:header
+         [:strong (:message/author msg)]
+         [:time (:message/timestamp msg)]]
+        [:p (:message/content msg)]])]
+    [:form
+     [:input {:type "text" :placeholder "Type a message …" :required true}]
+     [:button {:type "submit"} "Send"]]]))
+
+(comment
+  ;; Start fresh
   (swap! store empty)
 
+  ;; Sample data
   (swap! store update :messages append
          {:message/author "Alice"
           :message/timestamp "09:41"
@@ -30,28 +55,3 @@
           :message/content "Looks like it works!"})
 
   )
-
-(defn append [xs msg & more]
-  (apply (fnil conj []) xs msg more))
-
-(defn req->innhold [_req]
-  (:messages @store))
-
-(defn innhold->hiccup [messages]
-  (page/html5
-   [:head
-    [:meta {:charset "UTF-8"}]
-    [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
-    [:title "Chat"]
-    [:link {:rel "stylesheet" :href "/css/chat.css"}]]
-   [:body
-    [:main
-     (for [msg messages]
-       [:chat-message
-        [:header
-         [:strong (:message/author msg)]
-         [:time (:message/timestamp msg)]]
-        [:p (:message/content msg)]])]
-    [:form
-     [:input {:type "text" :placeholder "Type a message…" :required true}]
-     [:button {:type "submit"} "Send"]]]))
