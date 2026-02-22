@@ -1,0 +1,41 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+chat-message {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+chat-message header {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+chat-message p {
+  margin: 0.25rem 0 0 0;
+}
+
+form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+form input {
+  flex: 1;
+}

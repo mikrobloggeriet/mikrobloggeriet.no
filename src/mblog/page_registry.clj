@@ -1,5 +1,6 @@
 (ns mblog.page-registry
   (:require
+   [mblog.chat :as chat]
    [mblog.content-design :as content-design]
    [mblog.indigo :as indigo]
    [mblog.ui.doc :as ui.doc]))
@@ -23,4 +24,9 @@
    :page/content-design
    (define-page
      {:pagemaker/prepare-data #'content-design/req->innhold
-      :pagemaker/render #'content-design/innhold->hiccup})})
+      :pagemaker/render #'content-design/innhold->hiccup})
+
+   :page/chat
+   (define-page
+     {:pagemaker/prepare-data #'chat/req->innhold
+      :pagemaker/render #'chat/innhold->hiccup})})
