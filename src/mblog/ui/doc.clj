@@ -2,10 +2,10 @@
   (:require
    [datomic.api :as d]
    [mblog.doc :as doc]
+   [mblog.http :as http]
    [mblog.indigo :as indigo]
    [mblog.samvirk :as samvirk]
-   [mblog.theme :as theme]
-   [mblog.http :as http]))
+   [mblog.theme :as theme]))
 
 (def mobile-menu? false)
 
@@ -36,7 +36,7 @@
        :class class} 
    text " " (doc/title-or-slug doc)])
 
-(defn doc->hiccup [{:keys [doc docs samvirk next prev]}]
+(defn innhold->hiccup [{:keys [doc docs samvirk next prev]}]
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]

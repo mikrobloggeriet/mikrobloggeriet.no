@@ -19,7 +19,7 @@
    :page/doc
    (define-page
      {:pagemaker/prepare-data #'ui.doc/req->innhold
-      :pagemaker/render #'ui.doc/doc->hiccup})
+      :pagemaker/render #'ui.doc/innhold->hiccup})
 
    :page/content-design
    (define-page
