@@ -6,21 +6,17 @@ description: How to run the test suite
 
 This project uses [Kaocha](https://github.com/lambdaisland/kaocha) as the test runner.
 
-## Run all tests
+## IMPORTANT AGENT RULE: Avoid Process Restarts
 
-```bash
-bb test
-```
+NEVER run `bb test`. Running `bb test` starts a completely new Clojure process which is slow.
 
-This runs Kaocha via the Babashka task defined in `bb.edn`.
+Instead, ALWAYS use `bb nvk test` after writing or modifying code. This command uses `nvk` to trigger a re-run of the full test suite in the already-running nREPL process.
 
 ## After writing code
 
 // turbo
-Always run the tests after writing or modifying code:
-
 ```bash
-bb test
+bb nvk test
 ```
 
-Ensure all tests pass (exit code 0) before considering a task complete.
+This uses `bb nvk` to automatically reload changed files and run the full test suite quickly inside the existing REPL. Ensure all tests pass (exit code 0) before considering a task complete.

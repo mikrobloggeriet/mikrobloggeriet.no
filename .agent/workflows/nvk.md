@@ -14,12 +14,12 @@ Invoker (`nvk`) provides CLI access to a running Clojure nREPL.
 ## Invoke a function
 
 ```bash
-nvk namespace/function arg1 arg2
+bb nvk namespace/function arg1 arg2
 ```
 
 Example:
 ```bash
-nvk clojure.core/+ 1 2 3
+bb nvk clojure.core/+ 1 2 3
 # => 6
 ```
 
@@ -27,7 +27,7 @@ nvk clojure.core/+ 1 2 3
 
 // turbo
 ```bash
-nvk reload
+bb nvk reload
 ```
 
 This uses clj-reload to reload any namespaces with changed source files.
@@ -36,24 +36,24 @@ This uses clj-reload to reload any namespaces with changed source files.
 
 // turbo
 ```bash
-nvk test
+bb nvk test
 ```
 
 Run all tests in `test/**/*.clj`, reloading changed files first.
 
 Target a specific namespace:
 ```bash
-nvk test mblog.system-test
+bb nvk test mblog.system-test
 ```
 
 Target a specific test:
 ```bash
-nvk test mblog.system-test/some-test-name
+bb nvk test mblog.system-test/some-test-name
 ```
 
 ## Development Flow
 
 1. User starts the app and connects via nREPL
 2. Agent makes code changes
-3. Agent reloads with `nvk reload`
-4. Agent verifies via `nvk test` or by invoking functions with `nvk`
+3. Agent reloads with `bb nvk reload`
+4. Agent verifies via `bb nvk test` or by invoking functions with `bb nvk`
