@@ -47,11 +47,14 @@
     [:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
     [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
     [:link {:rel "stylesheet" :href "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"}]
+    [:script {:type "module" :src "/js/datastar.js" :async true}]
     [:style (:root samvirk)]]
    [:body
     [:header
      [:div.tags
-      [:div.tag "■ " (:bg-color samvirk)]
+      [:button.tag {:data-on:click "@post('/debug')"}
+       #_[:img {:src "/icons/lock.svg"}]
+       "■ " (:bg-color samvirk)]
       [:div.tag "□ " (:text-color samvirk)]
       [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
      [:div.name-mottos
