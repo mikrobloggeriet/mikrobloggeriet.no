@@ -5,7 +5,8 @@
    [mblog.http :as http]
    [mblog.indigo :as indigo]
    [mblog.samvirk :as samvirk]
-   [mblog.theme :as theme]))
+   [mblog.theme :as theme]
+   [mblog.command :as command]))
 
 (def mobile-menu? false)
 
@@ -31,12 +32,19 @@
        "/" (:doc/slug doc)
        "/"))
 
-(defn navigator [text doc class] 
+(defn navigator [text doc class]
   [:a {:href (doc->href doc)
-       :class class} 
+       :class class}
    text " " (doc/title-or-slug doc)])
 
-(defn innhold->hiccup [{:keys [doc docs samvirk next prev]}]
+(defn toggler [locked? unlock-cmd lock-cmd body]
+  (if locked?
+    [:button.tag.locked {:data-on:click (command/post unlock-cmd)}
+     body]
+    [:button.tag.unlocked {:data-on:click (command/post lock-cmd)}
+     body]))
+
+(defn innhold->hiccup [{:as opts :keys [doc docs samvirk next prev]}]
   [:html {:lang "en"}
    [:head
     [:meta {:charset "utf-8"}]
@@ -52,11 +60,18 @@
    [:body
     [:header
      [:div.tags
-      [:button.tag {:data-on:click "@post('/debug')"}
-       #_[:img {:src "/icons/lock.svg"}]
-       "■ " (:bg-color samvirk)]
-      [:div.tag "□ " (:text-color samvirk)]
-      [:div.tag (samvirk/infer-main-font (samvirk/read-font samvirk))]]
+      (toggler (contains? (:theme/locked opts) :text-color)
+               :command.theme/unlock-text-color
+               :command.theme/lock-text-color
+               (list "■ " (:text-color samvirk)))
+      (toggler (contains? (:theme/locked opts) :bg-color)
+               :command.theme/unlock-bg-color
+               :command.theme/lock-bg-color
+               (list "□ " (:bg-color samvirk)))
+      (toggler (contains? (:theme/locked opts) :font)
+               :command.theme/unlock-font
+               :command.theme/lock-font
+               (samvirk/infer-main-font (samvirk/read-font samvirk)))]
      [:div.name-mottos
       [:a {:href "/"} "Mikrobloggeriet"]
       [:p (rand-nth indigo/mottos)]]
@@ -83,18 +98,19 @@
            [:p.navMeta "/"]
            [:p.navMeta (:doc/slug linked-doc)]]])]]
      (when doc
-       [:section.content (indigo/view-doc doc) 
+       [:section.content (indigo/view-doc doc)
         [:div.doc-navigation
          (when prev (navigator "<" prev "before"))
-         (when next (navigator ">" next "after"))]])]
-    ]])
+         (when next (navigator ">" next "after"))]])]]])
 
 (defn req->innhold [req]
   (let [datomic (:system/datomic req)
-        slug (-> req :reitit.core/match :path-params :slug)]
+        slug (-> req :reitit.core/match :path-params :slug)
+        {:keys [theme locked]} (theme/update-and-get (http/find-session req))]
     (-> (doc/find+nav datomic slug)
         (assoc :docs (doc/latest datomic))
-        (assoc :samvirk (samvirk/load (:theme (theme/update-and-get (http/find-session req))))))))
+        (assoc :samvirk (samvirk/load theme))
+        (assoc :theme/locked locked))))
 
 (comment
   (require 'mblog.state)

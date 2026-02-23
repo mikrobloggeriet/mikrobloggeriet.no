@@ -9,6 +9,7 @@
    [hiccup.page :as page]
    [mblog.cohort :as cohort]
    [mblog.cohort.urlog :as cohort.urlog]
+   [mblog.command-registry :as command-registry]
    [mblog.db :as db]
    [mblog.doc :as doc]
    [mblog.dsminimal :as dsminimal]
@@ -231,7 +232,7 @@
                         :name :mikrobloggeriet/theme}]
       ["/set-theme/:theme" {:get #'set-theme
                             :name :mikrobloggeriet/set-theme}]
-      ;; Feature flags
+      ;; Feature flagsz
       ["/set-flag/:theme" {:get #'set-flag
                            :name :mikrobloggeriet/set-flag}]]
 
@@ -263,6 +264,9 @@
       ;; Deploy
       ["/deploy-info" {:get #'deploy-info
                        :name :mikrobloggeriet/deploy-info}]
+
+      ["/command/:group/:slug" {:post #'command-registry/receive
+                                :name :mblog/commands}]
 
       ;; Helsesjekk
       ["/health" {:get health

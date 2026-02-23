@@ -2,7 +2,8 @@
   (:require
    [duratom.core :refer [duratom]]
    [mblog.contrast :as contrast]
-   [mblog.fonts :as fonts]))
+   [mblog.fonts :as fonts]
+   [clojure.string :as str]))
 
 (defn generate-colors [theme]
   (-> (contrast/gen-colors-2 5 theme)
@@ -38,23 +39,28 @@
 (defn update-and-get [session-id]
   (update-and-get* store session-id))
 
-(def lock-all #{:text-color :font :bg-color})
+(defn lock [state session-id k]
+  (update-in state
+             [session-id :locked]
+             (fn [old] ((fnil conj #{}) old k))))
 
-(defn set-locks! [session locks]
-  (swap! store #(assoc-in % [session :locked] locks)))
+(defn unlock [state session-id k]
+  (update-in state
+             [session-id :locked]
+             (fn [old] (disj old k))))
 
-(comment
-  (def teodor "6d1df619-5348-4735-a7d5-36d939ccf965")
-  (set-locks! teodor lock-all) ; lock
-  (set-locks! teodor #{}) ; unlock
+(defn parse-slug [slug]
+  (mapv keyword (str/split slug #"\-" 2)))
 
-  (def neno "915aa655-ba17-4694-9791-8c5fdc4142da")
-  (set-locks! neno lock-all)
+(defn handle [group slug session-id _req]
+  (let [[action k] (parse-slug slug)]
+    (cond
+      (= action :lock)
+      (swap! store lock session-id k)
 
-  @store
-  (def session "fcd826c2-8b1b-4b81-951f-9af735a02a37")
-  (reset! store {})
-  (swap! store
-         (fn [old]
-           (assoc-in old [session :locked] #{:text-color :font})))
-  (get @store session))
+      (= action :unlock)
+      (swap! store unlock session-id k)
+
+      :else
+      (throw (ex-info "Invalid theme action"
+                      {:group group :slug slug :session-id session-id :action k})))))

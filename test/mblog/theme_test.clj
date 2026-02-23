@@ -37,4 +37,16 @@
     (is (= (:locked (theme/update-and-get* store "SESSION"))
            #{:font}))))
 
+(deftest lock
+  (is (= (theme/lock {} "SESSION" :text-color)
+         {"SESSION" {:locked #{:text-color}}}))
+  (is (= (theme/lock {"SESSION" {:locked #{:bg-color}}} "SESSION" :text-color)
+         {"SESSION" {:locked #{:bg-color :text-color}}})))
 
+(deftest unlock
+  (is (= (theme/unlock {"SESSION" {:locked #{:text-color}}} "SESSION" :text-color)
+         {"SESSION" {:locked #{}}})))
+
+(deftest parse-slug
+  (is (= (theme/parse-slug "lock-text-color")
+         [:lock :text-color])))
