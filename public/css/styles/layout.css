@@ -32,7 +32,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    
+
     a {
         font-size: clamp(2.5rem, 1.702rem + 2.553vw, 5rem);
         font-family: var(--main-font);
@@ -48,7 +48,7 @@ header {
         color: inherit;
     }
 }
-  
+
 .tags {
       display: flex;
       flex-direction: row;
@@ -58,14 +58,14 @@ header {
       gap: 8px;
       flex-wrap: wrap;
     }
-    
+
     .tag {
         display: inline-flex;
         flex-wrap: nowrap;
         flex-direction: row;
         align-items: flex-start;
         background-color: var(--first10);
-        height: 20px;
+        height: auto;
         color: var(--first100);
         border-radius: 4px;
         padding: 4px 8px 4px 8px;
@@ -73,9 +73,15 @@ header {
         font-family: var(--main-font);
         text-decoration: none;
         font-style: normal;
-        
+        cursor: url("/icons/locked.svg"), auto;
     }
-    
+
+    .locked {
+        background-color: var(--first100);
+        color: var(--second100);
+        cursor: url("/icons/lock.svg"), auto;
+    }
+
     .name-mottos {
         display: flex;
         flex-direction: row;
@@ -85,7 +91,7 @@ header {
         width: 100%;
         text-align: right;
     }
-    
+
 container {
     width: 100%;
     height: stretch;
@@ -228,7 +234,7 @@ nav {
     justify-content: space-between;
     border-top: 1px solid var(--first10);
     padding: 0px 16px;
-    
+
     .before, .after {
         width: 50%;
         display: flex;
@@ -237,7 +243,7 @@ nav {
         color: var(--first100);
         gap: 8px;
         padding: 8px 0px;
-    
+
         > a {
             text-wrap: nowrap;
             text-overflow: ellipsis;
@@ -252,12 +258,12 @@ nav {
             color: var(--first80);
         }
      }
-    
+
      .before {
         justify-content: flex-start;
         border-right: 1px solid var(--first10);
      }
-    
+
      .after {
         justify-content: flex-end;
      }
