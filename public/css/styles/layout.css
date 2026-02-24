@@ -93,8 +93,9 @@ header {
     }
 
 container {
+    position: relative;
     width: 100%;
-    height: stretch;
+    height: 100%;
     display: flex;
     flex-direction: row;
 }
@@ -108,33 +109,7 @@ section {
     -webkit-scrollbar: none; /* WebKit */
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-    /*
-       scroll-behavior: smooth går i beina på lazy-loading av bilder.
 
-       Vi har lazy-loading av bilder med HTML ala denne:
-
-         <img loading="lazy" src="olav.jpg">
-
-       Når vi samtidig har scroll-behavior: smooth, risikerer vi at følgende skjer:
-
-       1. En bruker får lastet nettsiden kjapt fordi vi lazy-loader bilder
-       2. Brukeren trykker på en lenke langt ned, feks OLORM-7
-       3. Brukeren kommer ikke ned til OLORM-7, scrollen stopper feks på OLORM-33.
-
-       Så hva har skjedd?
-       1. Nettleseren regnet ut at det var (feks) 7000 px ned til OLORM-7
-       2. Nettleseren begynner å scrolle
-       3. Imens nettleseren scroller, blir bilder laster inn.
-       4. Nettleseren stopper å scrolle etter å ha scrollet 7000 px, MEN nå
-          har avstanden fra toppen og ned til OLORM-7 økt til 13000 px.
-
-       Med andre ord, vi må gjøre et valg på hvordan dette funker.
-
-       Kommenter inn igjen scroll-behavior: smooth hvis du vil, men la gjerne
-       denne comment-blokka bli igjen så vi bevarer kontekst & intensjon.
-
-   */
-    /*scroll-behavior: smooth;*/
     transition: ease-in-out 0.3s;
     opacity: 1;
 }
