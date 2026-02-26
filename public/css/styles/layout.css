@@ -194,52 +194,54 @@ nav {
     width: 50%;
 }
 
-read-doc {
-    margin-bottom: 16px;
-}
+article {
 
-nav.doc-navigation {
-    width: calc(100% - 32px);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-top: 1px solid var(--first10);
-    padding: 0px 16px;
+    read-doc {
+        margin-bottom: 16px;
+    }
 
-    .before, .after {
-        width: 50%;
+    nav {
+        width: calc(100% - 32px);
         display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
-        color: var(--first100);
-        gap: 8px;
-        padding: 8px 0px;
+        justify-content: space-between;
+        border-top: 1px solid var(--first10);
+        padding: 0px 16px;
 
-        > a {
-            text-wrap: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 80%;
-            color: var(--first50);
-            text-decoration: none;
+        .before, .after {
+            width: 50%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            color: var(--first100);
+            gap: 8px;
+            padding: 8px 0px;
+
+            > a {
+                text-wrap: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 80%;
+                color: var(--first50);
+                text-decoration: none;
+            }
+
+            > a:hover {
+                background-color: transparent;
+                color: var(--first80);
+            }
         }
 
-        > a:hover {
-            background-color: transparent;
-            color: var(--first80);
+        .before {
+            justify-content: flex-start;
+            border-right: 1px solid var(--first10);
         }
-    }
 
-    .before {
-        justify-content: flex-start;
-        border-right: 1px solid var(--first10);
-    }
-
-    .after {
-        justify-content: flex-end;
+        .after {
+            justify-content: flex-end;
+        }
     }
 }
-
 
 /* Mobile menu - CSS only */
 .mobile-menu-toggle {

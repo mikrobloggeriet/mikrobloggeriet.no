@@ -111,10 +111,12 @@
            [:p.navMeta "/"]
            [:p.navMeta (:doc/slug linked-doc)]]])]]
      (when doc
-       [:section.content (view-doc doc)
-        [:nav.doc-navigation
-         (when prev (navigator "<" prev "before"))
-         (when next (navigator ">" next "after"))]])]]])
+       [:section.content
+        [:article
+         (view-doc doc)
+         [:nav
+          (when prev (navigator "<" prev "before"))
+          (when next (navigator ">" next "after"))]]])]]])
 
 (defn req->innhold [req]
   (let [datomic (:system/datomic req)

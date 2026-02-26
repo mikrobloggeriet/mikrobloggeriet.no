@@ -8,7 +8,7 @@
    [terra.instance]))
 
 (defn view-doc [doc]
-  [:div.doc
+  [:read-doc
    [:a {:name (:doc/slug doc)}]
    [:div
     (list
