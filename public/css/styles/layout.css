@@ -50,47 +50,47 @@ header {
 }
 
 .tags {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      align-self: flex-end;
-      justify-content: flex-start;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-self: flex-end;
+    justify-content: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+}
 
-    .tag {
-        display: inline-flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-        align-items: flex-start;
-        background-color: var(--first10);
-        height: auto;
-        color: var(--first100);
-        border-radius: 4px;
-        padding: 4px 8px 4px 8px;
-        font-size: 14px;
-        font-family: var(--main-font);
-        text-decoration: none;
-        font-style: normal;
-        cursor: url("/icons/locked.svg"), auto;
-    }
+.tag {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: var(--first10);
+    height: auto;
+    color: var(--first100);
+    border-radius: 4px;
+    padding: 4px 8px 4px 8px;
+    font-size: 14px;
+    font-family: var(--main-font);
+    text-decoration: none;
+    font-style: normal;
+    cursor: url("/icons/locked.svg"), auto;
+}
 
-    .locked {
-        background-color: var(--first100);
-        color: var(--second100);
-        cursor: url("/icons/lock.svg"), auto;
-    }
+.locked {
+    background-color: var(--first100);
+    color: var(--second100);
+    cursor: url("/icons/lock.svg"), auto;
+}
 
-    .name-mottos {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
-        align-items: baseline;
-        width: 100%;
-        text-align: right;
-    }
+.name-mottos {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    text-align: right;
+}
 
 container {
     width: 100%;
@@ -163,12 +163,9 @@ nav {
     }
 }
 
-
 .navList:active {
     background-color: var(--first80);
 }
-
-
 
 .navTitle{
     text-overflow: ellipsis;
@@ -193,16 +190,15 @@ nav {
     margin: 0;
 }
 
-
 .content {
     width: 50%;
 }
 
-.doc{
+read-doc {
     margin-bottom: 16px;
 }
 
-.doc-navigation {
+nav.doc-navigation {
     width: calc(100% - 32px);
     display: flex;
     flex-direction: row;
@@ -232,17 +228,18 @@ nav {
             background-color: transparent;
             color: var(--first80);
         }
-     }
+    }
 
-     .before {
+    .before {
         justify-content: flex-start;
         border-right: 1px solid var(--first10);
-     }
-
-     .after {
-        justify-content: flex-end;
-     }
     }
+
+    .after {
+        justify-content: flex-end;
+    }
+}
+
 
 /* Mobile menu - CSS only */
 .mobile-menu-toggle {
@@ -341,8 +338,4 @@ nav {
         margin-bottom: 500px;
     }
 
-    .doc {
-        /*height: 100vh;*/
-        margin-bottom: 5vh;
-    }
 }

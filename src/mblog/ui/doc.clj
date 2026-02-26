@@ -1,12 +1,13 @@
 (ns mblog.ui.doc
   (:require
    [datomic.api :as d]
+   [mblog.command :as command]
    [mblog.doc :as doc]
+   [mblog.hiccup :as hiccup]
    [mblog.http :as http]
    [mblog.indigo :as indigo]
    [mblog.samvirk :as samvirk]
-   [mblog.theme :as theme]
-   [mblog.command :as command]))
+   [mblog.theme :as theme]))
 
 (def mobile-menu? false)
 
@@ -43,6 +44,18 @@
      body]
     [:button.tag.unlocked {:data-on:click (command/post lock-cmd)}
      body]))
+
+(defn view-doc [doc]
+  [:read-doc
+   [:div
+    (list
+     ;; Pretend the slug is the title when the doc doesn't have a "real" title.
+     (when-not (doc/cleaned-title doc)
+       [:h1 (:doc/slug doc)])
+     (->> doc
+          doc/hiccup
+          (hiccup/transform :img hiccup/lazyload)
+          (hiccup/transform :iframe hiccup/lazyload)))]])
 
 (defn innhold->hiccup [{:as opts :keys [doc docs samvirk next prev]}]
   [:html {:lang "en"}
@@ -98,8 +111,8 @@
            [:p.navMeta "/"]
            [:p.navMeta (:doc/slug linked-doc)]]])]]
      (when doc
-       [:section.content (indigo/view-doc doc)
-        [:div.doc-navigation
+       [:section.content (view-doc doc)
+        [:nav.doc-navigation
          (when prev (navigator "<" prev "before"))
          (when next (navigator ">" next "after"))]])]]])
 
