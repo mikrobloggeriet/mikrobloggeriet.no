@@ -1,5 +1,7 @@
 (ns mblog.http
   (:require
+   [clojure.string :as str]
+   [mblog.env :as env]
    [ring.middleware.cookies :as cookies]))
 
 (defn permanent-redirect
@@ -31,3 +33,11 @@
     (if (find-session req)
       (handler req)
       (set-session req (random-uuid)))))
+
+(defn wrap-block-laboratoriet
+  "Block requests to /laboratoriet/... in production."
+  [handler]
+  (fn [req]
+    (if (and (env/prod?) (str/starts-with? (:uri req) "/laboratoriet"))
+      {:status 404 :body "Not found" :headers {"Content-Type" "text/plain"}}
+      (handler req))))

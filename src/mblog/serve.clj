@@ -291,6 +291,7 @@
 (def ring-handler
   (-> router
       http/wrap-ensure-session
+      http/wrap-block-laboratoriet
       (clj-simple-stats.core/wrap-stats
        {:db-path (str (System/getenv "GARDEN_STORAGE") "/clj_simple_stats.duckdb")})
       ring.middleware.params/wrap-params
