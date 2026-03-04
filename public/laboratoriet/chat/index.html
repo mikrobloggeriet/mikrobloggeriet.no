@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Laboratoriet: Chat</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="chat">
+      <header class="lab-header">
+        <h1>Laboratoriet: Chat</h1>
+      </header>
+
+      <section class="chat-messages" aria-label="Eksempelmeldinger">
+        <article class="chat-message chat-message--author-a">
+          <header class="chat-message__meta">
+            <strong class="chat-message__author">Alice</strong>
+            <time class="chat-message__time" datetime="2025-03-04T09:41">09:41</time>
+          </header>
+          <p class="chat-message__body">
+            Hei! Dette er en laboratorie-chat. Alt du ser her er hardkodet HTML.
+          </p>
+        </article>
+
+        <article class="chat-message chat-message--author-b">
+          <header class="chat-message__meta">
+            <strong class="chat-message__author">Bob</strong>
+            <time class="chat-message__time" datetime="2025-03-04T09:42">09:42</time>
+          </header>
+          <p class="chat-message__body">
+            Perfekt. Her kan vi leke med layout, typografi og farger uten å røre produksjonskoden.
+          </p>
+        </article>
+
+        <article class="chat-message chat-message--author-a">
+          <header class="chat-message__meta">
+            <strong class="chat-message__author">Alice</strong>
+            <time class="chat-message__time" datetime="2025-03-04T09:43">09:43</time>
+          </header>
+          <p class="chat-message__body">
+            Når vi liker det vi ser, kan vi kopiere strukturen over i den ekte /chat-siden.
+          </p>
+        </article>
+      </section>
+
+      <section class="chat-input" aria-label="Inndata (kun dekorasjon)">
+        <div class="chat-input__row">
+          <input
+            id="message"
+            class="chat-input__field"
+            type="text"
+            placeholder="Skriv en melding ...">
+          <button class="chat-input__send">Send</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+
