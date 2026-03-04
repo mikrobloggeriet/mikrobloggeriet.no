@@ -218,10 +218,7 @@
       ["/content-design" {:get #'serve-page
                           :name :page/content-design}]
 
-      ["/chat" {:get #'serve-page
-                :name :page/chat}]
-
-      ["/sse" {:get #'terra.instance/sse-handler
+["/sse" {:get #'terra.instance/sse-handler
                :name :terra.instance/sse-handler}]
 
       ["/doc/:slug" {:get #'serve-page
