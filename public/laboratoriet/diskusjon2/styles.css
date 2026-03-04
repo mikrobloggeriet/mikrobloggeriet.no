@@ -1,0 +1,41 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.diskusjon {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+  gap: 0;
+}
+
+.diskusjon > header {
+  flex-shrink: 0;
+}
+
+.threads {
+  flex: 1 1 0;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 1rem 0;
+}
+
+.diskusjon > footer {
+  flex-shrink: 0;
+}
+
+.replies {
+  border-left: 2px solid hsl(0, 0%, 86%);
+}
+
+.reply {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.reply p {
+  margin: 0;
+}

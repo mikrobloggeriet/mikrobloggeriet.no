@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="no" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Laboratoriet: Diskusjon 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="diskusjon">
+
+      <header>
+        <h1 class="title is-4">Laboratoriet: Diskusjon</h1>
+        <hr>
+      </header>
+
+      <section class="threads">
+
+        <!-- Thread 1: collapsed -->
+        <article class="box thread">
+          <div class="level is-mobile">
+            <div class="level-left">
+              <span class="tag is-danger is-light mr-2">Alice</span>
+              <strong>Skal vi bruke serif eller sans-serif?</strong>
+            </div>
+            <div class="level-right">
+              <span class="tag is-light">3 svar</span>
+              <time class="has-text-grey is-size-7 ml-3">10:15</time>
+            </div>
+          </div>
+        </article>
+
+        <!-- Thread 2: expanded -->
+        <article class="box thread">
+          <div class="level is-mobile">
+            <div class="level-left">
+              <span class="tag is-info is-light mr-2">Bob</span>
+              <strong>Fargepaletten trenger mer kontrast</strong>
+            </div>
+            <div class="level-right">
+              <span class="tag is-light">2 svar</span>
+              <time class="has-text-grey is-size-7 ml-3">11:02</time>
+            </div>
+          </div>
+
+          <div class="content mt-3">
+            <p>Jeg synes vi bør øke kontrasten mellom bakgrunn og tekst. Spesielt på mobil er det vanskelig å lese den lyse teksten.</p>
+          </div>
+
+          <div class="replies ml-5 pl-4">
+            <article class="box reply">
+              <div class="mb-1">
+                <span class="tag is-link is-light mr-2">Charlie</span>
+                <time class="has-text-grey is-size-7">11:08</time>
+              </div>
+              <p class="is-size-6">Enig. Kan vi prøve mørkere grønn som bakgrunn? Eller hvit tekst?</p>
+            </article>
+
+            <article class="box reply">
+              <div class="mb-1">
+                <span class="tag is-warning mr-2">Dana</span>
+                <time class="has-text-grey is-size-7">11:14</time>
+              </div>
+              <p class="is-size-6">Jeg laget et forslag i Figma. WCAG AA krever minst 4.5:1 for brødtekst.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Thread 3: collapsed -->
+        <article class="box thread">
+          <div class="level is-mobile">
+            <div class="level-left">
+              <span class="tag is-warning mr-2">Dana</span>
+              <strong>Navigasjon: tabs eller sidebar?</strong>
+            </div>
+            <div class="level-right">
+              <span class="tag is-light">0 svar</span>
+              <time class="has-text-grey is-size-7 ml-3">12:30</time>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <footer>
+        <hr>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input" type="text" placeholder="Start en ny tråd ...">
+          </div>
+          <div class="control">
+            <button class="button is-dark">Ny tråd</button>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+  </body>
+</html>
