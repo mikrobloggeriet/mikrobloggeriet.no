@@ -1,0 +1,217 @@
+:root {
+  --first100: rgb(25, 24, 0);
+  --first80: rgba(25, 24, 0, 0.8);
+  --first50: rgba(25, 24, 0, 0.5);
+  --first20: rgba(25, 24, 0, 0.2);
+  --first10: rgba(25, 24, 0, 0.1);
+
+  --second100: rgb(255, 255, 255);
+  --second80: rgb(240, 240, 240);
+  --second50: rgb(220, 220, 220);
+  --second20: rgb(245, 245, 245);
+  --second10: rgb(250, 250, 250);
+
+  --color-alice: #e06c75;
+  --color-bob: #61afef;
+  --color-charlie: #c678dd;
+  --color-dana: #e5c07b;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1.5rem 1rem;
+  overflow: hidden;
+
+  background-color: var(--second100);
+  color: var(--first100);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.diskusjon {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.lab-header {
+  margin: 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--first20);
+}
+
+.lab-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Threads list */
+
+.threads {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Single thread */
+
+.thread {
+  border-radius: 0.75rem;
+  background-color: var(--second20);
+  border: 1px solid var(--second50);
+}
+
+.thread__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+}
+
+.thread__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.thread__meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--first50);
+  white-space: nowrap;
+}
+
+.thread__reply-count {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Author badges */
+
+.thread__author {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.author--alice {
+  background-color: var(--color-alice);
+  color: white;
+}
+
+.author--bob {
+  background-color: var(--color-bob);
+  color: white;
+}
+
+.author--charlie {
+  background-color: var(--color-charlie);
+  color: white;
+}
+
+.author--dana {
+  background-color: var(--color-dana);
+  color: var(--first100);
+}
+
+/* Expanded thread */
+
+.thread--expanded .thread__header {
+  border-bottom: 1px solid var(--first10);
+}
+
+.thread__body {
+  padding: 0.75rem 1rem;
+}
+
+.thread__body p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Replies */
+
+.thread__replies {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 1rem 1rem;
+  margin-left: 1.5rem;
+  border-left: 2px solid var(--first10);
+}
+
+.reply {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--second10);
+}
+
+.reply__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.reply__header time {
+  color: var(--first50);
+  font-variant-numeric: tabular-nums;
+}
+
+.reply__body {
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* New thread input */
+
+.new-thread {
+  border-top: 1px solid var(--first20);
+  padding-top: 1rem;
+}
+
+.new-thread__row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.new-thread__field {
+  flex: 1;
+  padding: 0.7rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--first50);
+  background-color: var(--second20);
+  color: var(--first100);
+}
+
+.new-thread__field::placeholder {
+  color: var(--first50);
+}
+
+.new-thread__submit {
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--first50);
+  background-color: var(--first100);
+  color: var(--second100);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}

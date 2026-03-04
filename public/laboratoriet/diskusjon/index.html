@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Laboratoriet: Diskusjon</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="diskusjon">
+      <header class="lab-header">
+        <h1>Laboratoriet: Diskusjon</h1>
+      </header>
+
+      <section class="threads" aria-label="Tråder">
+
+        <article class="thread thread--collapsed">
+          <header class="thread__header">
+            <span class="thread__author author--alice">Alice</span>
+            <h2 class="thread__title">Skal vi bruke serif eller sans-serif?</h2>
+            <span class="thread__meta">
+              <time datetime="2025-03-04T10:15">10:15</time>
+              <span class="thread__reply-count">3 svar</span>
+            </span>
+          </header>
+        </article>
+
+        <article class="thread thread--expanded">
+          <header class="thread__header">
+            <span class="thread__author author--bob">Bob</span>
+            <h2 class="thread__title">Fargepaletten trenger mer kontrast</h2>
+            <span class="thread__meta">
+              <time datetime="2025-03-04T11:02">11:02</time>
+              <span class="thread__reply-count">2 svar</span>
+            </span>
+          </header>
+          <div class="thread__body">
+            <p>Jeg synes vi bør øke kontrasten mellom bakgrunn og tekst. Spesielt på mobil er det vanskelig å lese den lyse teksten.</p>
+          </div>
+          <section class="thread__replies" aria-label="Svar">
+            <article class="reply">
+              <header class="reply__header">
+                <span class="thread__author author--charlie">Charlie</span>
+                <time datetime="2025-03-04T11:08">11:08</time>
+              </header>
+              <p class="reply__body">Enig. Kan vi prøve mørkere grønn som bakgrunn? Eller hvit tekst?</p>
+            </article>
+            <article class="reply">
+              <header class="reply__header">
+                <span class="thread__author author--dana">Dana</span>
+                <time datetime="2025-03-04T11:14">11:14</time>
+              </header>
+              <p class="reply__body">Jeg laget et forslag i Figma. WCAG AA krever minst 4.5:1 for brødtekst.</p>
+            </article>
+          </section>
+        </article>
+
+        <article class="thread thread--collapsed">
+          <header class="thread__header">
+            <span class="thread__author author--dana">Dana</span>
+            <h2 class="thread__title">Navigasjon: tabs eller sidebar?</h2>
+            <span class="thread__meta">
+              <time datetime="2025-03-04T12:30">12:30</time>
+              <span class="thread__reply-count">0 svar</span>
+            </span>
+          </header>
+        </article>
+
+      </section>
+
+      <section class="new-thread" aria-label="Ny tråd">
+        <div class="new-thread__row">
+          <input
+            id="thread-title"
+            class="new-thread__field"
+            type="text"
+            placeholder="Start en ny tråd ...">
+          <button class="new-thread__submit">Ny tråd</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
