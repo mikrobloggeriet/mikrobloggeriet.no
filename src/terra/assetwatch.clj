@@ -45,8 +45,9 @@
   [{:keys [request-method uri]}]
   (when (= :get request-method)
     (when-let [folder @!folder]
-      (let [file (str folder uri)]
-        (when (fs/exists? file)
+      (let [file (str folder uri)
+            file (if (fs/directory? file) (str file "index.html") file)]
+        (when (fs/regular-file? file)
           {:status 200
            :headers {"Content-Type" (mblog.mime/file->type file)}
            :body (fs/file file)})))))
