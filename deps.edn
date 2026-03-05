@@ -22,8 +22,8 @@
   org.clojure/clojure {:mvn/version "1.12.0"}
 
   ;; Datastar
-  dev.data-star.clojure/sdk {:mvn/version "1.0.0-RC1"}
-  dev.data-star.clojure/http-kit {:mvn/version "1.0.0-RC1"}
+  dev.data-star.clojure/sdk {:mvn/version "1.0.0-RC8"}
+  dev.data-star.clojure/http-kit {:mvn/version "1.0.0-RC8"}
 
   ;; Få biblioteker som har særegne preferanser for logging til å holde kjeft
   org.slf4j/slf4j-nop {:mvn/version "2.0.17"}
