@@ -9,6 +9,7 @@
 (comment
   ;; Skru på pandoc-testene hvis du vil TDD-e Pandoc!
   (def pandoc-test? true)
+  (def pandoc-test? false)
 
   )
 
