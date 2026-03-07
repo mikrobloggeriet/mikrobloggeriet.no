@@ -213,7 +213,7 @@
 
      [["/" {:get #'redirect-to-latest
             :head #'health ;; HEAD / is Application.Garden's health check
-            :name :page-registry/indigo}]
+            :name :welcome}]
 
       ["/content-design" {:get #'serve-page
                           :name :page-registry/content-design}]
