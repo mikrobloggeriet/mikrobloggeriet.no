@@ -1,27 +1,28 @@
 (ns mblog.page-registry
   (:require
-[mblog.content-design :as content-design]
+   [mblog.content-design :as content-design]
    [mblog.indigo :as indigo]
    [mblog.ui.doc :as ui.doc]))
 
 (defn define-page [page]
-  (when (not (:pagemaker/render page))
+  (when (not (:page/render page))
     (throw (ex-info "Invalid page: :page/render function not set." {:page page})))
   page)
 
 (def registry
-  {:page/indigo
+  {:page-registry/indigo
    (define-page
-     {:pagemaker/prepare-data #'indigo/req->innhold
-      :pagemaker/render #'indigo/innhold->hiccup})
+     {:page/prepare-data #'indigo/req->innhold
+      :page/render #'indigo/innhold->hiccup})
 
-   :page/doc
+   :page-registry/doc
    (define-page
-     {:pagemaker/prepare-data #'ui.doc/req->innhold
-      :pagemaker/render #'ui.doc/innhold->hiccup})
+     {:page/prepare-data #'ui.doc/req->innhold
+      :page/render #'ui.doc/innhold->hiccup})
 
-   :page/content-design
+   :page-registry/content-design
    (define-page
-     {:pagemaker/prepare-data #'content-design/req->innhold
-      :pagemaker/render #'content-design/innhold->hiccup})
-})
+     {:page/prepare-data #'content-design/req->innhold
+      :page/render #'content-design/innhold->hiccup})
+
+   })

@@ -213,16 +213,16 @@
 
      [["/" {:get #'redirect-to-latest
             :head #'health ;; HEAD / is Application.Garden's health check
-            :name :page/indigo}]
+            :name :page-registry/indigo}]
 
       ["/content-design" {:get #'serve-page
-                          :name :page/content-design}]
+                          :name :page-registry/content-design}]
 
 ["/sse" {:get #'terra.instance/sse-handler
                :name :terra.instance/sse-handler}]
 
       ["/doc/:slug" {:get #'serve-page
-                     :name :page/doc}]
+                     :name :page-registry/doc}]
 
       ;; Themes
       ["/theme/:theme" {:get #'theme

@@ -4,11 +4,11 @@
    [mblog.page-registry]))
 
 (defn prepare-data [req page]
-  (when-let [prepare-fn (:pagemaker/prepare-data page)]
+  (when-let [prepare-fn (:page/prepare-data page)]
     (prepare-fn req)))
 
 (defn render [data page]
-  ((:pagemaker/render page) data))
+  ((:page/render page) data))
 
 (defn hiccup->response [hiccup]
   (when hiccup
