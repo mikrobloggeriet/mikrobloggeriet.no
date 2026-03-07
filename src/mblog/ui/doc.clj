@@ -3,9 +3,9 @@
    [datomic.api :as d]
    [mblog.command :as command]
    [mblog.doc :as doc]
+   [mblog.vision :as vision]
    [mblog.hiccup :as hiccup]
    [mblog.http :as http]
-   [mblog.indigo :as indigo]
    [mblog.samvirk :as samvirk]
    [mblog.theme :as theme]))
 
@@ -87,7 +87,7 @@
                (samvirk/infer-main-font (samvirk/read-font samvirk)))]
      [:div.name-mottos
       [:a {:href "/"} "Mikrobloggeriet"]
-      [:p (rand-nth indigo/mottos)]]
+      [:p (rand-nth vision/mottos)]]
      (when mobile-menu?
        (list
         [:input#mobile-menu-toggle.mobile-menu-toggle {:type "checkbox"}]

@@ -16,7 +16,6 @@
    [mblog.feed :as feed]
    [mblog.fjernkohortene :as fjernkohortene]
    [mblog.http :as http]
-   [mblog.indigo]
    [mblog.page-machinery :as page-machinery]
    [mblog.page-registry :as page-registry]
    [mblog.ui.doc]
