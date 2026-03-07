@@ -223,6 +223,9 @@
       ["/doc/:slug" {:get #'serve-page
                      :name :page-registry/doc}]
 
+      ["/les/:slug" {:get #'serve-page
+                      :name :page-registry/read}]
+
       ;; Themes
       ["/theme/:theme" {:get #'theme
                         :name :mikrobloggeriet/theme}]
