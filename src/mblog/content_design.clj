@@ -1,7 +1,7 @@
 (ns mblog.content-design
   (:require
    [clojure.string :as str]
-   [mblog.indigo :as forside]
+   [mblog.ui.doc]
    [mblog.samvirk :as farger]))
 
 (def md
@@ -101,4 +101,4 @@ alert(message);
 
 
 (defn innhold->hiccup [innhold]
-  (forside/innhold->hiccup innhold))
+  (mblog.ui.doc/innhold->hiccup innhold))
