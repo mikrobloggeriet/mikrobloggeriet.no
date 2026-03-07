@@ -59,11 +59,20 @@
         (= "Emph" (:t expr))
         (els->plaintext (:c expr))
 
+        (= "Quoted" (:t expr))
+        (els->plaintext (:c expr))
+
+        (= "DoubleQuote" (:t expr))
+        (els->plaintext (:c expr))
+
         (= "Code" (:t expr))
         (second (:c expr))
 
         :else
         nil))
+
+;; Denne her må gi "hvorfor?" ut hvis tittelen skal fikses:
+;; (els->plaintext [{:t "DoubleQuote"} [{:t "Str", :c "Hvorfor?"}]])
 
 (defn set-title [pandoc title]
   (assert (pandoc? pandoc))

@@ -4,7 +4,69 @@
    [clojure.test :refer [deftest is testing]]
    [mblog.pandoc :as pandoc]))
 
-(def pandoc-test? false)
+(defonce pandoc-test? false)
+
+(comment
+  ;; Skru på pandoc-testene hvis du vil TDD-e Pandoc!
+  (def pandoc-test? true)
+
+  )
+
+(comment
+  ;; Bug: Tittelen "“Hvorfor?” er bra!" gir feil overskrift i lista,
+  ;; Jeg ser bare "er bra!" i prod.
+
+  ;; Konklusjon:
+  ;; Pandoc 3.9 (siste per 2026-02-28) har IKKE bugen
+  ;; Pandoc 3.3 (på MB per 2026-02-28) HAR bugen
+  ;;
+  ;; mblog.pandoc/el->plaintext har ikke noen case for :t "Quoted".
+
+  (def ir (pandoc/from-markdown "# “Hvorfor?” er bra!"))
+
+  (pandoc/to-plain ir)
+
+  (pandoc/header->plaintext {:t "Header",
+                             :c
+                             [1
+                              ["hvorfor-er-bra" [] []]
+                              [{:t "Str", :c "“Hvorfor?”"}
+                               {:t "Space"}
+                               {:t "Str", :c "er"}
+                               {:t "Space"}
+                               {:t "Str", :c "bra!"}]]})
+
+  (pandoc/from-markdown "# “Hvorfor?” er bra!")
+  ;; På Teodor-mac =>
+  {:pandoc-api-version [1 23 1 1],
+   :meta {},
+   :blocks
+   [{:t "Header",
+     :c
+     [1
+      ["hvorfor-er-bra" [] []]
+      [{:t "Str", :c "“Hvorfor?”"}
+       {:t "Space"}
+       {:t "Str", :c "er"}
+       {:t "Space"}
+       {:t "Str", :c "bra!"}]]}]}
+
+  ;; På Mikrobloggeriet sin Pandoc
+  (pandoc/from-markdown "# “Hvorfor?” er bra!")
+  {:pandoc-api-version [1 23 1],
+   :meta {},
+   :blocks
+   [{:t "Header",
+     :c
+     [1
+      ["hvorfor-er-bra" [] []]
+      [{:t "Quoted", :c [{:t "DoubleQuote"} [{:t "Str", :c "Hvorfor?"}]]}
+       {:t "Space"}
+       {:t "Str", :c "er"}
+       {:t "Space"}
+       {:t "Str", :c "bra!"}]]}]}
+
+  )
 
 (defmacro ptest [& body]
   `(when pandoc-test?
@@ -62,7 +124,14 @@
                  :blocks
                  first
                  pandoc/header->plaintext)
-             "OLORM-45: --scale i Docker Compose")))))
+             "OLORM-45: --scale i Docker Compose")))
+
+    #_
+    (testing "Handles Pandoc 3.3 Quoted"
+      (is (= (-> {:t "Quoted", :c [{:t "DoubleQuote"} [{:t "Str", :c "Hvorfor?"}]]}
+                 pandoc/el->plaintext)
+             ))
+      )))
 
 (ptest
   (deftest title-test
