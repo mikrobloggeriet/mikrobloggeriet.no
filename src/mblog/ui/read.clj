@@ -72,7 +72,7 @@
                (samvirk/infer-main-font (samvirk/read-font samvirk)))
       [:a {:href (xlink/doc doc)} "se blant alle"]]
      [:div.name-mottos
-      [:a {:href "/"} "Mikrobloggeriet"]
+      [:a#tittel {:href "/"} "Mikrobloggeriet"]
       [:p (rand-nth vision/mottos)]]]
     [:container
      (when doc
