@@ -1,13 +1,13 @@
 (ns mblog.ui.read
   (:require
-   [datomic.api :as d]
    [mblog.command :as command]
    [mblog.doc :as doc]
-   [mblog.vision :as vision]
    [mblog.hiccup :as hiccup]
    [mblog.http :as http]
    [mblog.samvirk :as samvirk]
-   [mblog.theme :as theme]))
+   [mblog.theme :as theme]
+   [mblog.vision :as vision]
+   [mblog.xlink :as xlink]))
 
 ;; vi kunne løst problemene våre separat.
 
@@ -69,7 +69,8 @@
       (toggler (contains? (:theme/locked opts) :font)
                :command.theme/unlock-font
                :command.theme/lock-font
-               (samvirk/infer-main-font (samvirk/read-font samvirk)))]
+               (samvirk/infer-main-font (samvirk/read-font samvirk)))
+      [:a {:href (xlink/doc doc)} "se blant alle"]]
      [:div.name-mottos
       [:a {:href "/"} "Mikrobloggeriet"]
       [:p (rand-nth vision/mottos)]]]

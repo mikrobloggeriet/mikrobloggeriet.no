@@ -64,8 +64,7 @@
                :command.theme/unlock-font
                :command.theme/lock-font
                (samvirk/infer-main-font (samvirk/read-font samvirk)))
-
-      ]
+      [:a {:href (xlink/les doc)} "les fokusert"]]
      [:div.name-mottos
       [:a {:href "/"} "Mikrobloggeriet"]
       [:p (rand-nth vision/mottos)]]
