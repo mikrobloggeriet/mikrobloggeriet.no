@@ -19,11 +19,12 @@
    [mblog.page-machinery :as page-machinery]
    [mblog.page-registry :as page-registry]
    [mblog.ui.doc]
+   [mblog.xlink :as xlink]
    [mikrobloggeriet.ui.cohort :as ui.cohort]
    [mikrobloggeriet.ui.index :as ui.index]
    [mikrobloggeriet.ui.shared :as ui.shared]
-   [reitit.ring.middleware.parameters]
    [reitit.ring]
+   [reitit.ring.middleware.parameters]
    [ring.middleware.cookies :as cookies]
    [ring.middleware.gzip]
    [ring.middleware.params]
@@ -201,7 +202,7 @@
   (let [db (:system/datomic req)
         target-doc (first (doc/latest db))]
     {:status 307
-     :headers {"Location" (mblog.ui.doc/doc->href target-doc)}
+     :headers {"Location" (xlink/doc target-doc)}
      :body ""}))
 
 (defn create-ring-handler

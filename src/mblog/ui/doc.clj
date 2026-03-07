@@ -7,34 +7,13 @@
    [mblog.hiccup :as hiccup]
    [mblog.http :as http]
    [mblog.samvirk :as samvirk]
-   [mblog.theme :as theme]))
+   [mblog.theme :as theme]
+   [mblog.xlink :as xlink]))
 
 (def mobile-menu? false)
 
-(defn doc->href [doc]
-  (str "/doc/" (:doc/slug doc)))
-
-(defn doc->href-FUTURE-AWESOME
-  ;; Neno og Teodor har future-proofet litt.
-  ;; Vi ønsker å ha *en* URL per dokument.
-  ;; I dag har vi to.
-  ;; Feks:
-  ;;  /doc/enklere-1
-  ;;  /enklere/enklere-1
-  ;;
-  ;; Det kan vi løse ved å kun bruke /enklere/enklere-1 - fordi det er den gamle URL-en.
-  ;;
-  ;; MEN den endringen klarer vi ikke gjøre nå, fordi det ikke er *en* route som
-  ;; lager /enklere/enklere-1, men mange. /*/*/ er en for bred match!
-  ;;
-  ;; Så det blir et problem for framtidens Neno og framtidens Teodor.
-  [doc]
-  (str "/" (-> doc :doc/cohort :cohort/slug)
-       "/" (:doc/slug doc)
-       "/"))
-
 (defn navigator [text doc class]
-  [:a {:href (doc->href doc)
+  [:a {:href (xlink/doc doc)
        :class class}
    text " " (doc/title-or-slug doc)])
 
@@ -84,7 +63,9 @@
       (toggler (contains? (:theme/locked opts) :font)
                :command.theme/unlock-font
                :command.theme/lock-font
-               (samvirk/infer-main-font (samvirk/read-font samvirk)))]
+               (samvirk/infer-main-font (samvirk/read-font samvirk)))
+
+      ]
      [:div.name-mottos
       [:a {:href "/"} "Mikrobloggeriet"]
       [:p (rand-nth vision/mottos)]]
@@ -102,7 +83,7 @@
      [:section.navigation
       [:nav
        (for [linked-doc docs]
-         [:a.navList.docSelector {:href (doc->href linked-doc)
+         [:a.navList.docSelector {:href (xlink/doc linked-doc)
                                   :class (when (= doc linked-doc)
                                            "selected")}
           [:p.navTitle (doc/title-or-slug linked-doc)]
