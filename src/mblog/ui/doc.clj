@@ -102,7 +102,7 @@
 
 (defn parse-request [req]
   (reset! !last req)
-  (-> (select-keys (http/parse-session req)
+  (-> (select-keys req
                    [:session/id
                     :system/datomic
                     :request/id])
@@ -118,7 +118,6 @@
 
 (comment
   (-> @!last keys)
-  (-> @!last http/parse-session keys)
   (-> @!last parse-request keys)
 
   (set! *print-namespace-maps* false)
