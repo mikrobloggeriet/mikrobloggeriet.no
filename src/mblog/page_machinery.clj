@@ -3,6 +3,11 @@
    [hiccup.page]
    [mblog.page-registry]))
 
+(defn parse-request [req page]
+  (if-let [parse-fn (:page/parse-request page)]
+    (parse-fn req)
+    req))
+
 (defn prepare-data [req page]
   (when-let [prepare-fn (:page/req->innhold page)]
     (prepare-fn req)))
@@ -23,6 +28,7 @@
 (defn respond [request page]
   (reset! last-req request)
   (-> request
+      (parse-request page)
       (prepare-data page)
       (render page)
       hiccup->response))

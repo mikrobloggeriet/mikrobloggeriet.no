@@ -28,6 +28,11 @@
 (defn find-session [req]
   (get-in (cookies/cookies-request req) [:cookies "session_id" :value]))
 
+(defn parse-session [req]
+  (if-let [session (find-session req)]
+    (assoc req :session/id session)
+    req))
+
 (defn wrap-ensure-session [handler]
   (fn [req]
     (if (find-session req)

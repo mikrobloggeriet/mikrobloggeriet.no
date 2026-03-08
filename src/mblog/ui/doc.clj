@@ -98,23 +98,29 @@
           (when prev (navigator "<" prev "before"))
           (when next (navigator ">" next "after"))]]])]]])
 
+(defonce !last (atom nil))
+
+(defn parse-request [req]
+  (reset! !last req)
+  (-> (select-keys (http/parse-session req)
+                   [:session/id
+                    :system/datomic
+                    :request/id])
+      (assoc :doc/slug (-> req :reitit.core/match :path-params :slug))))
+
 (defn req->innhold [req]
   (let [datomic (:system/datomic req)
-        slug (-> req :reitit.core/match :path-params :slug)
-        {:keys [theme locked]} (theme/update-and-get (http/find-session req))]
-    (-> (doc/find+nav datomic slug)
+        {:keys [theme locked]} (theme/update-and-get (:session/id req))]
+    (-> (doc/find+nav datomic (:doc/slug req))
         (assoc :docs (doc/latest datomic))
         (assoc :samvirk (samvirk/load theme))
         (assoc :theme/locked locked))))
 
 (comment
-  (require 'mblog.state)
-  (def doc (d/entity mblog.state/datomic
-                     [:doc/slug "olorm-1"]))
+  (-> @!last keys)
+  (-> @!last http/parse-session keys)
+  (-> @!last parse-request keys)
 
-  (:doc/slug doc)
-  ;; => "olorm-1"
-
-  (:cohort/slug (:doc/cohort doc))
-  ;; => "olorm"
+  (set! *print-namespace-maps* false)
+  (d/entity mblog.state/datomic [:doc/slug "enklere-3"])
   )

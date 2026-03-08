@@ -14,7 +14,8 @@
 
    :page-registry/doc
    (define-page
-     {:page/req->innhold #'ui.doc/req->innhold
+     {:page/parse-request #'ui.doc/parse-request
+      :page/req->innhold #'ui.doc/req->innhold
       :page/innhold->hiccup #'ui.doc/innhold->hiccup})
 
    :page-registry/read

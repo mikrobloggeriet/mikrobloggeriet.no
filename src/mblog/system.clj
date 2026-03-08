@@ -41,6 +41,7 @@
       (-> req
           (assoc :system/now (Instant/now))
           (assoc :system/datomic state/datomic)
+          (assoc :request/id (str (random-uuid)))
           ring-handler-var))))
 #_(alter-var-root #'state/injected-app create-injected-app)
 
