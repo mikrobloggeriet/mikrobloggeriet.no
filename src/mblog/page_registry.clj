@@ -5,7 +5,7 @@
    [mblog.ui.read :as ui.read]))
 
 (defn define-page [page]
-  (when (not (:page/innhold->hiccup page))
+  (when (not (:page/data->hiccup page))
     (throw (ex-info "Invalid page: :page/render function not set." {:page page})))
   page)
 
@@ -15,17 +15,25 @@
    :page-registry/doc
    (define-page
      {:page/parse-request #'ui.doc/parse-request
-      :page/req->innhold #'ui.doc/req->innhold
-      :page/innhold->hiccup #'ui.doc/innhold->hiccup})
+      :page/request->data #'ui.doc/req->innhold
+      :page/data->hiccup #'ui.doc/innhold->hiccup})
 
    :page-registry/read
    (define-page
-     {:page/req->innhold #'ui.read/req->innhold
-      :page/innhold->hiccup #'ui.read/innhold->hiccup})
+     {:page/request->data #'ui.read/req->innhold
+      :page/data->hiccup #'ui.read/innhold->hiccup})
 
    :page-registry/content-design
    (define-page
-     {:page/req->innhold #'content-design/req->innhold
-      :page/innhold->hiccup #'content-design/innhold->hiccup})
+     {:page/request->data #'content-design/req->innhold
+      :page/data->hiccup #'content-design/innhold->hiccup})
 
    })
+
+(comment
+  (def todo (constantly nil))
+  {:page/parse-request #'todo
+   :page/request->data #'todo
+   :page/data->hiccup #'todo}
+
+  )

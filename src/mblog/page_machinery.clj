@@ -9,11 +9,11 @@
     req))
 
 (defn prepare-data [req page]
-  (when-let [prepare-fn (:page/req->innhold page)]
+  (when-let [prepare-fn (:page/request->data page)]
     (prepare-fn req)))
 
 (defn render [data page]
-  ((:page/innhold->hiccup page) data))
+  ((:page/data->hiccup page) data))
 
 (defn hiccup->response [hiccup]
   (when hiccup
