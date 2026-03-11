@@ -28,7 +28,7 @@
 
 (declare el->plaintext)
 
-(defn- els->plaintext
+(defn els->plaintext
   "Convert a sequence of pandoc expressions to plaintext without shelling out to pandoc
 
   els->plaintext is an implementation detail. Please use `el->plaintext` instead."
@@ -59,8 +59,17 @@
         (= "Emph" (:t expr))
         (els->plaintext (:c expr))
 
+        #_
+        (comment
+          ;; I Pandoc 3.3 gir ""Hvorfor"" denne AST-en:
+          {:t "Quoted", :c [{:t "DoubleQuote"} [{:t "Str", :c "Hvorfor?"}]]}
+          ;; Åh, for en modellering!
+          ;; Nåvel, vi jobber oss rundt. Tilbake til "Hvorfor", ikke noe tull.
+          )
         (= "Quoted" (:t expr))
-        (els->plaintext (:c expr))
+        (str "“"
+             (els->plaintext (-> expr :c second))
+             "”")
 
         (= "DoubleQuote" (:t expr))
         (els->plaintext (:c expr))
@@ -70,9 +79,6 @@
 
         :else
         nil))
-
-;; Denne her må gi "hvorfor?" ut hvis tittelen skal fikses:
-;; (els->plaintext [{:t "DoubleQuote"} [{:t "Str", :c "Hvorfor?"}]])
 
 (defn set-title [pandoc title]
   (assert (pandoc? pandoc))

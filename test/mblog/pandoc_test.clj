@@ -127,12 +127,10 @@
                  pandoc/header->plaintext)
              "OLORM-45: --scale i Docker Compose")))
 
-    #_
-    (testing "Handles Pandoc 3.3 Quoted"
+    (testing "Quoted"
       (is (= (-> {:t "Quoted", :c [{:t "DoubleQuote"} [{:t "Str", :c "Hvorfor?"}]]}
                  pandoc/el->plaintext)
-             ))
-      )))
+             "“Hvorfor?”")))))
 
 (ptest
   (deftest title-test
