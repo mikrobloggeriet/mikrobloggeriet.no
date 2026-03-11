@@ -30,11 +30,17 @@
 
 (defn wrap-ensure-session [handler]
   (fn [req]
-    (if-let [session-id (find-session req)]
-      (-> req
-          (assoc :session/id session-id)
-          handler)
-      (set-session req (random-uuid)))))
+    (let [session-id (find-session req)]
+      (cond session-id
+            (-> req
+                (assoc :session/id session-id)
+                handler)
+
+            (not= :get (:request-method handler))
+            (handler req)
+
+            :else
+            (set-session req (random-uuid))))))
 
 (defn wrap-block-laboratoriet
   "Block requests to /laboratoriet/... in production."
