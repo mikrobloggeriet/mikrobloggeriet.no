@@ -126,7 +126,7 @@ section:hover ~ section, section:has(~ section:hover) {
     }
 }
 
-.navigation {
+.doc-selector {
     width: 50%;
     border-right: 1px solid var(--first20);
 }
@@ -332,7 +332,7 @@ article {
         padding: 0;
     }
 
-    .navigation, .filters {
+    .doc-selector, .filters {
         display: none;
     }
 

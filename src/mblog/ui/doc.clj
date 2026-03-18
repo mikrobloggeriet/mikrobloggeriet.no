@@ -79,7 +79,7 @@
           [:li [:a {:href "#"} "Item 3"]]
           [:li [:a {:href "#"} "Item 4"]]]]))]
     [:container
-     [:section.navigation
+     [:section.doc-selector
       [:nav
        (for [linked-doc docs]
          [:a.navList.docSelector {:href (xlink/doc linked-doc)
