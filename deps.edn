@@ -14,7 +14,7 @@
   io.github.nextjournal/clerk {:mvn/version "0.18.1158"}
   io.github.nextjournal/markdown {:mvn/version "0.7.213"}
   io.github.tonsky/clj-simple-stats {:mvn/version "1.0.0"}
-  metosin/reitit {:mvn/version "0.9.2"}
+  metosin/reitit {:mvn/version "0.10.1"}
   no.cjohansen/lookup {:mvn/version "2025.10.1"}
   no.cjohansen/replicant {:mvn/version "2025.06.21"}
   org.babashka/cli {:mvn/version "0.8.67"}
