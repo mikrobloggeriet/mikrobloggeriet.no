@@ -21,6 +21,10 @@ body {
     overflow: hidden;
 }
 
+button {
+    border: none;
+}
+
 header {
     height: fit-content;
     background-color: var(--second100);
