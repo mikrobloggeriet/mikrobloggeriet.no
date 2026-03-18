@@ -5,7 +5,6 @@
    [mblog.doc :as doc]
    [mblog.vision :as vision]
    [mblog.hiccup :as hiccup]
-   [mblog.http :as http]
    [mblog.samvirk :as samvirk]
    [mblog.theme :as theme]
    [mblog.xlink :as xlink]))
