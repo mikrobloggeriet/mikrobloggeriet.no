@@ -94,8 +94,10 @@
         [:article
          (view-doc doc)
          [:nav
-          (when prev (navigator "<" prev "before"))
-          (when next (navigator ">" next "after"))]]])]]])
+          (or (when prev (navigator "<" prev "before"))
+              [:span.before])
+          (or (when next (navigator ">" next "after"))
+              [:span.after])]]])]]])
 
 (defonce !last (atom nil))
 
