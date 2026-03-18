@@ -131,67 +131,68 @@ section:hover ~ section, section:has(~ section:hover) {
     border-right: 1px solid var(--first20);
 }
 
-nav {
-    padding: 0px;
-    margin: 0px;
-    display: flex;
-    flex-direction: column;
-}
+.doc-selector {
+    nav {
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+        flex-direction: column;
+    }
 
+    .navList {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: fit-content;
+        cursor: cell;
+        gap: 4px;
+        padding: 8px 12px 8px 12px;
+        text-decoration: none;
+        transition: ease-out 0.3s;
+        border-bottom: 0;
+        border-bottom: 1px solid var(--first10);
 
-.navList {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: fit-content;
-    cursor: cell;
-    gap: 4px;
-    padding: 8px 12px 8px 12px;
-    text-decoration: none;
-    transition: ease-out 0.3s;
-    border-bottom: 0;
-    border-bottom: 1px solid var(--first10);
+        > p {
+            padding: 0;
+        }
+    }
 
-    > p {
+    .navList:hover, .navList.selected {
+        background-color: var(--first100);
+        cursor: cell;
+        transition: ease-out 0s;
+
+        p {
+            color: var(--second100);
+        }
+    }
+
+    .navList:active {
+        background-color: var(--first80);
+    }
+
+    .navTitle{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 80%;
+        padding-right: 0;
+        margin: 0;
+        text-decoration: none;
+    }
+
+    .navListData {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .navMeta {
+        color: var(--first50);
+        white-space: nowrap;
         padding: 0;
+        margin: 0;
     }
-}
-
-.navList:hover, .navList.selected {
-    background-color: var(--first100);
-    cursor: cell;
-    transition: ease-out 0s;
-
-    p {
-        color: var(--second100);
-    }
-}
-
-.navList:active {
-    background-color: var(--first80);
-}
-
-.navTitle{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: 80%;
-    padding-right: 0;
-    margin: 0;
-    text-decoration: none;
-}
-
-.navListData {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.navMeta {
-    color: var(--first50);
-    white-space: nowrap;
-    padding: 0;
-    margin: 0;
 }
 
 .content {
