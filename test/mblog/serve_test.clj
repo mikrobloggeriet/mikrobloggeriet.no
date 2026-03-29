@@ -6,8 +6,38 @@
    [mblog.db :as db]
    [mblog.testdb :as testdb]
    [mblog.serve :as serve]
+   [mblog.page-registry :as page-registry]
    [reitit.core]
    [reitit.ring]))
+
+(deftest doc-test
+  (let [db (testdb/get-instance)
+        ring-handler (serve/create-ring-handler)
+        injected-app (fn [req]
+                       (ring-handler
+                        (-> req
+                            (assoc :system/datomic db)
+                            (assoc :system/page-registry
+                                   (select-keys page-registry/registry
+                                                [:page-registry/doc])))))]
+    ;; Sanity test that one document for each cohort renders successfully. Makes
+    ;; it more comfortable to work with doc logic!
+    (let [olorm-1 (injected-app {:uri "/doc/olorm-1" :request-method :get})]
+      (is (str/includes? (str/lower-case (:body  olorm-1))
+                         "søvn")
+          "OLORM-1 handler om viktigheten av en god natts søvn."))
+
+    (let [jals-1 (injected-app {:uri "/doc/jals-1" :request-method :get})]
+      (is (str/includes? (str/lower-case (:body jals-1))
+                         "modeller")
+          "JALS-1 handler maskinlæringsmodeller."))
+
+    (let [oj-1 (injected-app {:uri "/doc/oj-1" :request-method :get})]
+      (is (str/includes? (str/lower-case (:body oj-1))
+                         "refaktorering")
+          "OJ-1 handler refaktorering."))))
+
+
 
 (deftest index-test
   (let [db (testdb/get-instance)
