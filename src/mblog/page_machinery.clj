@@ -32,3 +32,8 @@
       (prepare-data page)
       (render page)
       hiccup->response))
+
+(defn serve [request]
+  (when-let [page-id (-> request :reitit.core/match :data :name)]
+    (when-let [page (get-in request [:system/page-registry page-id])]
+      (respond request page))))

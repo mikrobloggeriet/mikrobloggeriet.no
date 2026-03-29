@@ -6,6 +6,7 @@
    [mblog.env :as env]
    [mblog.serve :as serve]
    [mblog.state :as state]
+   [mblog.page-registry :as page-registry]
    [nextjournal.beholder :as beholder]
    [org.httpkit.server :as httpkit]
    [time-literals.read-write])
@@ -37,10 +38,12 @@
 
 (defn create-injected-app [_previous]
   (fn [req]
-    (let [ring-handler-var (resolve `serve/ring-handler)]
+    (let [ring-handler-var (resolve `serve/ring-handler)
+          page-registry-var (resolve `page-registry/registry)]
       (-> req
           (assoc :system/now (Instant/now))
           (assoc :system/datomic state/datomic)
+          (assoc :system/page-registry (deref page-registry-var))
           (assoc :request/id (str (random-uuid)))
           ring-handler-var))))
 #_(alter-var-root #'state/injected-app create-injected-app)

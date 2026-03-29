@@ -191,13 +191,6 @@
 (comment
   (markdown-cohort-routes (:cohort/olorm db/cohorts)))
 
-(defn serve-page
-  "Serves any page from the page registry"
-  [request]
-  (when-let [page-id (-> request :reitit.core/match :data :name)]
-    (when-let [page (get page-registry/registry page-id)]
-      (page-machinery/respond request page))))
-
 (defn redirect-to-latest [req]
   (let [db (:system/datomic req)
         target-doc (first (doc/latest db))]
@@ -215,16 +208,16 @@
             :head #'health ;; HEAD / is Application.Garden's health check
             :name :welcome}]
 
-      ["/content-design" {:get #'serve-page
+      ["/content-design" {:get #'page-machinery/serve
                           :name :page-registry/content-design}]
 
       ["/sse" {:get #'terra.instance/sse-handler
                :name :terra.instance/sse-handler}]
 
-      ["/doc/:slug" {:get #'serve-page
+      ["/doc/:slug" {:get #'page-machinery/serve
                      :name :page-registry/doc}]
 
-      ["/les/:slug" {:get #'serve-page
+      ["/les/:slug" {:get #'page-machinery/serve
                      :name :page-registry/read}]
 
       ;; Themes
