@@ -12,7 +12,6 @@
    [mblog.command-registry :as command-registry]
    [mblog.db :as db]
    [mblog.doc :as doc]
-   [mblog.dsminimal :as dsminimal]
    [mblog.feed :as feed]
    [mblog.fjernkohortene :as fjernkohortene]
    [mblog.http :as http]
@@ -271,11 +270,7 @@
       ["/feed.xml" {:get #'feed/handler}]
 
       ["/fjernkohortene/docs" {:post #'fjernkohortene/reload-hook}]]
-
-     ;; Datastar-eksperiment
-     [["/dsminimal" {:handler #'dsminimal/home}]
-      ["/dsminimal-messsage" {:handler #'dsminimal/hello-world
-                              :middleware [reitit.ring.middleware.parameters/parameters-middleware]}]]))
+     ))
    (reitit.ring/routes
     (reitit.ring/redirect-trailing-slash-handler)
     #'assetwatch/handler)))
