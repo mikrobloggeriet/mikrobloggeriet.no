@@ -3,6 +3,7 @@
  :tasks
  {:init (defn runmain [qsym]
           (apply (requiring-resolve qsym) *command-line-args*))
+  browse ((requiring-resolve 'clojure.java.browse/browse-url) "http://localhost:7777")
   deploy (run! run '(test deploy* push))
   deploy* (shell "garden deploy")
   dev (shell "garden run")
