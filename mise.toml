@@ -1,6 +1,7 @@
 [tools]
 babashka = { version = "1.12.216", exe = "bb" }
 clojure = "1.12.4.1607"
+clj-kondo = "v2026.04.15"
 java = "openjdk-24.0.2"
 "github:nextjournal/garden-cli" = "v0.1.15"
 "github:jgm/pandoc" = "3.9"
